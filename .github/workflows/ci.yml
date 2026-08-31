@@ -24,11 +24,11 @@ jobs:
         run: |
           set -euo pipefail
           source_commit=$(python3 - <<'PY'
-import json
-with open('VENDOR.json', encoding='utf-8') as f:
-    print(json.load(f)['source']['commit'])
-PY
-)
+          import json
+          with open('VENDOR.json', encoding='utf-8') as f:
+              print(json.load(f)['source']['commit'])
+          PY
+          )
           source_dir=$(mktemp -d)
           git clone --filter=blob:none https://github.com/fprochazka/bash-classify.git "$source_dir"
           git -C "$source_dir" checkout --detach "$source_commit"
