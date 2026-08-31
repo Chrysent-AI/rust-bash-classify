@@ -1,0 +1,24 @@
+[package]
+name = "rust-bash-classify"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+license = "MIT"
+
+[lib]
+name = "bash_classify"
+path = "src/lib.rs"
+
+[[bin]]
+name = "rust-bash-classify"
+path = "src/bin/rust-bash-classify.rs"
+
+[dependencies]
+tree-sitter = "0.25"
+tree-sitter-bash = "=0.25.1"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+serde_yaml = "0.9"
+
+[dev-dependencies]
+jsonschema = "0.30"
