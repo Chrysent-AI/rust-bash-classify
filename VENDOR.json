@@ -1,0 +1,17 @@
+{
+  "source": {
+    "path": "../bash-classify",
+    "repository": "https://github.com/fprochazka/bash-classify",
+    "commit": "8553440aa4d935dd14a8cbb15338ecac92100720"
+  },
+  "python": {
+    "tree_sitter": "0.25.2",
+    "tree_sitter_bash": "0.25.1"
+  },
+  "rust": {
+    "tree_sitter": "0.25.10",
+    "tree_sitter_bash": "0.25.1"
+  },
+  "synced_at": "2026-08-31T23:16:58Z",
+  "policy": "Vendored files are byte-identical copies from the recorded source commit; regenerate golden outputs after behavior-changing syncs."
+}
