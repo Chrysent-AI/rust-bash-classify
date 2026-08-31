@@ -17,8 +17,9 @@ Policy: the Python repository remains the source of truth. Vendored files must
 not be edited by hand. After any sync that changes behavior, regenerate golden
 outputs before merging later parity milestones.
 
---check verifies that vendor/ matches the current source HEAD and that
-VENDOR.json records that source commit. It never modifies the source repo.
+--check verifies that vendor/ matches the recorded source commit in
+VENDOR.json, that the source checkout is clean, and that its HEAD is the
+recorded commit. It never modifies the source repo.
 USAGE
 }
 
@@ -44,6 +45,10 @@ for required in "$commands_src" "$schemas_src" "$spec_src"; do
 done
 
 source_commit=$(git -C "$source_dir" rev-parse HEAD)
+if [[ -n $(git -C "$source_dir" status --porcelain) ]]; then
+  echo "source working tree is dirty: $source_dir" >&2
+  exit 1
+fi
 py_versions=$(python3 - "$source_dir/uv.lock" <<'PY'
 import sys
 from pathlib import Path
@@ -87,9 +92,18 @@ PY
     echo "VENDOR.json Python tree-sitter-bash $recorded_py_bash does not match source lock $python_tree_sitter_bash" >&2
     exit 1
   fi
-  diff -r "$commands_src" "$repo_root/vendor/commands" >/dev/null
-  diff -r "$schemas_src" "$repo_root/vendor/schemas" >/dev/null
-  cmp -s "$spec_src" "$repo_root/vendor/SPEC.md"
+  if ! diff -r "$commands_src" "$repo_root/vendor/commands"; then
+    echo "vendored commands differ from recorded source commit $recorded_commit" >&2
+    exit 1
+  fi
+  if ! diff -r "$schemas_src" "$repo_root/vendor/schemas"; then
+    echo "vendored schemas differ from recorded source commit $recorded_commit" >&2
+    exit 1
+  fi
+  if ! cmp -s "$spec_src" "$repo_root/vendor/SPEC.md"; then
+    echo "vendored SPEC.md differs from recorded source commit $recorded_commit" >&2
+    exit 1
+  fi
   echo "vendor check ok: $source_commit"
   exit 0
 fi
