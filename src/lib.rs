@@ -8,3 +8,8 @@
 
 #[allow(dead_code)]
 pub mod commands_data;
+pub mod database;
+pub mod models;
+
+pub use database::{load_database, CommandDatabase};
+pub use models::{Classification, CommandResult, ExpressionResult, Risk};
