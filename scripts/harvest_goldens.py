@@ -317,7 +317,13 @@ def write_fixture_tree(output_dir: Path, manifest: dict[str, Any], cases: list[C
         "```\n\n"
         "Review the fixture diff. `expected.json` files contain exact stdout "
         "bytes captured from the Python CLI, including trailing newlines, and "
-        "must never be hand-edited to make Rust replay failures pass.\n",
+        "must never be hand-edited to make Rust replay failures pass.\n\n"
+        "## Future use\n\n"
+        "Running the Python implementation as a live oracle inside CI "
+        "(differential testing) is deliberately deferred. This corpus is the "
+        "ready-made input for activating that harness later: the same case "
+        "directories can be replayed against both binaries with the expected "
+        "outputs regenerated from Python.\n",
         encoding="utf-8",
     )
 

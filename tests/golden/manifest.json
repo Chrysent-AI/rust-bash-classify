@@ -3316,7 +3316,7 @@
   ],
   "generator": {
     "path": "scripts/harvest_goldens.py",
-    "sha256": "614fbeab9e1396cb2c49387550a6d7b931f18d0a2bc1993069cbc487947e5ee7"
+    "sha256": "f37c3d0bf0c48a2b708bf168cd927f7ddf3ef54401a4826e476eb5da7a2c126b"
   },
   "python": {
     "tree_sitter": "0.25.2",
