@@ -32,6 +32,13 @@ The committed benchmark corpus contains 175 golden CLI cases harvested from the 
 
 See `benchmarks/report.txt` and rerun `scripts/bench.sh` on your machine for local timings.
 
+A second benchmark ran a real-world corpus of 51,882 harvested bash commands through both
+implementations: spawned as a CLI per command (the permission-hook usage pattern) Rust was
+**~43× faster** (38s vs ~27 min), while in a single long-lived process the two engines are
+roughly tied — both are bound by the same tree-sitter grammar. Both implementations produced
+identical aggregate verdicts on every command (64% READONLY, 15% DANGEROUS, 17% UNKNOWN; 66%
+LOW risk). See `benchmarks/corpus-report.md`.
+
 ## Install
 
 Requires Rust stable.
