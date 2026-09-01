@@ -35,7 +35,7 @@ except ModuleNotFoundError:  # pragma: no cover - Python < 3.11 is unsupported h
 
 EXPECTED_SOURCE_COMMIT = "8553440aa4d935dd14a8cbb15338ecac92100720"
 SOURCE_TAG = "v0.9.1"
-DEFAULT_SOURCE_REPO = Path("../bash-classify")
+DEFAULT_SOURCE_REPO = Path(os.environ.get("BASH_CLASSIFY_SOURCE_DIR", "../bash-classify"))
 DEFAULT_OUTPUT = Path("tests/golden")
 HARVESTED_CALLS = {"classify_expression", "_run_cli"}
 
@@ -275,7 +275,6 @@ def build_manifest(source_repo: Path, rust_repo: Path, script_path: Path, cases:
             "or Python source-of-truth behavior update; review the diff; never hand-edit tests/golden outputs."
         ),
         "source": {
-            "path": str(source_repo),
             "repository": "https://github.com/fprochazka/bash-classify",
             "commit": EXPECTED_SOURCE_COMMIT,
             "tag": SOURCE_TAG,

@@ -179,7 +179,6 @@ out = Path(sys.argv[1])
 source_dir, commit, py_ts, py_bash, rust_ts = sys.argv[2:7]
 metadata = {
     "source": {
-        "path": source_dir,
         "repository": "https://github.com/fprochazka/bash-classify",
         "commit": commit,
     },

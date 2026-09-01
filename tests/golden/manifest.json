@@ -3316,7 +3316,7 @@
   ],
   "generator": {
     "path": "scripts/harvest_goldens.py",
-    "sha256": "457837acba022b055bcb1a022d3dcb97d2a95d70248041a91c3176ff3c62b84d"
+    "sha256": "22514f025d83f484b34b1c81fbdfcc2b56f5257692adcd1fc537333237ef4c09"
   },
   "python": {
     "tree_sitter": "0.25.2",
@@ -3333,7 +3333,6 @@
   "source": {
     "commit": "8553440aa4d935dd14a8cbb15338ecac92100720",
     "package_version": "0.9.1",
-    "path": "../bash-classify",
     "repository": "https://github.com/fprochazka/bash-classify",
     "tag": "v0.9.1"
   }

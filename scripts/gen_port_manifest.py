@@ -10,6 +10,7 @@ same behavior. Extra Rust-only regression/helper tests are listed separately.
 from __future__ import annotations
 
 import ast
+import os
 import re
 import subprocess
 from collections import Counter, defaultdict
@@ -17,7 +18,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-PYTHON_REPO = Path("../bash-classify")
+PYTHON_REPO = Path(os.environ.get("BASH_CLASSIFY_SOURCE_DIR", "../bash-classify"))
 PYTHON_TESTS = PYTHON_REPO / "tests"
 OUTPUT = ROOT / "PORT_MANIFEST.md"
 EXPECTED_SUITE_COUNTS = {
@@ -191,7 +192,7 @@ def main() -> None:
     lines.append("")
     lines.append("# Port manifest")
     lines.append("")
-    lines.append("This generated manifest maps the Python pytest suite at `../bash-classify/tests` to the Rust tests that cover the same behavior. Regenerate it with `scripts/gen_port_manifest.py` after adding, renaming, or moving ported tests.")
+    lines.append("This generated manifest maps the Python pytest suite in the source repository (see `VENDOR.json`) to the Rust tests that cover the same behavior. Regenerate it with `scripts/gen_port_manifest.py` after adding, renaming, or moving ported tests.")
     lines.append("")
     lines.append("## Suite arithmetic")
     lines.append("")
