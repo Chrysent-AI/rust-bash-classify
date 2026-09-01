@@ -44,11 +44,24 @@ impl From<crate::parser::ParseError> for MatchError {
 
 pub trait CommandLookup {
     fn get_command(&self, key: &str) -> Result<Option<CommandDef>, MatchError>;
+    fn resolve_alias(
+        &self,
+        binary: &str,
+        command_def: CommandDef,
+    ) -> Result<CommandDef, MatchError>;
 }
 
 impl CommandLookup for CommandDatabase {
     fn get_command(&self, key: &str) -> Result<Option<CommandDef>, MatchError> {
         Ok(self.get(key)?)
+    }
+
+    fn resolve_alias(
+        &self,
+        binary: &str,
+        command_def: CommandDef,
+    ) -> Result<CommandDef, MatchError> {
+        Ok(CommandDatabase::resolve_alias(self, binary, command_def)?)
     }
 }
 
@@ -56,12 +69,49 @@ impl CommandLookup for HashMap<String, CommandDef> {
     fn get_command(&self, key: &str) -> Result<Option<CommandDef>, MatchError> {
         Ok(self.get(key).cloned())
     }
+
+    fn resolve_alias(
+        &self,
+        binary: &str,
+        command_def: CommandDef,
+    ) -> Result<CommandDef, MatchError> {
+        resolve_alias_for_test_lookup(self, binary, command_def)
+    }
 }
 
 impl CommandLookup for std::collections::BTreeMap<String, CommandDef> {
     fn get_command(&self, key: &str) -> Result<Option<CommandDef>, MatchError> {
         Ok(self.get(key).cloned())
     }
+
+    fn resolve_alias(
+        &self,
+        binary: &str,
+        command_def: CommandDef,
+    ) -> Result<CommandDef, MatchError> {
+        resolve_alias_for_test_lookup(self, binary, command_def)
+    }
+}
+
+fn resolve_alias_for_test_lookup(
+    lookup: &impl CommandLookup,
+    binary: &str,
+    command_def: CommandDef,
+) -> Result<CommandDef, MatchError> {
+    let Some(target_name) = command_def.alias_of.clone() else {
+        return Ok(command_def);
+    };
+    let Some(target_def) = lookup.get_command(&target_name)? else {
+        return Err(MatchError::new(format!(
+            "{binary} aliases '{target_name}' which is not in the database"
+        )));
+    };
+    if let Some(next_target) = &target_def.alias_of {
+        return Err(MatchError::new(format!(
+            "alias chain too deep: {binary} -> {target_name} -> {next_target}"
+        )));
+    }
+    Ok(target_def)
 }
 
 pub fn default_risk(classification: Classification) -> Risk {
@@ -73,6 +123,7 @@ pub fn default_risk(classification: Classification) -> Risk {
 }
 
 pub fn clamp_risk(classification: Classification, risk: Risk) -> Risk {
+    // Python parity: matcher.py _clamp_risk only clamps upward for Dangerous/Unknown.
     match classification {
         Classification::Dangerous | Classification::Unknown => Risk::High,
         _ => risk,
@@ -80,12 +131,14 @@ pub fn clamp_risk(classification: Classification, risk: Risk) -> Risk {
 }
 
 pub fn py_basename(path: &str) -> String {
+    // Python parity: os.path.basename returns an empty basename for trailing slash paths.
     match path.rsplit_once('/') {
         Some((_head, tail)) => tail.to_string(),
         None => path.to_string(),
     }
 }
 
+/// Python parity: matcher.py match_command, including lookup, overrides, and delegation floors.
 pub fn match_command(
     invocation: &CommandInvocation,
     database: &impl CommandLookup,
@@ -121,6 +174,7 @@ pub fn match_command(
         return Ok(handle_dangerous_builtin(invocation));
     }
 
+    // Python parity: try the exact binary, then basename fallback only for slash paths.
     let mut command_def = database.get_command(&binary)?;
     if command_def.is_none() && binary.contains('/') {
         let basename = py_basename(&binary);
@@ -148,19 +202,8 @@ pub fn match_command(
         });
     };
 
-    if let Some(target_name) = command_def.alias_of.clone() {
-        let Some(target_def) = database.get_command(&target_name)? else {
-            return Err(MatchError::new(format!(
-                "{binary} aliases '{target_name}' which is not in the database"
-            )));
-        };
-        if let Some(next_target) = &target_def.alias_of {
-            return Err(MatchError::new(format!(
-                "alias chain too deep: {binary} -> {target_name} -> {next_target}"
-            )));
-        }
-        command_def = target_def;
-    }
+    // Python parity: matcher-layer alias resolution preserves raw database get() behavior.
+    command_def = database.resolve_alias(&binary, command_def)?;
 
     let remaining = argv[1..].to_vec();
     let (remaining, ignored_options, global_directories, global_overrides, global_risk_overrides) =
@@ -215,6 +258,7 @@ pub fn match_command(
     let mut final_classification;
 
     if !all_overrides.is_empty() {
+        // Python parity: option overrides aggregate by severity, not by last occurrence.
         let (opt, class) = highest_class_override(&all_overrides);
         final_classification = class;
         overriding_option = Some(opt.clone());
@@ -280,6 +324,7 @@ pub fn match_command(
             .iter()
             .any(|token| !token.starts_with('-'))
         {
+            // Python parity: unmatched positional args reintroduce the wrapper risk to aggregation.
             agg_risk = Risk::max_severity([agg_risk, base_risk]);
         }
         if !all_overrides.is_empty() {
@@ -293,6 +338,7 @@ pub fn match_command(
     }
 
     if matched_def.strict && !unknown_options.is_empty() {
+        // Python parity: strict unknown options escalate to Unknown and force High risk.
         final_classification =
             Classification::max_severity([final_classification, Classification::Unknown]);
         if final_classification == Classification::Unknown {
@@ -326,6 +372,7 @@ pub fn match_command(
     }
 
     if command_level_inner_count > 0
+        // Python parity: command-level delegation can erase the wrapper unless overrides/strict block it.
         && all_overrides.is_empty()
         && !(matched_def.strict && !unknown_options.is_empty())
     {
@@ -392,6 +439,7 @@ fn base_result(
     }
 }
 
+// Python parity: shell builtin handlers return synthetic matcher.py builtin results.
 pub fn handle_directory_builtin(invocation: &CommandInvocation) -> CommandResult {
     base_result(
         invocation,
@@ -419,6 +467,7 @@ pub fn handle_dangerous_builtin(invocation: &CommandInvocation) -> CommandResult
 pub type Overrides = Vec<(String, Classification)>;
 pub type RiskOverrides = Vec<(String, Risk)>;
 
+/// Python parity: matcher.py _strip_global_options stops at the first non-option token.
 pub fn strip_global_options(
     argv: &[String],
     command_def: &CommandDef,
@@ -490,6 +539,7 @@ pub fn strip_global_options(
     (remaining, ignored, directories, overrides, risk_overrides)
 }
 
+/// Python parity: matcher.py _match_subcommand consumes contiguous non-option subcommands.
 pub fn match_subcommand(
     argv: &[String],
     command_def: &CommandDef,
@@ -513,6 +563,7 @@ pub fn match_subcommand(
     (matched_def, command_chain, remaining)
 }
 
+/// Python parity: matcher.py _match_all_subcommands collects every known subcommand for later max aggregation.
 pub fn match_all_subcommands(
     argv: &[String],
     command_def: &CommandDef,
@@ -544,6 +595,7 @@ pub struct ClassifiedOptions {
     pub positional: Vec<String>,
 }
 
+/// Python parity: matcher.py _classify_options recognizes all seven option forms before strict handling.
 pub fn classify_options(argv: &[String], command_def: &CommandDef) -> ClassifiedOptions {
     let mut out = ClassifiedOptions::default();
     let options = &command_def.options;
@@ -750,6 +802,7 @@ fn apply_option_effects(
     }
 }
 
+/// Python parity: matcher.py _is_terminator accepts the raw or backslash-escaped terminator.
 pub fn is_terminator(token: &str, terminator: Option<&str>) -> bool {
     let Some(terminator) = terminator else {
         return false;
@@ -797,6 +850,7 @@ pub fn skip_delegation_tokens(
     }
 }
 
+/// Python parity: matcher.py _handle_delegation supports rest-argv, separator, expression, and option-owned modes.
 pub fn handle_delegation(
     remaining_positional: &[String],
     delegation: &DelegationConfig,
@@ -806,6 +860,7 @@ pub fn handle_delegation(
 ) -> Result<Vec<InnerCommandResult>, MatchError> {
     let mut results = Vec::new();
     match delegation.mode {
+        // Python parity: per-mode knobs are local here: assignment stripping, separators, flags, floors.
         DelegationMode::RestAreArgv => {
             let mut inner_argv = remaining_positional.to_vec();
             if delegation.strip_assignments {
@@ -864,6 +919,7 @@ pub fn handle_delegation(
     Ok(results)
 }
 
+/// Python parity: matcher.py _handle_option_delegation filters placeholder tokens before recursion.
 pub fn handle_option_delegation(
     option_name: &str,
     delegation: &DelegationConfig,
@@ -889,6 +945,7 @@ pub fn handle_option_delegation(
     Ok(vec![])
 }
 
+/// Python parity: matcher.py _match_inner_command applies delegation min_classification as a floor.
 pub fn match_inner_command(
     argv: &[String],
     database: &impl CommandLookup,
@@ -909,6 +966,7 @@ pub fn match_inner_command(
     let mut classification = inner_result.classification;
     let mut risk = inner_result.risk;
     if let Some(min_classification) = min_classification {
+        // Python parity: the floor can only raise classification/risk, never lower the inner result.
         classification = Classification::max_severity([classification, min_classification]);
         risk = Risk::max_severity([risk, default_risk(min_classification)]);
     }
@@ -928,6 +986,7 @@ pub fn match_inner_command(
     })
 }
 
+/// Python parity: matcher.py _find_flag_value checks separated then flag=value forms and strips shell quotes.
 pub fn find_flag_value(argv: &[String], flag: &str) -> Option<String> {
     let mut value = None;
     for (i, token) in argv.iter().enumerate() {
@@ -944,6 +1003,7 @@ pub fn find_flag_value(argv: &[String], flag: &str) -> Option<String> {
     value.map(|raw| strip_quotes(&raw))
 }
 
+/// Python parity: matcher.py _strip_quotes removes one matching quote pair only.
 pub fn strip_quotes(s: &str) -> String {
     if s.len() >= 2 {
         let bytes = s.as_bytes();
