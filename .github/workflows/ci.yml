@@ -37,6 +37,8 @@ jobs:
           git diff --exit-code -- src/commands_data.rs
       - name: Check formatting
         run: cargo fmt --check
+      - name: Clippy
+        run: cargo clippy --all-targets -- -D warnings
       - name: Build
         run: cargo build
       - name: Test
