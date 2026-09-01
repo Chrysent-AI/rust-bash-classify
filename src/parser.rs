@@ -1,10 +1,43 @@
 //! Bash expression parser using tree-sitter-bash.
 
+use std::{error::Error, fmt};
+
 use tree_sitter::{Node, Parser};
 
 use crate::models::{CommandInvocation, Redirect};
 
-pub fn parse_expression(expression: &str) -> (Vec<CommandInvocation>, Vec<String>) {
+// Mirrors Python's RecursionError text so the CLI can preserve the Python error class/message.
+const MAX_WALK_DEPTH: usize = 256;
+const RECURSION_ERROR_MESSAGE: &str = "maximum recursion depth exceeded";
+
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ParseError {
+    message: String,
+}
+
+impl ParseError {
+    fn recursion_depth_exceeded() -> Self {
+        Self {
+            message: RECURSION_ERROR_MESSAGE.to_string(),
+        }
+    }
+
+    pub fn message(&self) -> &str {
+        &self.message
+    }
+}
+
+impl fmt::Display for ParseError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.write_str(&self.message)
+    }
+}
+
+impl Error for ParseError {}
+
+pub fn parse_expression(
+    expression: &str,
+) -> Result<(Vec<CommandInvocation>, Vec<String>), ParseError> {
     let mut parser = Parser::new();
     parser
         .set_language(&tree_sitter_bash::LANGUAGE.into())
@@ -20,6 +53,8 @@ pub fn parse_expression(expression: &str) -> (Vec<CommandInvocation>, Vec<String
             py_repr(expression)
         ));
     }
+    // Python stops runaway recursion with sys.getrecursionlimit(); this lower Rust limit leaves
+    // wide margin for the default 8 MiB main-thread stack. Exact depth parity is not required.
     let invocations = walk_node(
         tree.root_node(),
         expression.as_bytes(),
@@ -27,8 +62,17 @@ pub fn parse_expression(expression: &str) -> (Vec<CommandInvocation>, Vec<String
         None,
         0,
         1,
-    );
-    (invocations, warnings)
+        0,
+    )?;
+    Ok((invocations, warnings))
+}
+
+fn check_depth(depth: usize) -> Result<(), ParseError> {
+    if depth > MAX_WALK_DEPTH {
+        Err(ParseError::recursion_depth_exceeded())
+    } else {
+        Ok(())
+    }
 }
 
 fn walk_node(
@@ -38,13 +82,28 @@ fn walk_node(
     operator_before: Option<String>,
     pipeline_position: usize,
     pipeline_length: usize,
-) -> Vec<CommandInvocation> {
+    depth: usize,
+) -> Result<Vec<CommandInvocation>, ParseError> {
+    check_depth(depth)?;
     let mut results = Vec::new();
 
+    // Dispatch shape tracks parser.py::_walk_node; keep Rust/tree-sitter divergences explicit.
     match node.kind() {
-        "program" => results.extend(walk_children_as_list(node, source, context)),
-        "list" => results.extend(walk_list_node(node, source, context, operator_before)),
-        "pipeline" => results.extend(walk_pipeline_node(node, source, context, operator_before)),
+        "program" => results.extend(walk_children_as_list(node, source, context, depth + 1)?),
+        "list" => results.extend(walk_list_node(
+            node,
+            source,
+            context,
+            operator_before,
+            depth + 1,
+        )?),
+        "pipeline" => results.extend(walk_pipeline_node(
+            node,
+            source,
+            context,
+            operator_before,
+            depth + 1,
+        )?),
         "command" => {
             if let Some(inv) = extract_command(
                 node,
@@ -53,10 +112,11 @@ fn walk_node(
                 operator_before,
                 pipeline_position,
                 pipeline_length,
-            ) {
+                depth + 1,
+            )? {
                 results.push(inv);
             }
-            results.extend(extract_nested_from_command_args(node, source));
+            results.extend(extract_nested_from_command_args(node, source, depth + 1)?);
         }
         "redirected_statement" => results.extend(walk_redirected_statement(
             node,
@@ -65,13 +125,30 @@ fn walk_node(
             operator_before,
             pipeline_position,
             pipeline_length,
-        )),
-        "subshell" => results.extend(walk_subshell(node, source, "subshell", operator_before)),
+            depth + 1,
+        )?),
+        "subshell" => results.extend(walk_subshell(
+            node,
+            source,
+            "subshell",
+            operator_before,
+            depth + 1,
+        )?),
         "command_substitution" => {
-            results.extend(walk_compound_inner(node, source, "command_substitution"));
+            results.extend(walk_compound_inner(
+                node,
+                source,
+                "command_substitution",
+                depth + 1,
+            )?);
         }
         "process_substitution" => {
-            results.extend(walk_compound_inner(node, source, "process_substitution"));
+            results.extend(walk_compound_inner(
+                node,
+                source,
+                "process_substitution",
+                depth + 1,
+            )?);
         }
         "test_command" => {
             if let Some(inv) = extract_test_command(
@@ -81,7 +158,8 @@ fn walk_node(
                 operator_before,
                 pipeline_position,
                 pipeline_length,
-            ) {
+                depth + 1,
+            )? {
                 results.push(inv);
             }
         }
@@ -95,7 +173,8 @@ fn walk_node(
                         operator_before.clone(),
                         pipeline_position,
                         pipeline_length,
-                    ));
+                        depth + 1,
+                    )?);
                 }
             }
         }
@@ -108,15 +187,22 @@ fn walk_node(
                     operator_before.clone(),
                     pipeline_position,
                     pipeline_length,
-                ));
+                    depth + 1,
+                )?);
             }
         }
     }
 
-    results
+    Ok(results)
 }
 
-fn walk_children_as_list(node: Node<'_>, source: &[u8], context: &str) -> Vec<CommandInvocation> {
+fn walk_children_as_list(
+    node: Node<'_>,
+    source: &[u8],
+    context: &str,
+    depth: usize,
+) -> Result<Vec<CommandInvocation>, ParseError> {
+    check_depth(depth)?;
     let mut results = Vec::new();
     let mut operator_before: Option<String> = None;
 
@@ -134,12 +220,20 @@ fn walk_children_as_list(node: Node<'_>, source: &[u8], context: &str) -> Vec<Co
             _ => {}
         }
 
-        let child_results = walk_node(child, source, context, operator_before.clone(), 0, 1);
+        let child_results = walk_node(
+            child,
+            source,
+            context,
+            operator_before.clone(),
+            0,
+            1,
+            depth + 1,
+        )?;
         results.extend(child_results);
         operator_before = None;
     }
 
-    results
+    Ok(results)
 }
 
 fn walk_list_node(
@@ -147,10 +241,13 @@ fn walk_list_node(
     source: &[u8],
     context: &str,
     operator_before: Option<String>,
-) -> Vec<CommandInvocation> {
+    depth: usize,
+) -> Result<Vec<CommandInvocation>, ParseError> {
+    check_depth(depth)?;
     let mut results = Vec::new();
     let mut current_operator = operator_before;
 
+    // Matches parser.py::_walk_list_node operator carry-forward and background handling.
     for child in children(node) {
         match child.kind() {
             "&&" | "||" | ";" => {
@@ -166,12 +263,20 @@ fn walk_list_node(
             _ => {}
         }
 
-        let child_results = walk_node(child, source, context, current_operator.clone(), 0, 1);
+        let child_results = walk_node(
+            child,
+            source,
+            context,
+            current_operator.clone(),
+            0,
+            1,
+            depth + 1,
+        )?;
         results.extend(child_results);
         current_operator = None;
     }
 
-    results
+    Ok(results)
 }
 
 fn walk_pipeline_node(
@@ -179,7 +284,9 @@ fn walk_pipeline_node(
     source: &[u8],
     context: &str,
     operator_before: Option<String>,
-) -> Vec<CommandInvocation> {
+    depth: usize,
+) -> Result<Vec<CommandInvocation>, ParseError> {
+    check_depth(depth)?;
     let command_nodes: Vec<_> = children(node)
         .into_iter()
         .filter(|child| child.kind() != "|" && child.kind() != "|&")
@@ -187,15 +294,24 @@ fn walk_pipeline_node(
     let pipe_len = command_nodes.len();
 
     let mut results = Vec::new();
+    // Mirrors parser.py::_walk_pipeline_node: pipeline position is structural, not argv text.
     for (i, cmd_node) in command_nodes.into_iter().enumerate() {
         let op = if i == 0 {
             operator_before.clone()
         } else {
             None
         };
-        results.extend(walk_node(cmd_node, source, context, op, i, pipe_len));
+        results.extend(walk_node(
+            cmd_node,
+            source,
+            context,
+            op,
+            i,
+            pipe_len,
+            depth + 1,
+        )?);
     }
-    results
+    Ok(results)
 }
 
 fn walk_redirected_statement(
@@ -205,9 +321,11 @@ fn walk_redirected_statement(
     operator_before: Option<String>,
     pipeline_position: usize,
     pipeline_length: usize,
-) -> Vec<CommandInvocation> {
+    depth: usize,
+) -> Result<Vec<CommandInvocation>, ParseError> {
+    check_depth(depth)?;
     let mut results = Vec::new();
-    let redirects = extract_redirects_from_node(node, source);
+    let redirects = extract_redirects_from_node(node, source, depth + 1)?;
 
     let body_node = children(node).into_iter().find(|child| {
         !matches!(
@@ -217,7 +335,7 @@ fn walk_redirected_statement(
     });
 
     let Some(body_node) = body_node else {
-        return results;
+        return Ok(results);
     };
 
     let mut inner = walk_node(
@@ -227,8 +345,10 @@ fn walk_redirected_statement(
         operator_before,
         pipeline_position,
         pipeline_length,
-    );
+        depth + 1,
+    )?;
 
+    // Python attaches outer redirected_statement redirects once; avoid duplicating them on children.
     let mut redirects_attached = false;
     for inv in &mut inner {
         if !redirects_attached && inv.position_in_pipeline == pipeline_position {
@@ -242,7 +362,7 @@ fn walk_redirected_statement(
     }
 
     results.extend(inner);
-    results
+    Ok(results)
 }
 
 fn walk_subshell(
@@ -250,7 +370,9 @@ fn walk_subshell(
     source: &[u8],
     context: &str,
     mut operator_before: Option<String>,
-) -> Vec<CommandInvocation> {
+    depth: usize,
+) -> Result<Vec<CommandInvocation>, ParseError> {
+    check_depth(depth)?;
     let mut results = Vec::new();
     for child in children(node) {
         if matches!(child.kind(), "(" | ")") {
@@ -263,21 +385,28 @@ fn walk_subshell(
             operator_before.clone(),
             0,
             1,
-        ));
+            depth + 1,
+        )?);
         operator_before = None;
     }
-    results
+    Ok(results)
 }
 
-fn walk_compound_inner(node: Node<'_>, source: &[u8], context: &str) -> Vec<CommandInvocation> {
+fn walk_compound_inner(
+    node: Node<'_>,
+    source: &[u8],
+    context: &str,
+    depth: usize,
+) -> Result<Vec<CommandInvocation>, ParseError> {
+    check_depth(depth)?;
     let mut results = Vec::new();
     for child in children(node) {
         if matches!(child.kind(), "$(" | ")" | "<(" | ">(" | "`") {
             continue;
         }
-        results.extend(walk_node(child, source, context, None, 0, 1));
+        results.extend(walk_node(child, source, context, None, 0, 1, depth + 1)?);
     }
-    results
+    Ok(results)
 }
 
 fn extract_command(
@@ -287,40 +416,43 @@ fn extract_command(
     operator_before: Option<String>,
     pipeline_position: usize,
     pipeline_length: usize,
-) -> Option<CommandInvocation> {
+    depth: usize,
+) -> Result<Option<CommandInvocation>, ParseError> {
+    check_depth(depth)?;
     let mut argv = Vec::new();
     let mut has_command_name = false;
 
+    // Mirrors parser.py::_extract_command: leading assignments and redirects are metadata, not argv.
     for child in children(node) {
         match child.kind() {
             "variable_assignment" => {
                 if !has_command_name {
                     continue;
                 }
-                argv.push(node_text(child, source));
+                argv.push(node_text(child, source, depth + 1)?);
             }
             "command_name" => {
                 has_command_name = true;
-                argv.push(node_text(child, source));
+                argv.push(node_text(child, source, depth + 1)?);
             }
             "file_redirect" | "heredoc_redirect" | "herestring_redirect" | "comment" => continue,
-            _ => argv.push(node_text(child, source)),
+            _ => argv.push(node_text(child, source, depth + 1)?),
         }
     }
 
     if argv.is_empty() {
-        return None;
+        return Ok(None);
     }
 
-    Some(CommandInvocation {
+    Ok(Some(CommandInvocation {
         argv,
-        redirects: extract_redirects_from_node(node, source),
+        redirects: extract_redirects_from_node(node, source, depth + 1)?,
         position_in_pipeline: pipeline_position,
         pipeline_length,
         context: context.to_string(),
         operator_before,
         is_background: false,
-    })
+    }))
 }
 
 fn extract_test_command(
@@ -330,7 +462,9 @@ fn extract_test_command(
     operator_before: Option<String>,
     pipeline_position: usize,
     pipeline_length: usize,
-) -> Option<CommandInvocation> {
+    depth: usize,
+) -> Result<Option<CommandInvocation>, ParseError> {
+    check_depth(depth)?;
     let mut argv = Vec::new();
     for child in children(node) {
         if matches!(child.kind(), "[" | "[[") {
@@ -338,15 +472,15 @@ fn extract_test_command(
         } else if matches!(child.kind(), "]" | "]]") {
             continue;
         } else if child.is_named() {
-            argv.push(node_text(child, source));
+            argv.push(node_text(child, source, depth + 1)?);
         }
     }
 
     if argv.is_empty() {
-        return None;
+        return Ok(None);
     }
 
-    Some(CommandInvocation {
+    Ok(Some(CommandInvocation {
         argv,
         redirects: Vec::new(),
         position_in_pipeline: pipeline_position,
@@ -354,15 +488,20 @@ fn extract_test_command(
         context: context.to_string(),
         operator_before,
         is_background: false,
-    })
+    }))
 }
 
-fn extract_nested_from_command_args(node: Node<'_>, source: &[u8]) -> Vec<CommandInvocation> {
+fn extract_nested_from_command_args(
+    node: Node<'_>,
+    source: &[u8],
+    depth: usize,
+) -> Result<Vec<CommandInvocation>, ParseError> {
+    check_depth(depth)?;
     let mut results = Vec::new();
     for child in children(node) {
         if child.kind() == "command_name" {
             for sub in children(child) {
-                results.extend(find_nested_substitutions(sub, source));
+                results.extend(find_nested_substitutions(sub, source, depth + 1)?);
             }
         } else if matches!(
             child.kind(),
@@ -370,40 +509,68 @@ fn extract_nested_from_command_args(node: Node<'_>, source: &[u8]) -> Vec<Comman
         ) {
             continue;
         } else {
-            results.extend(find_nested_substitutions(child, source));
+            results.extend(find_nested_substitutions(child, source, depth + 1)?);
         }
     }
-    results
+    Ok(results)
 }
 
-fn find_nested_substitutions(node: Node<'_>, source: &[u8]) -> Vec<CommandInvocation> {
+fn find_nested_substitutions(
+    node: Node<'_>,
+    source: &[u8],
+    depth: usize,
+) -> Result<Vec<CommandInvocation>, ParseError> {
+    check_depth(depth)?;
     let mut results = Vec::new();
     if node.kind() == "command_substitution" {
-        results.extend(walk_compound_inner(node, source, "command_substitution"));
+        results.extend(walk_compound_inner(
+            node,
+            source,
+            "command_substitution",
+            depth + 1,
+        )?);
     } else if node.kind() == "process_substitution" {
-        results.extend(walk_compound_inner(node, source, "process_substitution"));
+        results.extend(walk_compound_inner(
+            node,
+            source,
+            "process_substitution",
+            depth + 1,
+        )?);
     } else {
         for child in children(node) {
-            results.extend(find_nested_substitutions(child, source));
+            results.extend(find_nested_substitutions(child, source, depth + 1)?);
         }
     }
-    results
+    Ok(results)
 }
 
-fn extract_redirects_from_node(node: Node<'_>, source: &[u8]) -> Vec<Redirect> {
+fn extract_redirects_from_node(
+    node: Node<'_>,
+    source: &[u8],
+    depth: usize,
+) -> Result<Vec<Redirect>, ParseError> {
+    check_depth(depth)?;
     let mut redirects = Vec::new();
+    // Redirect collection mirrors parser.py redirect extraction; heredocs record markers, not bodies.
     for child in children(node) {
         match child.kind() {
-            "file_redirect" => redirects.push(parse_file_redirect(child, source)),
+            "file_redirect" => redirects.push(parse_file_redirect(child, source, depth + 1)?),
             "heredoc_redirect" => redirects.push(parse_heredoc_redirect(child, source)),
-            "herestring_redirect" => redirects.push(parse_herestring_redirect(child, source)),
+            "herestring_redirect" => {
+                redirects.push(parse_herestring_redirect(child, source, depth + 1)?)
+            }
             _ => {}
         }
     }
-    redirects
+    Ok(redirects)
 }
 
-fn parse_file_redirect(node: Node<'_>, source: &[u8]) -> Redirect {
+fn parse_file_redirect(
+    node: Node<'_>,
+    source: &[u8],
+    depth: usize,
+) -> Result<Redirect, ParseError> {
+    check_depth(depth)?;
     let mut operator_parts = Vec::new();
     let mut target = String::new();
 
@@ -411,7 +578,7 @@ fn parse_file_redirect(node: Node<'_>, source: &[u8]) -> Redirect {
         if child.kind() == "file_descriptor" || is_redirect_operator(child.kind()) {
             operator_parts.push(raw_text(child, source));
         } else if child.is_named() {
-            target = node_text(child, source);
+            target = node_text(child, source, depth + 1)?;
         } else {
             let text = raw_text(child, source);
             if is_redirect_operator(&text) {
@@ -434,18 +601,20 @@ fn parse_file_redirect(node: Node<'_>, source: &[u8]) -> Redirect {
         }
     }
 
+    // Keep fd-to-fd redirects and /dev/null quiet like the Python classifier input model.
     let affects_classification = redirect_affects_classification(&operator, &target);
-    Redirect {
+    Ok(Redirect {
         operator,
         target,
         affects_classification,
-    }
+    })
 }
 
 fn parse_heredoc_redirect(node: Node<'_>, source: &[u8]) -> Redirect {
     let mut operator = "<<".to_string();
     let mut target = String::new();
 
+    // Python parser exposes heredoc redirection metadata without treating the body as argv.
     for child in children(node) {
         if matches!(child.kind(), "<<" | "<<-") {
             operator = raw_text(child, source);
@@ -461,13 +630,18 @@ fn parse_heredoc_redirect(node: Node<'_>, source: &[u8]) -> Redirect {
     }
 }
 
-fn parse_herestring_redirect(node: Node<'_>, source: &[u8]) -> Redirect {
+fn parse_herestring_redirect(
+    node: Node<'_>,
+    source: &[u8],
+    depth: usize,
+) -> Result<Redirect, ParseError> {
+    check_depth(depth)?;
     let mut target = String::new();
     for child in children(node) {
         if child.kind() == "<<<" {
             continue;
         } else if child.is_named() {
-            target = node_text(child, source);
+            target = node_text(child, source, depth + 1)?;
         } else {
             let text = raw_text(child, source);
             if text != "<<<" && target.is_empty() {
@@ -476,11 +650,11 @@ fn parse_herestring_redirect(node: Node<'_>, source: &[u8]) -> Redirect {
         }
     }
 
-    Redirect {
+    Ok(Redirect {
         operator: "<<<".to_string(),
         target,
         affects_classification: false,
-    }
+    })
 }
 
 fn redirect_affects_classification(operator: &str, target: &str) -> bool {
@@ -503,40 +677,43 @@ fn redirect_affects_classification(operator: &str, target: &str) -> bool {
         && operator.contains('>')
 }
 
-fn node_text(node: Node<'_>, source: &[u8]) -> String {
+fn node_text(node: Node<'_>, source: &[u8], depth: usize) -> Result<String, ParseError> {
+    check_depth(depth)?;
+    // String/argv reconstruction follows Python's parser output: strip shell quote wrappers and
+    // concatenate adjacent parts, but do not evaluate shell expansions.
     match node.kind() {
         "string" => {
             let text = raw_text(node, source);
             if text.len() >= 2 && text.starts_with('"') && text.ends_with('"') {
-                text[1..text.len() - 1].to_string()
+                Ok(text[1..text.len() - 1].to_string())
             } else {
-                text
+                Ok(text)
             }
         }
         "raw_string" => {
             let text = raw_text(node, source);
             if text.len() >= 2 && text.starts_with('\'') && text.ends_with('\'') {
-                text[1..text.len() - 1].to_string()
+                Ok(text[1..text.len() - 1].to_string())
             } else if text.len() >= 3 && text.starts_with("$'") && text.ends_with('\'') {
-                text[2..text.len() - 1].to_string()
+                Ok(text[2..text.len() - 1].to_string())
             } else {
-                text
+                Ok(text)
             }
         }
         "ansi_c_string" => {
             let text = raw_text(node, source);
             if text.len() >= 3 && text.starts_with("$'") && text.ends_with('\'') {
-                text[2..text.len() - 1].to_string()
+                Ok(text[2..text.len() - 1].to_string())
             } else {
-                text
+                Ok(text)
             }
         }
-        "concatenation" => children(node)
+        "concatenation" => Ok(children(node)
             .into_iter()
-            .map(|child| node_text(child, source))
-            .collect::<Vec<_>>()
-            .join(""),
-        _ => raw_text(node, source),
+            .map(|child| node_text(child, source, depth + 1))
+            .collect::<Result<Vec<_>, _>>()?
+            .join("")),
+        _ => Ok(raw_text(node, source)),
     }
 }
 
@@ -564,6 +741,7 @@ fn children(node: Node<'_>) -> Vec<Node<'_>> {
 }
 
 fn py_repr(value: &str) -> String {
+    // Match Python repr() warning text closely enough for parity snapshots and CLI errors.
     let has_single = value.contains('\'');
     let has_double = value.contains('"');
     let quote = if has_single && !has_double { '"' } else { '\'' };
@@ -605,7 +783,7 @@ mod test_parser {
 
         #[test]
         fn test_simple_command() {
-            let (result, _) = parse_expression("ls");
+            let (result, _) = parse_expression("ls").unwrap();
             assert_eq!(result.len(), 1);
             assert_eq!(result[0].argv, ["ls"]);
             assert_eq!(result[0].context, "toplevel");
@@ -617,14 +795,14 @@ mod test_parser {
 
         #[test]
         fn test_command_with_args() {
-            let (result, _) = parse_expression("ls -la /tmp");
+            let (result, _) = parse_expression("ls -la /tmp").unwrap();
             assert_eq!(result.len(), 1);
             assert_eq!(result[0].argv, ["ls", "-la", "/tmp"]);
         }
 
         #[test]
         fn test_command_with_long_options() {
-            let (result, _) = parse_expression("grep --recursive --ignore-case pattern .");
+            let (result, _) = parse_expression("grep --recursive --ignore-case pattern .").unwrap();
             assert_eq!(result.len(), 1);
             assert_eq!(
                 result[0].argv,
@@ -638,7 +816,7 @@ mod test_parser {
 
         #[test]
         fn test_simple_pipeline() {
-            let (result, _) = parse_expression("cat file | grep pattern | wc -l");
+            let (result, _) = parse_expression("cat file | grep pattern | wc -l").unwrap();
             let pipeline_cmds: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(pipeline_cmds.len(), 3);
             assert_eq!(pipeline_cmds[0].argv, ["cat", "file"]);
@@ -654,7 +832,7 @@ mod test_parser {
 
         #[test]
         fn test_two_command_pipeline() {
-            let (result, _) = parse_expression("ps aux | grep python");
+            let (result, _) = parse_expression("ps aux | grep python").unwrap();
             let pipeline_cmds: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(pipeline_cmds.len(), 2);
             assert_eq!(pipeline_cmds[0].pipeline_length, 2);
@@ -667,7 +845,7 @@ mod test_parser {
 
         #[test]
         fn test_logical_and() {
-            let (result, _) = parse_expression("make && make install");
+            let (result, _) = parse_expression("make && make install").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 2);
             assert_eq!(toplevel[0].argv, ["make"]);
@@ -678,7 +856,7 @@ mod test_parser {
 
         #[test]
         fn test_logical_or() {
-            let (result, _) = parse_expression("cmd1 || cmd2");
+            let (result, _) = parse_expression("cmd1 || cmd2").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 2);
             assert_eq!(toplevel[0].operator_before, None);
@@ -687,7 +865,7 @@ mod test_parser {
 
         #[test]
         fn test_chained_operators() {
-            let (result, _) = parse_expression("a && b || c");
+            let (result, _) = parse_expression("a && b || c").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 3);
             assert_eq!(toplevel[0].operator_before, None);
@@ -701,7 +879,7 @@ mod test_parser {
 
         #[test]
         fn test_semicolons() {
-            let (result, _) = parse_expression("echo a; echo b; echo c");
+            let (result, _) = parse_expression("echo a; echo b; echo c").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 3);
             assert_eq!(toplevel[0].argv, ["echo", "a"]);
@@ -718,7 +896,7 @@ mod test_parser {
 
         #[test]
         fn test_command_substitution() {
-            let (result, _) = parse_expression("echo $(date)");
+            let (result, _) = parse_expression("echo $(date)").unwrap();
             let outer: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             let inner: Vec<_> = result
                 .iter()
@@ -732,7 +910,7 @@ mod test_parser {
 
         #[test]
         fn test_nested_command_substitution_in_pipeline() {
-            let (result, _) = parse_expression("echo $(cat file | wc -l)");
+            let (result, _) = parse_expression("echo $(cat file | wc -l)").unwrap();
             let inner: Vec<_> = result
                 .iter()
                 .filter(|r| r.context == "command_substitution")
@@ -743,12 +921,45 @@ mod test_parser {
         }
     }
 
+    mod test_recursion_depth {
+        use super::parse_expression;
+
+        fn nested_command_substitution(depth: usize) -> String {
+            let mut expression = String::from("echo ");
+            for _ in 0..depth {
+                expression.push_str("$(echo ");
+            }
+            expression.push('x');
+            for _ in 0..depth {
+                expression.push(')');
+            }
+            expression
+        }
+
+        #[test]
+        fn test_moderate_nesting_still_parses() {
+            let expression = nested_command_substitution(50);
+            let (result, _) = parse_expression(&expression).unwrap();
+            assert_eq!(result[0].argv[0], "echo");
+            assert_eq!(result.iter().filter(|r| r.argv[0] == "echo").count(), 51);
+        }
+
+        #[test]
+        fn test_deep_nesting_returns_parse_error() {
+            for depth in [1000, 5000, 50000] {
+                let expression = nested_command_substitution(depth);
+                let error = parse_expression(&expression).unwrap_err();
+                assert_eq!(error.message(), "maximum recursion depth exceeded");
+            }
+        }
+    }
+
     mod test_process_substitution {
         use super::parse_expression;
 
         #[test]
         fn test_process_substitution() {
-            let (result, _) = parse_expression("diff <(ls dir1) <(ls dir2)");
+            let (result, _) = parse_expression("diff <(ls dir1) <(ls dir2)").unwrap();
             let outer: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             let inner: Vec<_> = result
                 .iter()
@@ -767,7 +978,7 @@ mod test_parser {
 
         #[test]
         fn test_subshell() {
-            let (result, _) = parse_expression("(cd /tmp && ls)");
+            let (result, _) = parse_expression("(cd /tmp && ls)").unwrap();
             let subshell_cmds: Vec<_> = result.iter().filter(|r| r.context == "subshell").collect();
             assert_eq!(subshell_cmds.len(), 2);
             assert_eq!(subshell_cmds[0].argv, ["cd", "/tmp"]);
@@ -782,7 +993,7 @@ mod test_parser {
 
         #[test]
         fn test_output_redirect() {
-            let (result, _) = parse_expression("echo hello > output.txt");
+            let (result, _) = parse_expression("echo hello > output.txt").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].argv, ["echo", "hello"]);
@@ -793,7 +1004,7 @@ mod test_parser {
 
         #[test]
         fn test_stderr_redirect() {
-            let (result, _) = parse_expression("cmd 2>/dev/null");
+            let (result, _) = parse_expression("cmd 2>/dev/null").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].redirects.len(), 1);
@@ -803,7 +1014,7 @@ mod test_parser {
 
         #[test]
         fn test_append_redirect() {
-            let (result, _) = parse_expression("cmd >> file.log");
+            let (result, _) = parse_expression("cmd >> file.log").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].redirects.len(), 1);
@@ -813,7 +1024,7 @@ mod test_parser {
 
         #[test]
         fn test_input_redirect() {
-            let (result, _) = parse_expression("cmd < input.txt");
+            let (result, _) = parse_expression("cmd < input.txt").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].redirects.len(), 1);
@@ -823,14 +1034,14 @@ mod test_parser {
 
         #[test]
         fn test_redirect_affects_classification() {
-            let (result, _) = parse_expression("echo hello > output.txt");
+            let (result, _) = parse_expression("echo hello > output.txt").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert!(toplevel[0].redirects[0].affects_classification);
         }
 
         #[test]
         fn test_devnull_redirect_no_affect() {
-            let (result, _) = parse_expression("cmd > /dev/null");
+            let (result, _) = parse_expression("cmd > /dev/null").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert!(!toplevel[0].redirects[0].affects_classification);
         }
@@ -841,7 +1052,7 @@ mod test_parser {
 
         #[test]
         fn test_variable_assignment_prefix() {
-            let (result, _) = parse_expression("FOO=bar baz");
+            let (result, _) = parse_expression("FOO=bar baz").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].argv, ["baz"]);
@@ -849,7 +1060,7 @@ mod test_parser {
 
         #[test]
         fn test_multiple_assignments() {
-            let (result, _) = parse_expression("FOO=bar BAZ=qux cmd arg1");
+            let (result, _) = parse_expression("FOO=bar BAZ=qux cmd arg1").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].argv, ["cmd", "arg1"]);
@@ -857,7 +1068,7 @@ mod test_parser {
 
         #[test]
         fn test_bare_assignment_no_command() {
-            let (result, _) = parse_expression("FOO=bar");
+            let (result, _) = parse_expression("FOO=bar").unwrap();
             assert_eq!(result.len(), 0);
         }
     }
@@ -867,7 +1078,7 @@ mod test_parser {
 
         #[test]
         fn test_background() {
-            let (result, _) = parse_expression("sleep 10 &");
+            let (result, _) = parse_expression("sleep 10 &").unwrap();
             assert_eq!(result.len(), 1);
             assert_eq!(result[0].argv, ["sleep", "10"]);
             assert!(result[0].is_background);
@@ -875,7 +1086,7 @@ mod test_parser {
 
         #[test]
         fn test_background_in_list() {
-            let (result, _) = parse_expression("cmd1 & cmd2");
+            let (result, _) = parse_expression("cmd1 & cmd2").unwrap();
             assert_eq!(result.len(), 2);
             assert!(result[0].is_background);
             assert!(!result[1].is_background);
@@ -887,7 +1098,8 @@ mod test_parser {
 
         #[test]
         fn test_complex_expression() {
-            let (result, _) = parse_expression("git status && (cd src && make) | tee log.txt");
+            let (result, _) =
+                parse_expression("git status && (cd src && make) | tee log.txt").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             let subshell: Vec<_> = result.iter().filter(|r| r.context == "subshell").collect();
             let git_status: Vec<_> = toplevel.iter().filter(|r| r.argv[0] == "git").collect();
@@ -908,7 +1120,7 @@ mod test_parser {
         #[test]
         fn test_heredoc() {
             let expression = "cat <<EOF\nhello\nworld\nEOF";
-            let (result, _) = parse_expression(expression);
+            let (result, _) = parse_expression(expression).unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].argv, ["cat"]);
@@ -920,7 +1132,7 @@ mod test_parser {
         #[test]
         fn test_heredoc_content_not_parsed_as_commands() {
             let expression = "cat <<EOF\nls -la\nrm -rf /\nEOF";
-            let (result, _) = parse_expression(expression);
+            let (result, _) = parse_expression(expression).unwrap();
             assert_eq!(result.len(), 1);
             assert_eq!(result[0].argv, ["cat"]);
         }
@@ -931,26 +1143,26 @@ mod test_parser {
 
         #[test]
         fn test_empty_expression() {
-            let (result, _) = parse_expression("");
+            let (result, _) = parse_expression("").unwrap();
             assert_eq!(result, []);
         }
 
         #[test]
         fn test_comment_only() {
-            let (result, _) = parse_expression("# this is a comment");
+            let (result, _) = parse_expression("# this is a comment").unwrap();
             assert_eq!(result, []);
         }
 
         #[test]
         fn test_quoted_string_arg() {
-            let (result, _) = parse_expression("echo \"hello world\"");
+            let (result, _) = parse_expression("echo \"hello world\"").unwrap();
             assert_eq!(result.len(), 1);
             assert_eq!(result[0].argv, ["echo", "hello world"]);
         }
 
         #[test]
         fn test_single_quoted_string_arg() {
-            let (result, _) = parse_expression("echo 'hello world'");
+            let (result, _) = parse_expression("echo 'hello world'").unwrap();
             assert_eq!(result.len(), 1);
             assert_eq!(result[0].argv, ["echo", "hello world"]);
         }
@@ -961,7 +1173,7 @@ mod test_parser {
 
         #[test]
         fn test_backtick_command_substitution() {
-            let (result, _) = parse_expression("echo `date`");
+            let (result, _) = parse_expression("echo `date`").unwrap();
             let outer: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             let inner: Vec<_> = result
                 .iter()
@@ -979,7 +1191,7 @@ mod test_parser {
 
         #[test]
         fn test_negated_command() {
-            let (result, _) = parse_expression("! grep pattern file");
+            let (result, _) = parse_expression("! grep pattern file").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].argv, ["grep", "pattern", "file"]);
@@ -991,7 +1203,7 @@ mod test_parser {
 
         #[test]
         fn test_dollar_single_quoted_string() {
-            let (result, _) = parse_expression("echo $'hello'");
+            let (result, _) = parse_expression("echo $'hello'").unwrap();
             assert_eq!(result.len(), 1);
             assert_eq!(result[0].argv, ["echo", "hello"]);
         }
@@ -1002,7 +1214,7 @@ mod test_parser {
 
         #[test]
         fn test_multiple_redirects() {
-            let (result, _) = parse_expression("cmd > out.txt 2> err.txt");
+            let (result, _) = parse_expression("cmd > out.txt 2> err.txt").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].redirects.len(), 2);
@@ -1014,7 +1226,7 @@ mod test_parser {
 
         #[test]
         fn test_concatenation() {
-            let (result, _) = parse_expression("echo foo\"bar\"baz");
+            let (result, _) = parse_expression("echo foo\"bar\"baz").unwrap();
             assert_eq!(result.len(), 1);
             assert_eq!(result[0].argv, ["echo", "foobarbaz"]);
         }
@@ -1025,21 +1237,21 @@ mod test_parser {
 
         #[test]
         fn test_single_bracket_test() {
-            let (result, _) = parse_expression("[ -f file ]");
+            let (result, _) = parse_expression("[ -f file ]").unwrap();
             assert_eq!(result.len(), 1);
             assert_eq!(result[0].argv[0], "[");
         }
 
         #[test]
         fn test_double_bracket_test() {
-            let (result, _) = parse_expression("[[ -f file ]]");
+            let (result, _) = parse_expression("[[ -f file ]]").unwrap();
             assert_eq!(result.len(), 1);
             assert_eq!(result[0].argv[0], "[[");
         }
 
         #[test]
         fn test_test_command_in_pipeline() {
-            let (result, _) = parse_expression("[ -f file ] && echo exists");
+            let (result, _) = parse_expression("[ -f file ] && echo exists").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 2);
             assert_eq!(toplevel[0].argv[0], "[");
@@ -1052,7 +1264,7 @@ mod test_parser {
 
         #[test]
         fn test_herestring_redirect() {
-            let (result, _) = parse_expression("cat <<< hello");
+            let (result, _) = parse_expression("cat <<< hello").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].argv, ["cat"]);
@@ -1068,7 +1280,7 @@ mod test_parser {
 
         #[test]
         fn test_for_loop_redirect_not_duplicated() {
-            let (result, _) = parse_expression("for i in 1 2; do echo $i; done > out.txt");
+            let (result, _) = parse_expression("for i in 1 2; do echo $i; done > out.txt").unwrap();
             let cmds_with_redirects: Vec<_> =
                 result.iter().filter(|r| !r.redirects.is_empty()).collect();
             assert_eq!(cmds_with_redirects.len(), 1);
@@ -1082,7 +1294,7 @@ mod test_parser {
 
         #[test]
         fn test_stderr_to_stdout_no_affect() {
-            let (result, _) = parse_expression("cmd 2>&1");
+            let (result, _) = parse_expression("cmd 2>&1").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].redirects.len(), 1);
@@ -1091,7 +1303,7 @@ mod test_parser {
 
         #[test]
         fn test_stdout_to_stderr_no_affect() {
-            let (result, _) = parse_expression("cmd 1>&2");
+            let (result, _) = parse_expression("cmd 1>&2").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].redirects.len(), 1);
@@ -1100,7 +1312,7 @@ mod test_parser {
 
         #[test]
         fn test_stderr_to_file_affects() {
-            let (result, _) = parse_expression("cmd 2>error.log");
+            let (result, _) = parse_expression("cmd 2>error.log").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].redirects.len(), 1);
@@ -1113,7 +1325,7 @@ mod test_parser {
 
         #[test]
         fn test_ampersand_redirect_to_file() {
-            let (result, _) = parse_expression("cmd &> output.txt");
+            let (result, _) = parse_expression("cmd &> output.txt").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].redirects.len(), 1);
@@ -1123,7 +1335,7 @@ mod test_parser {
 
         #[test]
         fn test_ampersand_append_redirect_to_file() {
-            let (result, _) = parse_expression("cmd &>> output.txt");
+            let (result, _) = parse_expression("cmd &>> output.txt").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].redirects.len(), 1);
@@ -1133,7 +1345,7 @@ mod test_parser {
 
         #[test]
         fn test_ampersand_redirect_to_devnull() {
-            let (result, _) = parse_expression("cmd &> /dev/null");
+            let (result, _) = parse_expression("cmd &> /dev/null").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].redirects.len(), 1);
@@ -1147,7 +1359,7 @@ mod test_parser {
 
         #[test]
         fn test_output_process_substitution() {
-            let (result, _) = parse_expression("echo hello > >(tee log.txt)");
+            let (result, _) = parse_expression("echo hello > >(tee log.txt)").unwrap();
             let toplevel: Vec<_> = result.iter().filter(|r| r.context == "toplevel").collect();
             assert_eq!(toplevel.len(), 1);
             assert_eq!(toplevel[0].redirects.len(), 1);
@@ -1160,7 +1372,7 @@ mod test_parser {
 
         #[test]
         fn test_syntax_error_produces_warning() {
-            let (_, warnings) = parse_expression("if then fi else");
+            let (_, warnings) = parse_expression("if then fi else").unwrap();
             assert!(!warnings.is_empty());
             assert!(warnings[0].contains("syntax error"));
             assert_eq!(

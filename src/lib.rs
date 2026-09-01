@@ -14,4 +14,4 @@ pub mod parser;
 
 pub use database::{load_database, CommandDatabase};
 pub use models::{Classification, CommandResult, ExpressionResult, Risk};
-pub use parser::parse_expression;
+pub use parser::{parse_expression, ParseError};
