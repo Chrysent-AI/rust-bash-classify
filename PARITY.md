@@ -36,11 +36,11 @@ Use this process for any suspected divergence:
 4. If Python and Rust differ, fix Rust unless a human explicitly changes the accepted parity contract.
 5. Add or update a focused Rust test and, when the case belongs in the end-to-end corpus, regenerate golden fixtures with `scripts/harvest_goldens.py` instead of hand-editing expected output.
 
-After a vendor sync, rerun the differential check by regenerating goldens from the new Python commit and reviewing the fixture diff. Golden regeneration is appropriate only when the Python source of truth changes behavior; otherwise replay failures indicate a Rust regression or an accidental fixture edit.
+After a vendor sync, rerun the differential check by regenerating goldens from the new Python commit and inspecting the fixture diff. Golden regeneration is appropriate only when the Python source of truth changes behavior; otherwise replay failures indicate a Rust regression or an accidental fixture edit.
 
 ## Evidence locations
 
 - `PORT_MANIFEST.md` — one-for-one Python test port manifest, with extra Rust regression/helper tests listed separately.
 - `tests/golden/manifest.json` and `tests/golden/cases/` — harvested CLI oracle outputs.
-- `benchmarks/report.txt` — local SC-5 performance report over the golden corpus.
+- `benchmarks/report.txt` — local performance benchmark report over the golden corpus.
 - `PORTING.md` — module map, implementation seams, and vendor policy.

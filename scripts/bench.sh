@@ -12,8 +12,8 @@
 # - Isolates user configuration with a temporary empty BASH_CLASSIFY_CONFIG_DIR so
 #   local overrides do not affect parity or timings.
 #
-# The acceptance bar for SPEC-0001 SC-5 is loose parity: Rust must be no slower
-# than Python for aggregate corpus time, corpus p95, and startup-to-first-output.
+# The benchmark bar is loose parity: Rust must be no slower than Python for
+# aggregate corpus time, corpus p95, and startup-to-first-output.
 
 set -euo pipefail
 
@@ -153,7 +153,7 @@ for label, key in metrics:
     ratio = rs / py if py else float("inf")
     lines.append(f"| {label} | {ms(py):.3f} | {ms(rs):.3f} | {ratio:.3f}x | {'PASS' if ok else 'FAIL'} |")
 lines.append("")
-lines.append(f"SC-5 verdict: {'PASS' if all_pass else 'FAIL'} — Rust is {'not slower' if all_pass else 'slower on at least one metric'}.")
+lines.append(f"Result: {'PASS' if all_pass else 'FAIL'} — Rust is {'not slower than Python on any metric' if all_pass else 'slower than Python on at least one metric'}.")
 lines.append("")
 lines.append("Per-case timing details are intentionally not committed; rerun scripts/bench.sh to reproduce with local machine timings.")
 text = "\n".join(lines) + "\n"

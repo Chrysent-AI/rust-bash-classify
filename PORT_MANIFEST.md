@@ -1,6 +1,6 @@
 # Port manifest
 
-This file maps the Python pytest suite at `../bash-classify/tests` to the Rust tests that carry the same ported assertion obligations. Regenerate it with `scripts/gen_port_manifest.py` after adding, renaming, or moving ported tests.
+This generated manifest maps the Python pytest suite at `../bash-classify/tests` to the Rust tests that cover the same behavior. Regenerate it with `scripts/gen_port_manifest.py` after adding, renaming, or moving ported tests.
 
 ## Suite arithmetic
 

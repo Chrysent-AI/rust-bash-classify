@@ -1,6 +1,6 @@
 # Porting notes
 
-This repository is a structural Rust port of the Python `bash-classify` project. The port favors side-by-side review and behavioral parity over idiomatic rewrites: when observed Python behavior at the recorded source commit disagrees with prose documentation, observed behavior is the oracle.
+This repository is a structural Rust port of the Python `bash-classify` project. The port favors side-by-side comparison and behavioral parity over idiomatic rewrites: when observed Python behavior at the recorded source commit disagrees with prose documentation, observed behavior is the oracle.
 
 ## Source of truth
 
@@ -9,7 +9,7 @@ This repository is a structural Rust port of the Python `bash-classify` project.
 - Vendored files: `vendor/commands/*.yaml`, `vendor/schemas/command.schema.json`, and `vendor/SPEC.md`
 - Sync metadata: `VENDOR.json`
 
-Vendored files are copied byte-for-byte and are not edited in this repository. Run `scripts/vendor.sh --check` to verify that the committed vendor tree and generated embed table still match the recorded Python commit. If the Python source of truth changes behavior, sync the vendor files, regenerate the golden corpus with `scripts/harvest_goldens.py`, then review the resulting expected-output diff.
+Vendored files are copied byte-for-byte and are not edited in this repository. Run `scripts/vendor.sh --check` to verify that the committed vendor tree and generated embed table still match the recorded Python commit. If the Python source of truth changes behavior, sync the vendor files, regenerate the golden corpus with `scripts/harvest_goldens.py`, then inspect the resulting expected-output diff.
 
 ## Module map
 

@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Generate PORT_MANIFEST.md from the Python pytest suite and Rust test list.
 
-The manifest is an audit artifact for the behavioral port: every Python test
-function is mapped to the Rust test that carries the same assertion obligation.
-Extra Rust-only regression/helper tests are listed separately.
+The manifest maps each Python test function to the Rust test that covers the
+same behavior. Extra Rust-only regression/helper tests are listed separately.
 """
 
 from __future__ import annotations
@@ -187,7 +186,7 @@ def main() -> None:
     lines: list[str] = []
     lines.append("# Port manifest")
     lines.append("")
-    lines.append("This file maps the Python pytest suite at `../bash-classify/tests` to the Rust tests that carry the same ported assertion obligations. Regenerate it with `scripts/gen_port_manifest.py` after adding, renaming, or moving ported tests.")
+    lines.append("This generated manifest maps the Python pytest suite at `../bash-classify/tests` to the Rust tests that cover the same behavior. Regenerate it with `scripts/gen_port_manifest.py` after adding, renaming, or moving ported tests.")
     lines.append("")
     lines.append("## Suite arithmetic")
     lines.append("")
