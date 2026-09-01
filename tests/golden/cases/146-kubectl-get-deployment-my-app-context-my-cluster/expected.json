@@ -1,0 +1,29 @@
+{
+  "expression": "kubectl get deployment my-app --context my-cluster -o yaml",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "kubectl",
+        "get"
+      ],
+      "argv": [
+        "kubectl",
+        "get",
+        "deployment",
+        "my-app",
+        "--context",
+        "my-cluster",
+        "-o",
+        "yaml"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "kubectl.get",
+      "classification_reason": "base classification from rule kubectl.get",
+      "inner_commands": []
+    }
+  ]
+}

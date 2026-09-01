@@ -1,0 +1,46 @@
+{
+  "expression": "docker run --rm -v \"$(pwd):/app:ro\" python:3.12-slim cat /app/README.md",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "docker",
+        "run"
+      ],
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "-v",
+        "$(pwd):/app:ro",
+        "python:3.12-slim",
+        "cat",
+        "/app/README.md"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "docker.run",
+      "remaining_options": [
+        "--rm",
+        "-v"
+      ],
+      "classification_reason": "base classification from rule docker.run",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "pwd"
+      ],
+      "argv": [
+        "pwd"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "pwd",
+      "classification_reason": "base classification from rule pwd",
+      "inner_commands": []
+    }
+  ]
+}

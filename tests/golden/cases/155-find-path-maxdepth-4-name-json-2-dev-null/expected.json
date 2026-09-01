@@ -1,0 +1,39 @@
+{
+  "expression": "find /path -maxdepth 4 -name \"*.json\" 2>/dev/null",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/path"
+  ],
+  "commands": [
+    {
+      "command": [
+        "find"
+      ],
+      "argv": [
+        "find",
+        "/path",
+        "-maxdepth",
+        "4",
+        "-name",
+        "*.json"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "find",
+      "remaining_options": [
+        "-maxdepth",
+        "-name"
+      ],
+      "classification_reason": "base classification from rule find",
+      "inner_commands": []
+    }
+  ],
+  "redirects": [
+    {
+      "operator": "2>",
+      "target": "/dev/null",
+      "affects_classification": false
+    }
+  ]
+}

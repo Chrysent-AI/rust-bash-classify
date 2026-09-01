@@ -1,0 +1,41 @@
+{
+  "expression": "ls /path/to/dir | tail -5",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/path/to/dir"
+  ],
+  "commands": [
+    {
+      "command": [
+        "ls"
+      ],
+      "argv": [
+        "ls",
+        "/path/to/dir"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "ls",
+      "classification_reason": "base classification from rule ls",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "tail"
+      ],
+      "argv": [
+        "tail",
+        "-5"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "tail",
+      "remaining_options": [
+        "-5"
+      ],
+      "classification_reason": "base classification from rule tail",
+      "inner_commands": []
+    }
+  ]
+}

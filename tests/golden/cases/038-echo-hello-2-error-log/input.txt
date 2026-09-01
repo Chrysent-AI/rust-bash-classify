@@ -1,0 +1,1 @@
+echo hello 2>error.log

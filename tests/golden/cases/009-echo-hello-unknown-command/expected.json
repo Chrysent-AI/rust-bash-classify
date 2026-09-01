@@ -1,0 +1,35 @@
+{
+  "expression": "echo hello && unknown_command",
+  "classification": "UNKNOWN",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "hello"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "unknown_command"
+      ],
+      "argv": [
+        "unknown_command"
+      ],
+      "classification": "UNKNOWN",
+      "risk": "HIGH",
+      "matched_rule": null,
+      "classification_reason": "command not in database",
+      "inner_commands": []
+    }
+  ]
+}

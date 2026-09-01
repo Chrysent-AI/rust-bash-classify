@@ -1,0 +1,36 @@
+{
+  "expression": "echo hello | tee output.txt",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "hello"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "tee"
+      ],
+      "argv": [
+        "tee",
+        "output.txt"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "tee",
+      "classification_reason": "base classification from rule tee",
+      "inner_commands": []
+    }
+  ]
+}

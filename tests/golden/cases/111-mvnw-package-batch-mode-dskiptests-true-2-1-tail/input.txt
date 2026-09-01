@@ -1,0 +1,1 @@
+./mvnw package --batch-mode -DskipTests=true 2>&1 | tail -30

@@ -1,0 +1,23 @@
+{
+  "expression": "git status",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "status"
+      ],
+      "argv": [
+        "git",
+        "status"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "git.status",
+      "classification_reason": "base classification from rule git.status",
+      "inner_commands": []
+    }
+  ]
+}

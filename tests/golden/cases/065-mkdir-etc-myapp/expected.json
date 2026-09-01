@@ -1,0 +1,22 @@
+{
+  "expression": "mkdir /etc/myapp",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "mkdir"
+      ],
+      "argv": [
+        "mkdir",
+        "/etc/myapp"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "mkdir",
+      "classification_reason": "base classification from rule mkdir; elevated to DANGEROUS: system path /etc/myapp",
+      "inner_commands": []
+    }
+  ]
+}

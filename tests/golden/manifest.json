@@ -1,0 +1,3340 @@
+{
+  "case_count": 175,
+  "cases": [
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 14,
+          "test_id": "tests/test_classifier.py::TestSpecExamples::test_kubectl_pipeline"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "5675229d2b4bd513b07e79cfd1a2180e27f81d56a50bea2bebaff784865aa43e",
+      "input_sha256": "89a14cc2c92e47675daee7a6551d3aa4a1d1a5f2813fc0dd99950601d9b38325",
+      "name": "001-kubectl-context-prod-get-pods-n-kube-system-grep",
+      "origin": "tests/test_classifier.py::TestSpecExamples::test_kubectl_pipeline",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 14
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 33,
+          "test_id": "tests/test_classifier.py::TestSpecExamples::test_find_xargs_rm"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "da763f36a0bddc653675fd2770ee4f1fa6617a6dcfe6ca5e3ff2e6fe3a47918d",
+      "input_sha256": "756b8c872a2b0b17acf95c060759eb30356a6336e6daf857de335261ad767594",
+      "name": "002-find-tmp-name-log-xargs-i-rm",
+      "origin": "tests/test_classifier.py::TestSpecExamples::test_find_xargs_rm",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 33
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 54,
+          "test_id": "tests/test_classifier.py::TestSpecExamples::test_find_exec_rm"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "2d58c6ba7ed1e09f55f554e562f7a7acbfa522074ae4d722b5327202c5b31085",
+      "input_sha256": "415b62367b21710a9ee2ad6532ab1d0bc17b24bedf1822e35bb91f31b4ba36ae",
+      "name": "003-find-name-tmp-exec-rm-f",
+      "origin": "tests/test_classifier.py::TestSpecExamples::test_find_exec_rm",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 54
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 72,
+          "test_id": "tests/test_classifier.py::TestSpecExamples::test_find_exec_grep_is_readonly"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "c7d609bbc64695d3bf6e5d728b483d742d7d810c78ce72b310d36daf09aab460",
+      "input_sha256": "3bc093d37e6938fabac06b04771047dffe08770131834ec49016942ea48f14fa",
+      "name": "004-find-name-java-exec-grep-l-pattern",
+      "origin": "tests/test_classifier.py::TestSpecExamples::test_find_exec_grep_is_readonly",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 72
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 91,
+          "test_id": "tests/test_classifier.py::TestSpecExamples::test_kubectl_exec_cat"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 319,
+          "test_id": "tests/test_real_world.py::TestKubernetes::test_kubectl_exec_cat"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "099e41d01278e8db8155de33e159c82f2e21d168f1888f0bcf4adc4cadde5cae",
+      "input_sha256": "2d288265dd91262cc60a14d57f80d0a2717654625b92b42b97f1fb7ca8f8e949",
+      "name": "005-kubectl-exec-it-my-pod-cat-etc-config",
+      "origin": "tests/test_classifier.py::TestSpecExamples::test_kubectl_exec_cat",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 91
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 110,
+          "test_id": "tests/test_classifier.py::TestSpecExamples::test_sh_c_expression"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "033ecfa786f1490d3e927b066f30f586e38304bdf7be2ef6a718b9b4dfbf49b0",
+      "input_sha256": "b217db1f50d98417af68fb1882ae35fcf527e6471e5782b734bc4d19753b4026",
+      "name": "006-sh-c-ls-tmp-grep-log",
+      "origin": "tests/test_classifier.py::TestSpecExamples::test_sh_c_expression",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 110
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 134,
+          "test_id": "tests/test_classifier.py::TestCompositeClassification::test_pipe_both_readonly"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 624,
+          "test_id": "tests/test_classifier.py::TestRiskExpressionAggregation::test_expression_all_readonly_low_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "e6e4a945fa8099a0da471553d76bd0d05aa247c2409c58fb008835373228329d",
+      "input_sha256": "f30a4e7db2eac83385d1274fe3ff977a9c867e071754b53b36d32bdd6aabc2b3",
+      "name": "007-ls-grep-pattern",
+      "origin": "tests/test_classifier.py::TestCompositeClassification::test_pipe_both_readonly",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 134
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 138,
+          "test_id": "tests/test_classifier.py::TestCompositeClassification::test_pipe_readonly_and_dangerous"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 619,
+          "test_id": "tests/test_classifier.py::TestRiskExpressionAggregation::test_expression_risk_is_max_across_commands"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "784f82168a4d682ebac94729ed8906b9368ac54cb816c8ddaf0bec494895a153",
+      "input_sha256": "2c7f646d4ccf6056b664120db525621f5b254e9077ca59f467649ddeda37d7d7",
+      "name": "008-ls-rm-file",
+      "origin": "tests/test_classifier.py::TestCompositeClassification::test_pipe_readonly_and_dangerous",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 138
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 142,
+          "test_id": "tests/test_classifier.py::TestCompositeClassification::test_unknown_trumps_readonly"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "a91bdb9f243f248ff6f930b88a617801ba8be5288c64c7550b06ecaba7f8d520",
+      "input_sha256": "f5514b783d3b82a9a319d64839a999018fbc5c0dbc313d519a86bedb1af12ef9",
+      "name": "009-echo-hello-unknown-command",
+      "origin": "tests/test_classifier.py::TestCompositeClassification::test_unknown_trumps_readonly",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 142
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 146,
+          "test_id": "tests/test_classifier.py::TestCompositeClassification::test_semicolons_both_readonly"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "a411d08e767b6f643d2dd98655018b498b9e7cecd08f846eb5e6bbe4c2027ee8",
+      "input_sha256": "7e62d029c23ef3a15acb8299590e646ada111747118231cce0b2a86cc3652234",
+      "name": "010-cat-file-echo-done",
+      "origin": "tests/test_classifier.py::TestCompositeClassification::test_semicolons_both_readonly",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 146
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 152,
+          "test_id": "tests/test_classifier.py::TestRedirectEffects::test_output_redirect_elevates_to_write"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 583,
+          "test_id": "tests/test_classifier.py::TestRiskRedirectElevation::test_output_redirect_medium_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "24bc909d53b7fd21d76a39a58b4a42c1863927788b7d9dcbb55bdf58ccb31837",
+      "input_sha256": "0011407273fd9a94b0cae98472384800c0e169028c101ef3cd50ab21b347afba",
+      "name": "011-echo-hello-output-txt",
+      "origin": "tests/test_classifier.py::TestRedirectEffects::test_output_redirect_elevates_to_write",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 152
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 156,
+          "test_id": "tests/test_classifier.py::TestRedirectEffects::test_devnull_redirect_no_elevation"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 287,
+          "test_id": "tests/test_classifier.py::TestDevNullRedirectNoElevation::test_devnull_redirect_no_elevation"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 531,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_dev_null_safe"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 588,
+          "test_id": "tests/test_classifier.py::TestRiskRedirectElevation::test_devnull_redirect_stays_low_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "347655626570255feeca9eccfd23a39706ffa484c296a7df1e0ea54803fbc5c6",
+      "input_sha256": "25db45399aadb25b51b40ad7dcb80334f3606a9466b445c9fae00067a2627d4e",
+      "name": "012-echo-hello-dev-null",
+      "origin": "tests/test_classifier.py::TestRedirectEffects::test_devnull_redirect_no_elevation",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 156
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 160,
+          "test_id": "tests/test_classifier.py::TestRedirectEffects::test_append_redirect_elevates_to_write"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "e391001e27551af22e8e52b30409fd165adc83b532943d2f0015986b8135b594",
+      "input_sha256": "7b1c28f84d62ab8346a33c3f659c7791d61f83e96dee2afea196a4985657a7ad",
+      "name": "013-echo-hello-file-log",
+      "origin": "tests/test_classifier.py::TestRedirectEffects::test_append_redirect_elevates_to_write",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 160
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 164,
+          "test_id": "tests/test_classifier.py::TestRedirectEffects::test_input_redirect_no_elevation"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "21c21d306fb6a9255a0fd0e1d7d8caa5ac4993b204f3b25a95e2837f9622e6ba",
+      "input_sha256": "2842ea9f97dd4f19068de6d5f873aa45fb46bc65e26f171ff0ed34dcd66ec712",
+      "name": "014-cat-input-txt",
+      "origin": "tests/test_classifier.py::TestRedirectEffects::test_input_redirect_no_elevation",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 164
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 168,
+          "test_id": "tests/test_classifier.py::TestRedirectEffects::test_stderr_devnull_no_elevation"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "57e94456a7d67d369e9d8d7faa74e7329470ffa55559ce91ead6c297b2fcadb9",
+      "input_sha256": "edd1c49fba83ec20cb7b4296b03b7e2cdc7482ae206fbe012fc82daa389cd5a1",
+      "name": "015-cmd-2-dev-null",
+      "origin": "tests/test_classifier.py::TestRedirectEffects::test_stderr_devnull_no_elevation",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 168
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 183,
+          "test_id": "tests/test_classifier.py::TestDirectoryDetection::test_cd_directory"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "ccf0b62232ddccc3aafe9a7bd26aa3e6ee9148c0a78bd63765b0d73bc8879bb2",
+      "input_sha256": "848a20b82e7f78ac5df0ae67e9afa46bb1e80888c6e2f9eb8af333a5fce89db4",
+      "name": "016-cd-tmp-ls",
+      "origin": "tests/test_classifier.py::TestDirectoryDetection::test_cd_directory",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 183
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 187,
+          "test_id": "tests/test_classifier.py::TestDirectoryDetection::test_find_directory"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "81b03803d58b4a8e9af4390ff6fa1bdedd5c88a154c50dd6c059933159067bcc",
+      "input_sha256": "8872e016611620c7328092bedf6f2c3fd04405ac731a460c9ac3b828b95d6e08",
+      "name": "017-find-var-log-name-log",
+      "origin": "tests/test_classifier.py::TestDirectoryDetection::test_find_directory",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 187
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 191,
+          "test_id": "tests/test_classifier.py::TestDirectoryDetection::test_git_c_directory"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "895684aeeafa3d8c5ccd29a302232fdc00331c0279164ec789b740398a6513b8",
+      "input_sha256": "23cad95a17f3306fcb2add1e5108132163c3cf9817d66cb36b577e5c896ca6b8",
+      "name": "018-git-c-some-repo-status",
+      "origin": "tests/test_classifier.py::TestDirectoryDetection::test_git_c_directory",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 191
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 197,
+          "test_id": "tests/test_classifier.py::TestCatDirectoryDetection::test_cat_extracts_dirname"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "a8b53722e6f486b82c9e148a5cc8ed53c268d0765457e06327f86edeac80e952",
+      "input_sha256": "0c2c112c8d954d168f43cc0968d46afabb5f2ac3949d242be01446e0f5cd6395",
+      "name": "019-cat-etc-config",
+      "origin": "tests/test_classifier.py::TestCatDirectoryDetection::test_cat_extracts_dirname",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 197
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 201,
+          "test_id": "tests/test_classifier.py::TestCatDirectoryDetection::test_cat_no_slash_no_directory"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "e494b960a37eb998913880507907dd37aa8cd8c2cb4352c84a11a1b46859f095",
+      "input_sha256": "cb548fb37c04c2d579eb0d8115936766ada0ea5651b5a06fe835275cb2e8bdf1",
+      "name": "020-cat-file-txt",
+      "origin": "tests/test_classifier.py::TestCatDirectoryDetection::test_cat_no_slash_no_directory",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 201
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 205,
+          "test_id": "tests/test_classifier.py::TestCatDirectoryDetection::test_cat_nested_path"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "2fbdf8ca3db099373d37ff671ad375feeb488b71d480601d6ccf793447ae7414",
+      "input_sha256": "7052064eea30f079235167ed93d38b85b7f01af9801f1a17a740abd758d27f0c",
+      "name": "021-cat-var-log-syslog",
+      "origin": "tests/test_classifier.py::TestCatDirectoryDetection::test_cat_nested_path",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 205
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 211,
+          "test_id": "tests/test_classifier.py::TestBackgrounding::test_background_elevates_to_write"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 274,
+          "test_id": "tests/test_classifier.py::TestBackgroundOnReadonly::test_background_elevates_readonly_to_write"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 612,
+          "test_id": "tests/test_classifier.py::TestRiskBackgrounding::test_backgrounding_at_least_medium_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "6c61876e3bc8dc5911d740ca04c9a7bbe157498b5d45a86c79f8a97c1b76af30",
+      "input_sha256": "623e7702ad108c72e1e3d45617e136dd006f8bed693dd0a8f8524fc46167c802",
+      "name": "022-echo-hello",
+      "origin": "tests/test_classifier.py::TestBackgrounding::test_background_elevates_to_write",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 211
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 218,
+          "test_id": "tests/test_classifier.py::TestEdgeCases::test_empty_string"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 361,
+          "test_id": "tests/test_classifier.py::TestMalformedBashDefaultsToUnknown::test_empty_string_stays_readonly"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 629,
+          "test_id": "tests/test_classifier.py::TestRiskExpressionAggregation::test_empty_expression_low_risk"
+        },
+        {
+          "call": "_run_cli",
+          "file": "tests/test_cli.py",
+          "line": 41,
+          "test_id": "tests/test_cli.py::TestCliBasic::test_empty_string_exits_with_1"
+        }
+      ],
+      "expected_exit": 1,
+      "expected_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "input_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "name": "023-empty",
+      "origin": "tests/test_classifier.py::TestEdgeCases::test_empty_string",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 218
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 223,
+          "test_id": "tests/test_classifier.py::TestEdgeCases::test_comment_only"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "7c0cf58ac85acfe910bf2addc6c143c2a79de6c810097a2455dd2ce98355762a",
+      "input_sha256": "9c84426204a38250ff36f547929393b6b2526b0c24776e31a205bb9c0de18aa8",
+      "name": "024-just-a-comment",
+      "origin": "tests/test_classifier.py::TestEdgeCases::test_comment_only",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 223
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 229,
+          "test_id": "tests/test_classifier.py::TestEdgeCases::test_complex_nested_delegation_chain"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "b7a4fff7a0fb74269e4dfcd40e5f132feebcfbb95e77f2782bdbe56eab384ff3",
+      "input_sha256": "40f2e6b66dbc6bf1e1cc62ac67a262d778e089a94cec8f49b97f4a60dba7d1da",
+      "name": "025-foo-bar-sudo-env-path-usr-bin-sh-c-kubectl-conte",
+      "origin": "tests/test_classifier.py::TestEdgeCases::test_complex_nested_delegation_chain",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 229
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 244,
+          "test_id": "tests/test_classifier.py::TestVariableInCommandPosition::test_variable_command"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 634,
+          "test_id": "tests/test_classifier.py::TestRiskExpressionAggregation::test_variable_in_command_position_high_risk"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 291,
+          "test_id": "tests/test_real_world.py::TestVariableExpansion::test_variable_in_command_position"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "a7287d1efcd6b578c5114133e1d8aa375e205f17932f00e3328225239ad29161",
+      "input_sha256": "5971207c0be87b6c7c00fd59ed6124bfb729739c693f8c534db68e1b7f629711",
+      "name": "026-cmd-arg1-arg2",
+      "origin": "tests/test_classifier.py::TestVariableInCommandPosition::test_variable_command",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 244
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 255,
+          "test_id": "tests/test_classifier.py::TestAutoLoadDatabase::test_classify_without_database_arg"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 262,
+          "test_id": "tests/test_classifier.py::TestLsDirectoryDetection::test_ls_directory"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "bb7da96e363bbbce06e25973dd83b02965e2c551ba23e896bc4960c0af8bb897",
+      "input_sha256": "5010e098f1cd8b7c563bf455ca1d8b9308e9cb7b3527325c5d3769b81f1dbaf0",
+      "name": "027-ls-tmp",
+      "origin": "tests/test_classifier.py::TestAutoLoadDatabase::test_classify_without_database_arg",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 255
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 268,
+          "test_id": "tests/test_classifier.py::TestHeadDirectoryDetection::test_head_directory"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "f26e48cbe7fa333f065b85dcd9634e8739448744868f4dff3d2aae066b346ffa",
+      "input_sha256": "8f9aa979b6d091ac1ad51bd7008637dc911039a7eb66351916611a2bf78491b9",
+      "name": "028-head-var-log-syslog",
+      "origin": "tests/test_classifier.py::TestHeadDirectoryDetection::test_head_directory",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 268
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 281,
+          "test_id": "tests/test_classifier.py::TestInputRedirectNoElevation::test_input_redirect_no_elevation"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "e5be232e239a4483ef36fd2223ca2d0b04f42fbdaee3f78ad2e40ee5cfcf724c",
+      "input_sha256": "1e24fc317c686fa7bb754d60174f4e7f19d3fa2e0e0ff324e58366d02c32f0f2",
+      "name": "029-cat-file-txt-2",
+      "origin": "tests/test_classifier.py::TestInputRedirectNoElevation::test_input_redirect_no_elevation",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 281
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 293,
+          "test_id": "tests/test_classifier.py::TestHeredocHerestring::test_heredoc_no_elevation"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "b0d369541807f8383b1edcbfd1a5589664265a184139dc915e91e543f57ac83c",
+      "input_sha256": "a03760c0428c5962e3ff188561f5402ba79f7c4431feb393e49748b5b02f2b93",
+      "name": "030-cat-eof-hello-eof",
+      "origin": "tests/test_classifier.py::TestHeredocHerestring::test_heredoc_no_elevation",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 293
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 297,
+          "test_id": "tests/test_classifier.py::TestHeredocHerestring::test_herestring_no_elevation"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "1c48fb0e213362a34d34f0fcecca0a431f1fee9eb32665a03ae0e3be974ca98f",
+      "input_sha256": "27b72c1523f3ff665ab2e46710176994d2bb83858935df49c04afb096129fa71",
+      "name": "031-cat-hello",
+      "origin": "tests/test_classifier.py::TestHeredocHerestring::test_herestring_no_elevation",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 297
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 303,
+          "test_id": "tests/test_classifier.py::TestMultipleMixedCommands::test_echo_redirect_then_cat"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "074fec29a407a5656da671e8069be4d6abe3c91778ca33d52c21bcad2af86c42",
+      "input_sha256": "ef4bfa769bef34e5a0c7ca811a465e2d89d37b59bb17ffd77c3a511316688fe4",
+      "name": "032-echo-hello-file-cat-file",
+      "origin": "tests/test_classifier.py::TestMultipleMixedCommands::test_echo_redirect_then_cat",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 303
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 309,
+          "test_id": "tests/test_classifier.py::TestNegativeReadonlyNotWrite::test_cat_file_not_write"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 313,
+          "test_id": "tests/test_classifier.py::TestNegativeReadonlyNotWrite::test_cat_file_is_readonly"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "bd16da993a4018cdfbb0b4635a0a94cd797d9a582076e8198d6a309250c00082",
+      "input_sha256": "3f8dadbf5f93f44ed14232aa50d67c0c5cc8896efe05d0db93e6984190f8327b",
+      "name": "033-cat-file",
+      "origin": "tests/test_classifier.py::TestNegativeReadonlyNotWrite::test_cat_file_not_write",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 309
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 319,
+          "test_id": "tests/test_classifier.py::TestNegativeUnknownCommand::test_unknown_command_is_exactly_unknown"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "0bed0a727c27394eadb2fb4add66df495df94bc65fbdc84b7eeb2a62f7e8fd37",
+      "input_sha256": "b598aa5c178a16452a564e99b9cae0bbb8329a5bc534c7b523497a99520130bd",
+      "name": "034-randomcmd123",
+      "origin": "tests/test_classifier.py::TestNegativeUnknownCommand::test_unknown_command_is_exactly_unknown",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 319
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 325,
+          "test_id": "tests/test_classifier.py::TestNegativeForceWithLease::test_force_with_lease_not_dangerous"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "549356357b222d3d84b1fed89cb14d24746f03f09e91765822abc7682845c82a",
+      "input_sha256": "462ae18a2b1c523a0216c973da88b47b0001f8e790185ac1d893021fc8dd4127",
+      "name": "035-git-push-force-with-lease",
+      "origin": "tests/test_classifier.py::TestNegativeForceWithLease::test_force_with_lease_not_dangerous",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 325
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 332,
+          "test_id": "tests/test_classifier.py::TestReadBuiltin::test_read_is_readonly"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "959db6b4138ef7438f8f4ece85260aa880d8d601220b82a554e7298220c16cab",
+      "input_sha256": "652671828c1d21f5a32f86da5b814f30fa46b8496e1aa86efae676800f2981e7",
+      "name": "036-read-name",
+      "origin": "tests/test_classifier.py::TestReadBuiltin::test_read_is_readonly",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 332
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 338,
+          "test_id": "tests/test_classifier.py::TestFdToFdRedirectClassification::test_stderr_to_stdout_no_write_elevation"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "7e8b4194c3ff911a1ba5de2eb5c2ef5f6dbadb8e70470a754467469aab7de72c",
+      "input_sha256": "f3e991df21ac95f919c6a13d661fde084a934af6893532ad42f70249a9a861ed",
+      "name": "037-echo-hello-2-1",
+      "origin": "tests/test_classifier.py::TestFdToFdRedirectClassification::test_stderr_to_stdout_no_write_elevation",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 338
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 342,
+          "test_id": "tests/test_classifier.py::TestFdToFdRedirectClassification::test_stderr_to_file_elevates_to_write"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "2c0279ca1e8b592e457767f79c3078e3663b72bb02d4abb4dc84abf2ad0b4ab2",
+      "input_sha256": "f6a028640b47d71f1e37f9ef9758eb9c929baa943bb8633160533a65366652b4",
+      "name": "038-echo-hello-2-error-log",
+      "origin": "tests/test_classifier.py::TestFdToFdRedirectClassification::test_stderr_to_file_elevates_to_write",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 342
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 348,
+          "test_id": "tests/test_classifier.py::TestParseWarningsIntegration::test_syntax_error_populates_warnings"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "87399ca09f953f5dee1b7a0bdf60d03a808d5af988c5dd6e97705da03b18365a",
+      "input_sha256": "7220bb741281ef9547eac358717bd39fde592cf175a8f31cff72d783e8fb37ae",
+      "name": "039-if-then-fi-else",
+      "origin": "tests/test_classifier.py::TestParseWarningsIntegration::test_syntax_error_populates_warnings",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 348
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 355,
+          "test_id": "tests/test_classifier.py::TestMalformedBashDefaultsToUnknown::test_malformed_bash_classifies_as_unknown"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 639,
+          "test_id": "tests/test_classifier.py::TestRiskExpressionAggregation::test_malformed_bash_high_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "fffb32f52d8e7cc9515f888fa18ee8b4b20bbc45849fac3130d34d24fafcd10c",
+      "input_sha256": "f5df6a69d0918f3dc9ef70b28ac962bfa997b6be1af298b3e09b365e995a761b",
+      "name": "040-if-then-fi",
+      "origin": "tests/test_classifier.py::TestMalformedBashDefaultsToUnknown::test_malformed_bash_classifies_as_unknown",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 355
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 368,
+          "test_id": "tests/test_classifier.py::TestDevTcpUdpDetection::test_cat_dev_tcp_in_argv"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 595,
+          "test_id": "tests/test_classifier.py::TestRiskDevTcpUdp::test_dev_tcp_high_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "7ddb7587fc48e6ae8c6bb60459e49d6240e5303f5d7cf896b9bf99da65761b06",
+      "input_sha256": "d8d6ab00a677090abd2c17ea35ab9f8e8f6484329a570dd11570e535016c3058",
+      "name": "041-cat-dev-tcp-evil-com-80",
+      "origin": "tests/test_classifier.py::TestDevTcpUdpDetection::test_cat_dev_tcp_in_argv",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 368
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 372,
+          "test_id": "tests/test_classifier.py::TestDevTcpUdpDetection::test_echo_redirect_to_dev_tcp"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 605,
+          "test_id": "tests/test_classifier.py::TestRiskDevTcpUdp::test_redirect_to_dev_tcp_high_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "1bfc8ad9956392a90089278abbe75060f037e4665d9a9f469fe5d585c5bbeb8a",
+      "input_sha256": "a1970c32fb4c04771edca73e5c688599e9d641106f7987051b1d725da2be98fd",
+      "name": "042-echo-data-dev-tcp-evil-com-80",
+      "origin": "tests/test_classifier.py::TestDevTcpUdpDetection::test_echo_redirect_to_dev_tcp",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 372
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 376,
+          "test_id": "tests/test_classifier.py::TestDevTcpUdpDetection::test_cat_input_redirect_from_dev_tcp"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "5ae0e9f1a881d3021569ac77c0736db8c6eb574e6d57bc8e38d494c885179b03",
+      "input_sha256": "2178306daf782aff784d62a6dc531d1299e8310748b140e830fcce476314888d",
+      "name": "043-cat-dev-tcp-evil-com-80-2",
+      "origin": "tests/test_classifier.py::TestDevTcpUdpDetection::test_cat_input_redirect_from_dev_tcp",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 376
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 380,
+          "test_id": "tests/test_classifier.py::TestDevTcpUdpDetection::test_dev_udp_in_argv"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 600,
+          "test_id": "tests/test_classifier.py::TestRiskDevTcpUdp::test_dev_udp_high_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "08d6c8a8d0c42d6be3b5b1f8e7d0d7da5538b9eaa7d60fbba3b068b10f153208",
+      "input_sha256": "a1ee64e7aa9f7d4c40a698eaa5f9f493a3a61601799ea72d018d0bf0682318b6",
+      "name": "044-cat-dev-udp-evil-com-53",
+      "origin": "tests/test_classifier.py::TestDevTcpUdpDetection::test_dev_udp_in_argv",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 380
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 386,
+          "test_id": "tests/test_classifier.py::TestCommandBuiltinDelegation::test_command_delegates_to_cat"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "2d997e4e841ae3c0fd17eee52fe7815863dbc6a00721e85394cb6d1b02289caa",
+      "input_sha256": "1d42acad7732330775aa4959ddcd7c73ba626a1d081a6b803ebc3fadd1a27077",
+      "name": "045-command-cat-etc-hosts",
+      "origin": "tests/test_classifier.py::TestCommandBuiltinDelegation::test_command_delegates_to_cat",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 386
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 390,
+          "test_id": "tests/test_classifier.py::TestCommandBuiltinDelegation::test_command_delegates_to_rm"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "f7622d336215484de71a14426fcad67785de18c0668f32d39950d3b03290aca4",
+      "input_sha256": "2a134cb16d3cc18916e58cdc174171b80adbe15635791b839d0d59a7da643259",
+      "name": "046-command-rm-rf",
+      "origin": "tests/test_classifier.py::TestCommandBuiltinDelegation::test_command_delegates_to_rm",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 390
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 394,
+          "test_id": "tests/test_classifier.py::TestCommandBuiltinDelegation::test_builtin_delegates_to_echo"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "b7d7fbf25ba97d00509b3393e150cfed31a4e7447c75b2bfd98aab47282882ea",
+      "input_sha256": "04bfa8183e6bcd00113c82d7bc4a65e81c645ecab32ec074a05f00b4fe869d1e",
+      "name": "047-builtin-echo-hello",
+      "origin": "tests/test_classifier.py::TestCommandBuiltinDelegation::test_builtin_delegates_to_echo",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 394
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 400,
+          "test_id": "tests/test_classifier.py::TestPathPrefixStripping::test_usr_bin_cat_resolves"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "02ce299fc504ef9813abc1e3b31db826f165c639e2c499bac1045d4a05860124",
+      "input_sha256": "46035f81af3afa5cad2154b67b351b669ff93e6099e779b892fb6a15f9b8e5f3",
+      "name": "048-usr-bin-cat-etc-hosts",
+      "origin": "tests/test_classifier.py::TestPathPrefixStripping::test_usr_bin_cat_resolves",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 400
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 404,
+          "test_id": "tests/test_classifier.py::TestPathPrefixStripping::test_usr_bin_rm_resolves"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "ca17cd9003671b58d5bbe9eb5102924eeb8f0c3b5d1f4571a5e90b9187e18cb2",
+      "input_sha256": "b39fd0929f3258625af6249542fd21bc3d6bec04a7f4f8ce282447552c35dd87",
+      "name": "049-usr-bin-rm-rf",
+      "origin": "tests/test_classifier.py::TestPathPrefixStripping::test_usr_bin_rm_resolves",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 404
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 408,
+          "test_id": "tests/test_classifier.py::TestPathPrefixStripping::test_relative_script_stays_unknown"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "28029c7b238fddfc4a7ed69f3673ba89b7b72ec214d8c1e085d160350b7bd794",
+      "input_sha256": "b6b3652c3060d1644c32fb9752a223b3bacc033680bf008e51b6a8bef64b8a99",
+      "name": "050-my-script-sh",
+      "origin": "tests/test_classifier.py::TestPathPrefixStripping::test_relative_script_stays_unknown",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 408
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 414,
+          "test_id": "tests/test_classifier.py::TestAmpersandRedirectClassification::test_ampersand_redirect_to_file_is_write"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "6f8917bd1aaae7f15b050f3d8744ad4f3c4dd01a4a2046d62c5affbc14e9db76",
+      "input_sha256": "29973de2d1a82db47676340a089ec6d97fdd5a2b503ea9d11d043bb436962755",
+      "name": "051-echo-hello-output-txt-2",
+      "origin": "tests/test_classifier.py::TestAmpersandRedirectClassification::test_ampersand_redirect_to_file_is_write",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 414
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 418,
+          "test_id": "tests/test_classifier.py::TestAmpersandRedirectClassification::test_ampersand_redirect_to_devnull_is_readonly"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "c7bad462888f2d620f4a0c3dc0090f909ae70822035e07d4f6b61d942a7a1378",
+      "input_sha256": "d99420369f405058c920d98950ae431d63c4d1cbed79d1a7bbb8fc5e316c3d86",
+      "name": "052-echo-hello-dev-null-2",
+      "origin": "tests/test_classifier.py::TestAmpersandRedirectClassification::test_ampersand_redirect_to_devnull_is_readonly",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 418
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 424,
+          "test_id": "tests/test_classifier.py::TestPushdDirectoryDetection::test_pushd_directory"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "94b6154ac966def8956509345ee34cbf370d08b486e76d884cb8ad1edf872b6c",
+      "input_sha256": "fe7decb94e1838e0d79bb4af843a7b78c5e31eab5354d8bda01430d5aae5028a",
+      "name": "053-pushd-opt-ls",
+      "origin": "tests/test_classifier.py::TestPushdDirectoryDetection::test_pushd_directory",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 424
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 430,
+          "test_id": "tests/test_classifier.py::TestTeeClassification::test_tee_is_write"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "d19f44a84816f4ffb6ad4b554228113a581f761f6d56610d063ea5a5a1394e83",
+      "input_sha256": "d0b180c8f18d7b90a4b69b652b3e61f6d666d1c7584c2ad26780f8f083fd3fae",
+      "name": "054-echo-hello-tee-output-txt",
+      "origin": "tests/test_classifier.py::TestTeeClassification::test_tee_is_write",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 430
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 475,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_etc_is_dangerous"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 571,
+          "test_id": "tests/test_classifier.py::TestRiskSystemPathElevation::test_write_to_system_path_high_risk"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 387,
+          "test_id": "tests/test_real_world.py::TestFileOperations::test_cp_to_etc"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "98f48afc9c5bdd3309e06c593dd40cb8b9e945f3edd952de9b9ff8cf9e6fb90e",
+      "input_sha256": "296c0cc99eebfadcb93956eae77afccc89210936f7222f00e1bfb22129e4feb3",
+      "name": "055-cp-config-txt-etc-myapp-config",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_etc_is_dangerous",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 475
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 479,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_usr_is_dangerous"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "ec2740f4fea30c430a9341a3df2bc76c3579992052ed27390544dd202751828f",
+      "input_sha256": "666925c5f11e2cf326aa3dfdf3baa7eba83650697e94ea270501911e97a84ac4",
+      "name": "056-cp-binary-usr-local-bin-mybinary",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_usr_is_dangerous",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 479
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 483,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_read_from_etc_is_readonly"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "68580e974c6f3090ad8ecc7b1af168fe7be1a36a6969e1729d9255ddf9325927",
+      "input_sha256": "4a1b39050af3e15508cf644c461e37af0ff30b5e01c67fc2218856191cfe6e38",
+      "name": "057-cat-etc-hosts",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_read_from_etc_is_readonly",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 483
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 487,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_read_from_usr_is_readonly"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "3c18e6772912fa1422a7b16ef0481e1be831682a2e912b897949b46316b15ab1",
+      "input_sha256": "3b72356e2e5cba773eb63397d626f8c61d5664eb053d894495b53cc132fb9448",
+      "name": "058-ls-usr-local-bin",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_read_from_usr_is_readonly",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 487
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 491,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_tmp_not_elevated"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "890b23813c6ad71a5571bae8ed42e7c327bfc9c848e2b625236817b82faac0f2",
+      "input_sha256": "dfdaf0491e39d7bc2d89c6baaf04af857af70d31110ad7a73f52e4646aa91d68",
+      "name": "059-cp-file-tmp-backup",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_tmp_not_elevated",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 491
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 495,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_home_not_elevated"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "332b35c9250bdda6c321c3c4a3fa88813345f2e01681ca2a2ff9416d1f3d4861",
+      "input_sha256": "ecb6b4678e8448e30e3289feaa1a4d8bd17d7b6131db5e8d4c81513b19239fe4",
+      "name": "060-cp-file-home-user-backup",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_home_not_elevated",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 495
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 499,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_var_tmp_not_elevated"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "5f287aa478210bd9ab7a7b1631789c3ea548b42eebeb93895bdade46d29e46bc",
+      "input_sha256": "392ea36bb82b7be192df89e08e9cb5ada22414c5f7e837e4fb7dd521e3db9531",
+      "name": "061-cp-file-var-tmp-backup",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_var_tmp_not_elevated",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 499
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 503,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_var_log_is_dangerous"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "3ff18a7258d6340948ad6044a230bde75a8c89305a7be3e4ea90ca4d26ebb32d",
+      "input_sha256": "af291ab082ecabc1d1779d27b60fe3132d33fd98679adeb8a4819a7d47fefcad",
+      "name": "062-cp-file-var-log-myapp-log",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_write_to_var_log_is_dangerous",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 503
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 507,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_redirect_to_etc_is_dangerous"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 576,
+          "test_id": "tests/test_classifier.py::TestRiskSystemPathElevation::test_redirect_to_system_path_high_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "8112e4c70495d7d86a2ac4961ca1cea5e6d7399f2198f83edbe2cac2aed59aea",
+      "input_sha256": "226fcb300fa77699d8319a08de8ff1c07220df373cdc9e726396e971df9afb77",
+      "name": "063-echo-config-etc-myapp-conf",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_redirect_to_etc_is_dangerous",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 507
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 511,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_redirect_to_tmp_not_elevated"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 244,
+          "test_id": "tests/test_real_world.py::TestRedirects::test_redirect_to_file"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "4eb11db178653642c34dbb10085791c6774c5be51c449e2c40d309aa8b0e6d55",
+      "input_sha256": "413b56fde5803fcc5f4c6fd5ea6d37dcabf8267c0095655fbbfc48dfd5e3b556",
+      "name": "064-echo-hello-tmp-test-txt",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_redirect_to_tmp_not_elevated",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 511
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 515,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_mkdir_in_etc_is_dangerous"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "b649ea6ef4100b054ee42c9e29d5acb4956308d03b24a1244fdbb8c63724e5dd",
+      "input_sha256": "86fcd0fd45e1021143e8199468e2587a2ce963bb6dfa1b748b83794cc08887a8",
+      "name": "065-mkdir-etc-myapp",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_mkdir_in_etc_is_dangerous",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 515
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 519,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_touch_in_opt_is_dangerous"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "218eda7a3335edb4d3bbdade9daa1f771052c591aed641b6565f1d59ff9f7529",
+      "input_sha256": "027d54938f8331c3d3f41d8193d3426497cf1dcc6f236400317cf7613bf4d92b",
+      "name": "066-touch-opt-myapp-config",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_touch_in_opt_is_dangerous",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 519
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 523,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_chmod_in_usr_is_dangerous"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "4f532f4a230c7a59acd30a88d9524cb607cfac1a54908f5bc3f2a69805af2bdd",
+      "input_sha256": "7abc74593fcdafc79233c9fbb0ce1f37a74ad6fdede4aec4ec742530dec63ae7",
+      "name": "067-chmod-755-usr-local-bin-script-sh",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_chmod_in_usr_is_dangerous",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 523
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 527,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_rm_is_already_dangerous"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "48ad40ccad3dd4ee601df7b71feed1d1ba37cb245b7840f089448a5cefea5882",
+      "input_sha256": "ff97eed0aa77b73c907d83ad8ecbc23698c4c07191d278b34bc4863224759c4d",
+      "name": "068-rm-etc-config",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_rm_is_already_dangerous",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 527
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 535,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_relative_path_not_elevated"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "7925195f8e67dcfb006727b0dc7b15d65d5999602bbee5e4c79f1d399189f071",
+      "input_sha256": "d17642d19856bace82f37128462aa69423652738801f5755507689075102be00",
+      "name": "069-cp-file-etc-config",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_relative_path_not_elevated",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 535
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 539,
+          "test_id": "tests/test_classifier.py::TestSystemDirectoryClassification::test_git_commit_with_system_path_message_not_elevated"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "0ed65ee8fd9ec4e74fcbd62e4b5bbfb1943050ff69f09e1f70c0c5749dcef265",
+      "input_sha256": "4ccbf7a4e4e0372009eb3110cf455d9eeb31edaba3a35ded3e3224f7a37b3024",
+      "name": "070-git-commit-m-fix-etc-config",
+      "origin": "tests/test_classifier.py::TestSystemDirectoryClassification::test_git_commit_with_system_path_message_not_elevated",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 539
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 560,
+          "test_id": "tests/test_classifier.py::TestUserCommandOverride::test_custom_command_classifies_correctly"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "1e6904c6a56395295a8da27dcfff945504fe6765b578be792bafa94e32c0aabe",
+      "input_sha256": "8a4d9ab293b80fd507e7fc47d5ebf51e9969a864dde438f92775c0d248c34590",
+      "name": "071-mycli-query-format-json",
+      "origin": "tests/test_classifier.py::TestUserCommandOverride::test_custom_command_classifies_correctly",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 560
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 648,
+          "test_id": "tests/test_classifier.py::TestFilePathDetection::test_write_to_tmp_stays_low_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "1d7ac71ffca34adb8569341a848bd8287d7a7cdd737df5d07ffa4887e4da3660",
+      "input_sha256": "528082737bcc0be230a9a7dd45aaca6faa7a796f685fcd562620de0d8291b81e",
+      "name": "072-cat-tmp-foo-txt",
+      "origin": "tests/test_classifier.py::TestFilePathDetection::test_write_to_tmp_stays_low_risk",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 648
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 656,
+          "test_id": "tests/test_classifier.py::TestFilePathDetection::test_write_to_var_tmp_stays_low_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "01c41892c9a47d3647ba05fa86a98011dc51c412cf1505cb7daad1960f641025",
+      "input_sha256": "753523b95fc22efc97a1e1e64665e0204375a9662a08366889eb039cbbd381f1",
+      "name": "073-cat-var-tmp-foo-txt",
+      "origin": "tests/test_classifier.py::TestFilePathDetection::test_write_to_var_tmp_stays_low_risk",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 656
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 662,
+          "test_id": "tests/test_classifier.py::TestFilePathDetection::test_write_to_home_elevates_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "7eb05eb045ed4b512451cb15b77e3abbcdac041c0f34a3a4006844f1dafae0e6",
+      "input_sha256": "9c15337cf961b05d08b7468a46c6fe98fa3da950324d28b18637f4ea6713e338",
+      "name": "074-cat-home-user-foo-txt",
+      "origin": "tests/test_classifier.py::TestFilePathDetection::test_write_to_home_elevates_risk",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 662
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 669,
+          "test_id": "tests/test_classifier.py::TestFilePathDetection::test_mixed_tmp_and_home_elevates_risk"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "1d5b00a8d96013b4a19dd5aa4f6716917214e0a08a3783022e8139aad727b0e1",
+      "input_sha256": "817ad0a071c0ee56b73f17a9eaaee8939936a4884131c76eb2918c12010707d5",
+      "name": "075-echo-hello-tmp-a-txt-home-user-b-txt",
+      "origin": "tests/test_classifier.py::TestFilePathDetection::test_mixed_tmp_and_home_elevates_risk",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 669
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 673,
+          "test_id": "tests/test_classifier.py::TestFilePathDetection::test_read_redirect_detected"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "f6b6aba9427b1ae660c60251c4d2efe45cd09301c8280747e66563ebb4d8ad0c",
+      "input_sha256": "ee9c1bc08b777dc2d0249cd311b730aac1c4f8e4112c284631af67c13ea6da61",
+      "name": "076-cat-home-user-data-txt",
+      "origin": "tests/test_classifier.py::TestFilePathDetection::test_read_redirect_detected",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 673
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 680,
+          "test_id": "tests/test_classifier.py::TestFilePathDetection::test_read_and_write_redirect"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "489f91e56460f1a934c1343fe2296b9687dc75ad15b6e3661471f144cb908e8d",
+      "input_sha256": "d7d1b02a26aee863ea2915f4987b59652ce1f2befb77dc34a0148ed28c870bd5",
+      "name": "077-sort-home-user-hosts-tmp-sorted-txt",
+      "origin": "tests/test_classifier.py::TestFilePathDetection::test_read_and_write_redirect",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 680
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 687,
+          "test_id": "tests/test_classifier.py::TestFilePathDetection::test_dev_null_excluded_from_write_paths"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "e33aee731754dfb1fa2d54889d13f1a10c5c43f2655f72979f028832d58e9239",
+      "input_sha256": "a0011a00c9eca4f5fa17f583cfd5436ea1741b6063d42c6e56cc22b8a25847d3",
+      "name": "078-cat-dev-null",
+      "origin": "tests/test_classifier.py::TestFilePathDetection::test_dev_null_excluded_from_write_paths",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 687
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 691,
+          "test_id": "tests/test_classifier.py::TestFilePathDetection::test_heredoc_not_in_read_paths"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "936bd0989d842422304ce88d2ecf094dd2bc8226b96ef3ad9f0b50d0ee93135e",
+      "input_sha256": "20a26ab9fc7e7281598ee2f0cb5f5c23b1c11d0a38160b5a1669b639a96bd494",
+      "name": "079-cat-eof-hello-eof-2",
+      "origin": "tests/test_classifier.py::TestFilePathDetection::test_heredoc_not_in_read_paths",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 691
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 695,
+          "test_id": "tests/test_classifier.py::TestFilePathDetection::test_expression_level_aggregation"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "824fe6f9a42e6adbe9a0d6cd39435c283a9b631cd7ccf442ef9cc9a1893e7108",
+      "input_sha256": "2b80c3252f594bcea8101a83443687f282086d1c3b820dae448eca0e4a2739d6",
+      "name": "080-cat-home-user-data-txt-tee-tmp-out-txt-tmp-log-t",
+      "origin": "tests/test_classifier.py::TestFilePathDetection::test_expression_level_aggregation",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 695
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 719,
+          "test_id": "tests/test_classifier.py::TestAliasOfClassification::test_alias_resolves_to_target"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "ddebad3afc4d904b957f3947fdb7d3e0b62f41000a8d291138a1255ffa9b1c2a",
+      "input_sha256": "b139370edb83b1e2e6a60fa26ee5a9eb08c0a2e08d2beb222d524c9aadb44637",
+      "name": "081-myalias-sub1",
+      "origin": "tests/test_classifier.py::TestAliasOfClassification::test_alias_resolves_to_target",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 719
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 720,
+          "test_id": "tests/test_classifier.py::TestAliasOfClassification::test_alias_resolves_to_target"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "24b9b7e60ecaf6d83143a8107387f93814d67118a4c682015b0f70004a33ebcf",
+      "input_sha256": "f63b53d9a6e6fbc2aed6e12722500d1c8c72fe1416515e0e65e378fb527a93f4",
+      "name": "082-target-sub1",
+      "origin": "tests/test_classifier.py::TestAliasOfClassification::test_alias_resolves_to_target",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 720
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 730,
+          "test_id": "tests/test_classifier.py::TestAliasOfClassification::test_alias_resolves_dangerous_subcommand"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "f3779c5bc9ceade48508b3c11215135583704740d750e19a01a3ca21f586fe16",
+      "input_sha256": "83a0516af52e9938035fe07de107e121cc9836b00f17ba8a8740b78f30a43247",
+      "name": "083-myalias-sub2",
+      "origin": "tests/test_classifier.py::TestAliasOfClassification::test_alias_resolves_dangerous_subcommand",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 730
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 742,
+          "test_id": "tests/test_classifier.py::TestAliasOfClassification::test_dangling_alias_raises"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_classifier.py",
+          "line": 754,
+          "test_id": "tests/test_classifier.py::TestAliasOfClassification::test_alias_chain_too_deep_raises"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "17dc3276e09781d43c0206f9abfd55ac6ae4b63708b0f9fb520ea7c6ef28bee5",
+      "input_sha256": "efaf34a2079ba79ec7ea6ce370e2c96b4ca02b3eb7b97416813e795b64cea72b",
+      "name": "084-myalias-foo",
+      "origin": "tests/test_classifier.py::TestAliasOfClassification::test_dangling_alias_raises",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_classifier.py",
+      "origin_line": 742
+    },
+    {
+      "all_origins": [
+        {
+          "call": "_run_cli",
+          "file": "tests/test_cli.py",
+          "line": 26,
+          "test_id": "tests/test_cli.py::TestCliBasic::test_ls_readonly"
+        },
+        {
+          "call": "_run_cli",
+          "file": "tests/test_cli.py",
+          "line": 78,
+          "test_id": "tests/test_cli.py::TestCliClassificationReason::test_classification_reason_in_output"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "2585ae6f655902757f08926c5eb3ae0d789aab82a89525773d3f8bfdc80140ab",
+      "input_sha256": "1de700c29687cae34561545f50d3c8b3d9afe88e04cc11069f8a6dc6e4ce9464",
+      "name": "085-ls-la",
+      "origin": "tests/test_cli.py::TestCliBasic::test_ls_readonly",
+      "origin_call": "_run_cli",
+      "origin_file": "tests/test_cli.py",
+      "origin_line": 26
+    },
+    {
+      "all_origins": [
+        {
+          "call": "_run_cli",
+          "file": "tests/test_cli.py",
+          "line": 35,
+          "test_id": "tests/test_cli.py::TestCliBasic::test_git_push_force_dangerous"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "21befb621102d136b7e915ad19b20bee8455e1e01c23da7347a43ece1b8576f9",
+      "input_sha256": "3075ad321adde596001cd5aa4285cc0af9584f04a2a4f91a099cfec16747ec4c",
+      "name": "086-git-push-force",
+      "origin": "tests/test_cli.py::TestCliBasic::test_git_push_force_dangerous",
+      "origin_call": "_run_cli",
+      "origin_file": "tests/test_cli.py",
+      "origin_line": 35
+    },
+    {
+      "all_origins": [
+        {
+          "call": "_run_cli",
+          "file": "tests/test_cli.py",
+          "line": 45,
+          "test_id": "tests/test_cli.py::TestCliBasic::test_json_output_has_required_fields"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "e94f8381527e890f29d1e31ef644939cee0b7f73a818875e059362e591439b0b",
+      "input_sha256": "584a331fd6b02dcb1ecbe2eba731f609a2e1e3dac0bb73ae998dfad14c309a77",
+      "name": "087-echo-hello-2",
+      "origin": "tests/test_cli.py::TestCliBasic::test_json_output_has_required_fields",
+      "origin_call": "_run_cli",
+      "origin_file": "tests/test_cli.py",
+      "origin_line": 45
+    },
+    {
+      "all_origins": [
+        {
+          "call": "_run_cli",
+          "file": "tests/test_cli.py",
+          "line": 56,
+          "test_id": "tests/test_cli.py::TestCliDelegation::test_sudo_ls_has_inner_commands"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "280ea64bee627eadea492e5efbdae0846b83c5cadfb37d7fc6f11ae0c75b68e4",
+      "input_sha256": "9d805d93228875e0cf45e5aa2be984a2b892a5371e6ffa51120b90bc24169bf9",
+      "name": "088-sudo-ls",
+      "origin": "tests/test_cli.py::TestCliDelegation::test_sudo_ls_has_inner_commands",
+      "origin_call": "_run_cli",
+      "origin_file": "tests/test_cli.py",
+      "origin_line": 56
+    },
+    {
+      "all_origins": [
+        {
+          "call": "_run_cli",
+          "file": "tests/test_cli.py",
+          "line": 68,
+          "test_id": "tests/test_cli.py::TestCliRedirect::test_redirect_appears_in_json"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "2e3a43e24dc33fef82d635a33754182bb77265214e09990751373142f50e3583",
+      "input_sha256": "9f60030f4b39be1332f2767e92b45a96aae01a8c4daa5acc91a3d7a2aba2ee64",
+      "name": "089-echo-hello-out-txt",
+      "origin": "tests/test_cli.py::TestCliRedirect::test_redirect_appears_in_json",
+      "origin_call": "_run_cli",
+      "origin_file": "tests/test_cli.py",
+      "origin_line": 68
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_matcher.py",
+          "line": 728,
+          "test_id": "tests/test_matcher.py::TestShXargsIntegration::test_xargs_sh_c_readonly"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "c40384a1ff7d41d1a76e69c959bc95df76b6297ec8695b47fc9405e6ed4ad141",
+      "input_sha256": "483467aa609f9496348f28e66af88059b2ea637de2eb7aa86d3497a2e50b603d",
+      "name": "090-xargs-i-sh-c-cat",
+      "origin": "tests/test_matcher.py::TestShXargsIntegration::test_xargs_sh_c_readonly",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_matcher.py",
+      "origin_line": 728
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 11,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_status"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "e26a240597b4171ec05e83232b4036c8e7f849df574a75d78bb52bc37d1d1e3f",
+      "input_sha256": "e62b04aadf39df1a47b771265e4ae5c452df3f1903d5c263ab00f088e86102f6",
+      "name": "091-git-status",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_status",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 11
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 16,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_status_short"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "2cc34b82881c087ebf816d51289c84c9bd512ee9d988596bf7d5d540e4127d85",
+      "input_sha256": "c96885f0a85f64c61b0d76510ca80e4a19be674e163a73b68a0a3d57f4dc15b6",
+      "name": "092-git-status-short",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_status_short",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 16
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 20,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_diff_stat"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "fd36d937474fbe75b1bd99ce6d12b551d4a81b455de98f328c45b14ee57bf580",
+      "input_sha256": "bcf996cc2c0b7eb7e8ddcd15c1c22e596e11fd6556591a38ebc741509209e1a5",
+      "name": "093-git-diff-stat",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_diff_stat",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 20
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 24,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_diff_cached"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "9e0c08625af2176b6270417115a8c8e2bab02e99f15f5bdfee6a707b4bcb0fc9",
+      "input_sha256": "21f4233f17242a2dd72ac9807060c135acedfef264e0f5d3ffa33404b4ea139b",
+      "name": "094-git-diff-cached",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_diff_cached",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 24
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 28,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_diff_cached_stat"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "95d75fe2b834b49d5ab6effec7c6effcb4fd109f41fdaaf07b93d7001f30293e",
+      "input_sha256": "3407352e151097c4c3a815469152ddc3c223dce893b178f86a35334c4f7606b6",
+      "name": "095-git-diff-cached-stat",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_diff_cached_stat",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 28
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 32,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_log_oneline"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "9039645020729db990a00a71ca982efc11051c398bba5df9d42cfed4d1c1929d",
+      "input_sha256": "e5f3316475cf0be832bc14b737c5858c64741ee7e7b56b58fc936ba04d475c91",
+      "name": "096-git-log-oneline-5",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_log_oneline",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 32
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 36,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_log_range"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "30ed5a6bd7996bd0a8ebb06936f144209b88973d83af69472d1213cd1c77f3de",
+      "input_sha256": "0a166073276e955e6ee9eda02c597540781a4a973f1e5a4c8c1e5f40720f5449",
+      "name": "097-git-log-master-head-oneline",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_log_range",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 36
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 40,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_diff_range"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "21384283d2c51ad622d734350b2cc634cbd1c355053392c85dfd78d8f5ac2209",
+      "input_sha256": "e9d11cf414a61f9005c9628eeff8a95f576eee7c92d0d797374491a4ff94fe2f",
+      "name": "098-git-diff-master-head",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_diff_range",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 40
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 44,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_show_historical"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "b2bd2b872c39531e959d341709d048a880fec21a41b56c9b8e5dc5405922e6ec",
+      "input_sha256": "5703cc0941d39bd4a5495fc963d408f397813ee4c8b8e58e60ac76237d2b4142",
+      "name": "099-git-show-head-10-src-main-py",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_show_historical",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 44
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 48,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_add_and_commit"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "2e1aaad549ad805974924f25e00b1fb8d33ba260fdb04a51432c531880af2a8a",
+      "input_sha256": "23c75f8cb7ea82c1588e5aa785ee093b3beb41a38d3a599996a03d915db5e685",
+      "name": "100-git-add-a-git-commit-m-fix-resolve-issue",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_add_and_commit",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 48
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 52,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_add_diff_cached"
+        },
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 202,
+          "test_id": "tests/test_real_world.py::TestCommandChains::test_and_chain_mixed"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "99584ef3ee4220038d97d61e32a8db549b5eaa9dc278ac94b7b25139b18490eb",
+      "input_sha256": "3574ed1957a1267209d3074a13aa37088d447c912210bc35beea28d70f92704b",
+      "name": "101-git-add-a-git-diff-cached-stat",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_add_diff_cached",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 52
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 56,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_amend_no_edit"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "eea537975ac3c002ac777c5d1681c7299cb3fb98848d1b4f41ed32f25bb5fa14",
+      "input_sha256": "5fa08c3ba49840ae925a6efc7c34f7cd62b5adbb6283e9d6c033beee4eede03c",
+      "name": "102-git-add-a-git-commit-amend-no-edit",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_amend_no_edit",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 56
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 60,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_amend_and_force_push"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "0a53c29ff638f4403a36bfae85c3596479dac090c363154cc44fadcccebb8394",
+      "input_sha256": "8c8d368025716e3a860c36444b42a24833a96c4babef14d93284f26786333a19",
+      "name": "103-git-add-a-git-commit-amend-no-edit-git-push-forc",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_amend_and_force_push",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 60
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 66,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_push_force"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "3dce20771a5a0423a3020318c3abbc0dda71ad2376c0b2c0ba994b75e144d5fd",
+      "input_sha256": "d20c97f7d0825f2f93cb4052cd7e62799a2f731d5cecc35b5e6e21910362d940",
+      "name": "104-git-push-force-origin-main",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_push_force",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 66
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 70,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_rebase_continue"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "8026de656291fef0ea8f940202c88a579a53df6bab357b675c6453b128c45f27",
+      "input_sha256": "c8471010f1bc07ee6a7419b56c669b4cc583ddb6f1c6d4dbe1021665852628c5",
+      "name": "105-git-rebase-continue",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_rebase_continue",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 70
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 74,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_reset_soft"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "bd573f64b44867bf188acf3174951c666230a1dbd7b2c2b9d95f091fb29e06aa",
+      "input_sha256": "31978773bb682a0003747fdb71147c7573ac3952705f556053f8d072ba5fda04",
+      "name": "106-git-reset-soft-head-1",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_reset_soft",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 74
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 78,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_c_flag"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "87a9cc30c411ba5f5fe94e1fb27edbd9d95972ae9fd44e9dc07223a5a01944dc",
+      "input_sha256": "037f54b408c08d77f4b4e8f2d9c8929c22db6cbdb5564a3ab416e9a9dae65cae",
+      "name": "107-git-c-home-user-repos-myrepo-status",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_c_flag",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 78
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 84,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_env_prefix_git_rebase"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "7d4b2a43f9fe2af0ea5e4a3f755de57a3a40dacf18854cf6fb80f151cd498a27",
+      "input_sha256": "59d15f5324a1470dc2688c5efcd9f73f659f6be272a9ccd4288f1097d7bf16d9",
+      "name": "108-git-editor-true-git-rebase-continue",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_env_prefix_git_rebase",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 84
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 89,
+          "test_id": "tests/test_real_world.py::TestGitWorkflows::test_git_rm_during_rebase"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "f4bd81d5ea5c1a07193c2f954736eb735416c8a92d503f874ee95daecd96337a",
+      "input_sha256": "a6c0e23686e74e9a65c305f0664752eefc27acaa14351b19a17c7412b0ad55ab",
+      "name": "109-git-rm-conflicted-file-txt-git-rebase-continue",
+      "origin": "tests/test_real_world.py::TestGitWorkflows::test_git_rm_during_rebase",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 89
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 98,
+          "test_id": "tests/test_real_world.py::TestBuildAndTest::test_mvnw_package_with_grep"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "156fcc31bf29e9db28be767629746455d81f77345094657209dfc89b6d3607a7",
+      "input_sha256": "1795272e9c0900fdc5991f025fafea32f4e6ee1f5b5f2bdd17d583882d8230d7",
+      "name": "110-mvnw-package-dskiptests-batch-mode-2-1-grep-e-er",
+      "origin": "tests/test_real_world.py::TestBuildAndTest::test_mvnw_package_with_grep",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 98
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 106,
+          "test_id": "tests/test_real_world.py::TestBuildAndTest::test_mvnw_with_tail"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "0890f77cce0ee78742d26eb686bce094324f195219d606609160a40a06e2efa3",
+      "input_sha256": "05fed258f7351d9128c6579145f5544f871714587d5d9a525ca1a5a0db891876",
+      "name": "111-mvnw-package-batch-mode-dskiptests-true-2-1-tail",
+      "origin": "tests/test_real_world.py::TestBuildAndTest::test_mvnw_with_tail",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 106
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 111,
+          "test_id": "tests/test_real_world.py::TestBuildAndTest::test_pytest_verbose"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "9083db798693a8e32b69106a522301afea0ad65b49b41c965ff01e1eaee56d8a",
+      "input_sha256": "0b5ef1e6b8d33a3a725121d50d3e0ff58f8b9a828f490f1721de1d0ed1eeb4b1",
+      "name": "112-uv-run-pytest-v-tb-short",
+      "origin": "tests/test_real_world.py::TestBuildAndTest::test_pytest_verbose",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 111
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 115,
+          "test_id": "tests/test_real_world.py::TestBuildAndTest::test_npm_test"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "7b09019907c3ff63a95c1850e9590f7396c502e78a5f3a2a507a2f3b8ad519f7",
+      "input_sha256": "328e123c63857fd8473bd4bd3581e655b08b7440d7f5d2c31cc375607582f539",
+      "name": "113-npm-test",
+      "origin": "tests/test_real_world.py::TestBuildAndTest::test_npm_test",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 115
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 119,
+          "test_id": "tests/test_real_world.py::TestBuildAndTest::test_npm_run_build"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "5defd4172c266d2a8b7ba0222522759fc131a4756fcb4f44f495806ceaefc845",
+      "input_sha256": "16c0e4305ac213dff39fc82b69b6e08aeeb8758e33cd72d7c409752a70e9f054",
+      "name": "114-npm-run-build",
+      "origin": "tests/test_real_world.py::TestBuildAndTest::test_npm_run_build",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 119
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 123,
+          "test_id": "tests/test_real_world.py::TestBuildAndTest::test_npm_install"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "52187045e5df74f88fccaccca3c097f9a4253c350e0207ffc8daed85c36ed1ba",
+      "input_sha256": "3a2dc0ae21eb56d78a0eb6bbd0f4512da04f9f94f6ee6c6a338c3e4cb1a8ff91",
+      "name": "115-npm-install",
+      "origin": "tests/test_real_world.py::TestBuildAndTest::test_npm_install",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 123
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 127,
+          "test_id": "tests/test_real_world.py::TestBuildAndTest::test_ruff_check_and_format"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "8829394f5b29c5c9be11adb05425215af61c35c7f0676721d0da1f73b393f32b",
+      "input_sha256": "0d2bc8f8fdb2f728c2d291db499095f50825d7a8228cde423b88e8373e93ffc7",
+      "name": "116-ruff-check-fix-ruff-format",
+      "origin": "tests/test_real_world.py::TestBuildAndTest::test_ruff_check_and_format",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 127
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 132,
+          "test_id": "tests/test_real_world.py::TestBuildAndTest::test_make_with_target"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "51a798b59a069aac571e47de280bf0537d0a12871e3366eb891003ab4e8c7b72",
+      "input_sha256": "d1121e35fa7adab170fe1ee4b6226e4bd5059535e24dc4767f1bf2b62d957399",
+      "name": "117-make-build",
+      "origin": "tests/test_real_world.py::TestBuildAndTest::test_make_with_target",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 132
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 136,
+          "test_id": "tests/test_real_world.py::TestBuildAndTest::test_make_dry_run"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "c0765cc2f98995105d7d2d5e5fc0ea17afd2a3ca7dc93fc731d0186932895204",
+      "input_sha256": "74c21be139d09d2f430f05e80c01e74a6dbd9d4ae69a0765181a7267fe3100c0",
+      "name": "118-make-n-install",
+      "origin": "tests/test_real_world.py::TestBuildAndTest::test_make_dry_run",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 136
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 144,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_grep_with_head"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "6829da106ca5fb6efeb3065d5dc072c46380cfb4ffa89bced4e474455150fccf",
+      "input_sha256": "214bf2f0a80c787aea760feaab620a2c7be39612538757454ed498e389f1b803",
+      "name": "119-grep-e-pattern1-pattern2-file-txt-head-20",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_grep_with_head",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 144
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 148,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_grep_case_insensitive_with_tail"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "686546c2e86f9ad8142e35aeb46b2d88ea41aff1edb241e2d40d1c1bb0859e3f",
+      "input_sha256": "beb27e2a784e15a4f510107bfb070aad2309ae41095d34c729ddc5f46d352338",
+      "name": "120-grep-i-search-term-logfile-tail-5",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_grep_case_insensitive_with_tail",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 148
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 152,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_grep_with_line_numbers_sort_uniq"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "582c64692924fc997a5dcc003cdddd57d1a9eb315772c716a89751681b388e18",
+      "input_sha256": "44d64f9df8a1022c2badcddbc4d583ca0900616e1380757bd8931de40f033c13",
+      "name": "121-grep-n-pattern-file-sort-uniq",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_grep_with_line_numbers_sort_uniq",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 152
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 156,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_grep_context_lines"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "cf9c027e7d02199dd784a42d08e15a83ccf2430b67ebdf31e5acd61c50835f0b",
+      "input_sha256": "eae78948f73c323bf7db6a2071b9dc828090d8f4abaa1206b62aa021ac4da1fc",
+      "name": "122-grep-a-20-search-term-file-txt-head-30",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_grep_context_lines",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 156
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 160,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_grep_before_and_after"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "ce9d1fcfeaddb94fa40c5f4e316f7e8ef33b5b4786bf105dce6befa3eb0a3c54",
+      "input_sha256": "94467e0cab961ad0d82f2ab25127029104801ef497ffdcb91812b30ab53d7bdb",
+      "name": "123-grep-b-5-a-10-pattern-file-txt",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_grep_before_and_after",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 160
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 165,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_grep_inverse_pipe"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "6bfbae59ef18cfde77976ee5b8b95cfa07cfb7d742e6fc36c5bf506bb8d0b2d2",
+      "input_sha256": "bd487b6b40349f06837ee09ae26d152975c3a9b45b435f8bcff0c03ca4d17494",
+      "name": "124-grep-ie-warn-error-output-log-grep-v-info",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_grep_inverse_pipe",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 165
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 169,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_cat_pipe_head"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "9638be5cde849dbed3a4b7e6aa48e7e22747045d7324ad1484260d1750d98718",
+      "input_sha256": "83bacde767555113fa7e660796a43b77630e4bc17d5f661c43ce63825b5b541b",
+      "name": "125-cat-path-to-file-head-100",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_cat_pipe_head",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 169
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 173,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_find_pipe_head"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "4679fd54b9382360f2585208c94b573194901387dbc790baa52553e63b413c57",
+      "input_sha256": "fcb102f3b79585aff36da10eae2d87a22960bdfaacec5a638da077c39a4e4c1e",
+      "name": "126-find-home-user-project-type-f-name-java-head-20",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_find_pipe_head",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 173
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 177,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_ls_pipe_tail"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "881ebf87ab4e7d8afe7ff06b57a966922be5363b024f774e7598ed20c1d46504",
+      "input_sha256": "b5273403c190fe1ef3ad335ff5113a26adb7eeda153d78886da5fec6e40a85ee",
+      "name": "127-ls-path-to-dir-tail-5",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_ls_pipe_tail",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 177
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 182,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_sort_pipe_uniq_count_sort"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "0becd6e229d46c416f1766d99b8fd4a7e4fad7c73cddb7c7e1610c196b842d76",
+      "input_sha256": "727fdeabbc1e9d35e7aaf0c298063ac9678e926087ddd2ee2b32824c3f3d8957",
+      "name": "128-awk-print-1-access-log-sort-uniq-c-sort-rn-head",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_sort_pipe_uniq_count_sort",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 182
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 186,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_ps_pipe_grep"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "4afd71ebca4fdf76f9c453d62081f2fcf308a83f21ee207f32eab9937b02b9f3",
+      "input_sha256": "45ee73f849edb083d9e90ca9f00c2e216c93692bda7ec27d50d556eaa3c2ebed",
+      "name": "129-ps-aux-grep-python",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_ps_pipe_grep",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 186
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 190,
+          "test_id": "tests/test_real_world.py::TestPipesAndGrep::test_wc_l_pipeline"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "21e79c53971be4b610b47730f7b34b441f7abdf59f2c49e65b8602aada7490b3",
+      "input_sha256": "61e6ffc4f6c9412aeea502d59ac25e66be82082e688fa4d2f08ba250a55ac907",
+      "name": "130-find-name-py-wc-l",
+      "origin": "tests/test_real_world.py::TestPipesAndGrep::test_wc_l_pipeline",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 190
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 198,
+          "test_id": "tests/test_real_world.py::TestCommandChains::test_and_chain_readonly"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "dd5b7f1380c582119367e98605b503457787c12bbec6fd67403c33883b7deb2e",
+      "input_sha256": "835b42b3cc2394591a3684120d4491cda87c7e872e91fb133e26f4ced16c2eea",
+      "name": "131-git-status-git-log-oneline-3",
+      "origin": "tests/test_real_world.py::TestCommandChains::test_and_chain_readonly",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 198
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 206,
+          "test_id": "tests/test_real_world.py::TestCommandChains::test_or_chain_with_echo_fallback"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "9ee17bfa6ac6a4ab2fb7ee339cf210d23177d026bf5e4fb57d7aef84b68fff48",
+      "input_sha256": "33b406dbbf50c897835e1c561246ba0a9979bca1b85bd6adf7d49e459e34535b",
+      "name": "132-cat-path-to-file-echo-file-not-found",
+      "origin": "tests/test_real_world.py::TestCommandChains::test_or_chain_with_echo_fallback",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 206
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 210,
+          "test_id": "tests/test_real_world.py::TestCommandChains::test_semicolon_chain"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "8182951c71c70b45941e3331e3adfb51a545842831f039bb98fb16ba0fe45f06",
+      "input_sha256": "488f43ace385f41a32e4985e605a06d78aa9f124d96838fe84d62a3cac10a251",
+      "name": "133-echo-start-ls-la-echo-done",
+      "origin": "tests/test_real_world.py::TestCommandChains::test_semicolon_chain",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 210
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 215,
+          "test_id": "tests/test_real_world.py::TestCommandChains::test_docker_cleanup_chain"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "e4b7d23cc3b42c3ac6f19c97d2e32b8e3ffb9e47c38dc893e92835da2279677b",
+      "input_sha256": "fa89851536ea12db0f10d6502520822344f200f38da0e3e58e8a8adf98bfec0a",
+      "name": "134-docker-ps-aq-filter-label-test-xargs-r-docker-rm",
+      "origin": "tests/test_real_world.py::TestCommandChains::test_docker_cleanup_chain",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 215
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 222,
+          "test_id": "tests/test_real_world.py::TestCommandChains::test_cd_and_command"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "2d73fcc7bfe6f399d7997e36d6780ed4a729995a8f52920ea03979fcb3bf7e81",
+      "input_sha256": "10576c2c4a5383006c3da15596906580d427beafcafe03912723acedab6a6176",
+      "name": "135-cd-home-user-project-ls-la",
+      "origin": "tests/test_real_world.py::TestCommandChains::test_cd_and_command",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 222
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 226,
+          "test_id": "tests/test_real_world.py::TestCommandChains::test_mkdir_or_fallback"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "8958bf15de8f22276dc0eb636f53a7a88500ba3e8316588aa6e3625c03d43864",
+      "input_sha256": "f9ed00999a54d1e91d2d88d17cc22d351b3f1034641c00988d28f9ea9d8938b6",
+      "name": "136-cd-nonexistent-mkdir-p-home-user-tmp-workdir",
+      "origin": "tests/test_real_world.py::TestCommandChains::test_mkdir_or_fallback",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 226
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 235,
+          "test_id": "tests/test_real_world.py::TestRedirects::test_stderr_to_stdout_pipe"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "ae441ddb92f2a11eca45ab37c230a2da3c5f7b2af38b93f9b733e2373c0634b0",
+      "input_sha256": "8429ca7e97090831ff15ebfd72d54fb8ccf8b9087b6b8f3a2a9627c70908178c",
+      "name": "137-build-sh-2-1-grep-e-error-failure",
+      "origin": "tests/test_real_world.py::TestRedirects::test_stderr_to_stdout_pipe",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 235
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 240,
+          "test_id": "tests/test_real_world.py::TestRedirects::test_stderr_to_dev_null"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "fcdf4f73a5097ee2ae80419d4294191d686d8287596fdefdcbfb7d2fd47d62f5",
+      "input_sha256": "ca50944649ea7d138bbb1ce8e610d4ec51be2937665b998c174dffc5ba694bd8",
+      "name": "138-find-path-name-log-2-dev-null",
+      "origin": "tests/test_real_world.py::TestRedirects::test_stderr_to_dev_null",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 240
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 248,
+          "test_id": "tests/test_real_world.py::TestRedirects::test_append_redirect"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "90eba588d38348f2307c48ac6e03e2f9b6c03d29563056eed1002c1e7adf25b3",
+      "input_sha256": "29e8999a2461963770a185dfd7b3a45eaed4125eb8230ed1b7f4ead26eb05c2e",
+      "name": "139-echo-line-tmp-log-txt",
+      "origin": "tests/test_real_world.py::TestRedirects::test_append_redirect",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 248
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 253,
+          "test_id": "tests/test_real_world.py::TestRedirects::test_unzip_with_fallback"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "cfe422ff038f07f2f2d4c353bf5bba936b8d9056282c7e246e0b985b99c49d10",
+      "input_sha256": "b148c8459ed420d4ad55d5523703b095f0eb01d34a9291c6159d31fcb55cd0df",
+      "name": "140-unzip-p-archive-jar-meta-inf-manifest-mf-2-dev-n",
+      "origin": "tests/test_real_world.py::TestRedirects::test_unzip_with_fallback",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 253
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 265,
+          "test_id": "tests/test_real_world.py::TestHeredocs::test_git_commit_with_heredoc"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "97cf5686ca5dbbe2e790537373c80127bfcd10c56e05b60cd3ebdea57391a6e3",
+      "input_sha256": "0132ae3d546739fa2c566a9bd6d6a655754faddd5207d78fd0bd05e2cc823917",
+      "name": "141-git-commit-m-cat-eof-fix-authentication-bug-in-l",
+      "origin": "tests/test_real_world.py::TestHeredocs::test_git_commit_with_heredoc",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 265
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 277,
+          "test_id": "tests/test_real_world.py::TestHeredocs::test_cat_heredoc"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "c86642c9664f9d1bf272701e7dc9c888f9098fd5f87253ad2a6b58ca60b96abd",
+      "input_sha256": "17a809a7d7ef4813ad481392f5a0f92aa36f3a2d9c8e08fa86c9dbef38d8b766",
+      "name": "142-cat-eof-hello-world-this-is-content-eof",
+      "origin": "tests/test_real_world.py::TestHeredocs::test_cat_heredoc",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 277
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 295,
+          "test_id": "tests/test_real_world.py::TestVariableExpansion::test_env_prefix_command"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "fccc67f80acaf41e3540cbbde1377045988a48954d6a5670ff634ca3fc7861e5",
+      "input_sha256": "cfd7e5ad45f7f00991782a9a6f851a24acda65f6c24a1562f6d54e593693c8c6",
+      "name": "143-foo-bar-baz-1-echo-hello",
+      "origin": "tests/test_real_world.py::TestVariableExpansion::test_env_prefix_command",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 295
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 299,
+          "test_id": "tests/test_real_world.py::TestVariableExpansion::test_date_format"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "0806275ec00f4033ef5b3398d1af197c5663d9c8be6f22a99a2c059c03b03b8b",
+      "input_sha256": "97cb36da234ecc7695d5a0733e261398a134c022e529f1f1351132bc677c7507",
+      "name": "144-date-y-m-d-h-m-s",
+      "origin": "tests/test_real_world.py::TestVariableExpansion::test_date_format",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 299
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 307,
+          "test_id": "tests/test_real_world.py::TestKubernetes::test_kubectl_get_wide"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "4d1d393dc798f2edd5bf7c15f737b66893c1f60656252896206dcd934459dd11",
+      "input_sha256": "f812e2fd54f8ab911353a8d914d251bac85e134a4b46a9fe22d70fc2fead521e",
+      "name": "145-kubectl-get-pods-context-my-cluster-n-my-namespa",
+      "origin": "tests/test_real_world.py::TestKubernetes::test_kubectl_get_wide",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 307
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 311,
+          "test_id": "tests/test_real_world.py::TestKubernetes::test_kubectl_get_deployment"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "1471f0ab73af23c1cb7f3da4efffb48c010bb49366db9e0fc76013540af7567a",
+      "input_sha256": "01f91c146f90d50ea72ff602e244cf29707a244f3f6daa383356acbc6be8fa41",
+      "name": "146-kubectl-get-deployment-my-app-context-my-cluster",
+      "origin": "tests/test_real_world.py::TestKubernetes::test_kubectl_get_deployment",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 311
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 315,
+          "test_id": "tests/test_real_world.py::TestKubernetes::test_kubectl_logs_tail"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "dda52ed24ea9720120cefffd04b560924b0adbcdde24a4a110f9bcbf6f09ac2a",
+      "input_sha256": "67219b2b9836807b8669498edfa3970ade39e61e00ff63cd0e63de165b8b5ad7",
+      "name": "147-kubectl-logs-my-pod-tail-30",
+      "origin": "tests/test_real_world.py::TestKubernetes::test_kubectl_logs_tail",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 315
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 323,
+          "test_id": "tests/test_real_world.py::TestKubernetes::test_kubectl_apply"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "1fe3337076a18ac99c792e722810677d63f77987dbdafdeb9c308775f451d6d8",
+      "input_sha256": "6bd4d5a65c18d7e40cd0e0c72d24b15555631b0735ca8c15cd082890047e9afc",
+      "name": "148-kubectl-apply-f-deployment-yaml",
+      "origin": "tests/test_real_world.py::TestKubernetes::test_kubectl_apply",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 323
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 327,
+          "test_id": "tests/test_real_world.py::TestKubernetes::test_kubectl_apply_dry_run"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "290c22764b051bdb8b5871aaf0c86a06be53d8c9cf1984427563c68f1384218d",
+      "input_sha256": "cdc114acba17fdd5340cc5b6e9e2f907c215a5398445b6554bde2247a1dc1423",
+      "name": "149-kubectl-apply-dry-run-client-f-deployment-yaml",
+      "origin": "tests/test_real_world.py::TestKubernetes::test_kubectl_apply_dry_run",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 327
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 335,
+          "test_id": "tests/test_real_world.py::TestDockerPatterns::test_docker_ps"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "7ffd828f2fd6f5cb3dd4d809874be7ab5eca648bd2ed6097f7cb07d610fe2380",
+      "input_sha256": "162035ec2d281b1bbcb04ab3942d79b23465716ebc2d183f90cac10f91c6e567",
+      "name": "150-docker-ps-a",
+      "origin": "tests/test_real_world.py::TestDockerPatterns::test_docker_ps",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 335
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 339,
+          "test_id": "tests/test_real_world.py::TestDockerPatterns::test_docker_run"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "4df67de7f9f34daca80ba657872bf77a966b3a569d71b274a2f236c962589ab2",
+      "input_sha256": "a900803642feee50437473862cf635215a6b9007543843feab90d7ba9a87e150",
+      "name": "151-docker-run-rm-python-3-12-slim-echo-hello",
+      "origin": "tests/test_real_world.py::TestDockerPatterns::test_docker_run",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 339
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 343,
+          "test_id": "tests/test_real_world.py::TestDockerPatterns::test_docker_run_with_volume"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "55e29caf2c1ff08eebb967a6e215bc237135c8556c83cf9df17d94f7f1375115",
+      "input_sha256": "6d8e099fd5c5bcaa06d244151800023ef290a7e5e7fce17bb8c369fb968b0fe6",
+      "name": "152-docker-run-rm-v-pwd-app-ro-python-3-12-slim-cat",
+      "origin": "tests/test_real_world.py::TestDockerPatterns::test_docker_run_with_volume",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 343
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 349,
+          "test_id": "tests/test_real_world.py::TestDockerPatterns::test_docker_images"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "6e254f4b3c58fc6519e4d5c2ca3e2d4eb4132f1b6967177ac4c3b2b3eac79eb6",
+      "input_sha256": "700e61ec25add0057f697371ce9d57d0ffd7730eed471e4550caf7909308a34f",
+      "name": "153-docker-images",
+      "origin": "tests/test_real_world.py::TestDockerPatterns::test_docker_images",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 349
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 353,
+          "test_id": "tests/test_real_world.py::TestDockerPatterns::test_docker_system_prune"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "7bdfc4255d46c90c79ab5c8bf505cb55391064b5e7a5d797f9f0ab89ff69a823",
+      "input_sha256": "0cceabbeed23ad0671ee4d9eebf969e043b92ac93ca441d863aa8020227b5d53",
+      "name": "154-docker-system-prune-af",
+      "origin": "tests/test_real_world.py::TestDockerPatterns::test_docker_system_prune",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 353
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 361,
+          "test_id": "tests/test_real_world.py::TestFileOperations::test_find_with_maxdepth"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "dae43b708e40aac236413dcf98e6f0054ab5f1fbc85ec7c9aa2260056a9c95b8",
+      "input_sha256": "0d0ff785bb4ed6fc471ec65a9cfa75ed7f12efcbed1994a391908626db7aa43a",
+      "name": "155-find-path-maxdepth-4-name-json-2-dev-null",
+      "origin": "tests/test_real_world.py::TestFileOperations::test_find_with_maxdepth",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 361
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 365,
+          "test_id": "tests/test_real_world.py::TestFileOperations::test_find_type_f_pipe_head"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "a741a15aa06a833bd082dbe3d41ed1cf9a7365b220506041abb9e23a5ff84787",
+      "input_sha256": "5948cc659bf6c128b5c5409643b4120ad7846305d6106eccf6863f0fca88dbf9",
+      "name": "156-find-type-f-name-py-head-20",
+      "origin": "tests/test_real_world.py::TestFileOperations::test_find_type_f_pipe_head",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 365
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 369,
+          "test_id": "tests/test_real_world.py::TestFileOperations::test_find_delete"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "b5d277d0e0e71650eba5a4b4b73e04c149261ef15f1113d043ca6b3f4644ecb6",
+      "input_sha256": "efce4c596fc3d90ca9fbaf0ff01488188b6bdbf88c0daf42c5488da180d9110a",
+      "name": "157-find-name-pyc-delete",
+      "origin": "tests/test_real_world.py::TestFileOperations::test_find_delete",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 369
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 374,
+          "test_id": "tests/test_real_world.py::TestFileOperations::test_xargs_grep"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "a8f74ddb8adee009c3e2c6930429d885f6c7c4106f4b2a55f4da6739f60abb28",
+      "input_sha256": "93d172f3abc190448c1969823033275e4ca69c6de8006610d034f68468aa2a0b",
+      "name": "158-find-name-py-xargs-grep-todo",
+      "origin": "tests/test_real_world.py::TestFileOperations::test_xargs_grep",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 374
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 379,
+          "test_id": "tests/test_real_world.py::TestFileOperations::test_xargs_rm"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "2fc300eaeef143f17ae59a3a10933331ec78898fb2d9db688d34be8b27b25f94",
+      "input_sha256": "0b0cf65e73314636e5ec875519a58d0869c39e59b215f9ee0e17eac10a4ec616",
+      "name": "159-find-tmp-name-tmp-xargs-rm",
+      "origin": "tests/test_real_world.py::TestFileOperations::test_xargs_rm",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 379
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 383,
+          "test_id": "tests/test_real_world.py::TestFileOperations::test_cp_to_tmp"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "243dadbc9e183b420a8472810ee2c0d65539d09f502319589651d2dd09195076",
+      "input_sha256": "31a459a33b89e7bf836c3e074b8ba40e19555495027504dc4cda15fc3a3dc873",
+      "name": "160-cp-file-txt-tmp-backup-txt",
+      "origin": "tests/test_real_world.py::TestFileOperations::test_cp_to_tmp",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 383
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 391,
+          "test_id": "tests/test_real_world.py::TestFileOperations::test_mkdir_p"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "af03b36eefea61539c51a53c463d060d4858fcdef4eb7fac9c7579cb8949f6ca",
+      "input_sha256": "97be61d636970aff35a71ded54e2978bade97d509033f28db4d2b4f68674c1a9",
+      "name": "161-mkdir-p-home-user-project-src",
+      "origin": "tests/test_real_world.py::TestFileOperations::test_mkdir_p",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 391
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 400,
+          "test_id": "tests/test_real_world.py::TestComplexRealWorld::test_source_and_build"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "bf20cfee69881c8d9d37f91c72518645f76a9e4e4ca473b4e5cc38970c1fbddd",
+      "input_sha256": "c32fc8d1ed32823a270f19d8cdfb7427f7d5cf579a3475b59e8ace366303bd54",
+      "name": "162-source-home-sdkman-bin-sdkman-init-sh-make-build",
+      "origin": "tests/test_real_world.py::TestComplexRealWorld::test_source_and_build",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 400
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 405,
+          "test_id": "tests/test_real_world.py::TestComplexRealWorld::test_conditional_test"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "865c7fb8002f0050614b00efbcd3f7cd313cbff886974d0ef9491cf7ca23dd04",
+      "input_sha256": "30ce441f78647aa3f8aff1cffff2946ed2675fd3301c1a0740e423381a116f0a",
+      "name": "163-f-file-txt-cat-file-txt",
+      "origin": "tests/test_real_world.py::TestComplexRealWorld::test_conditional_test",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 405
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 409,
+          "test_id": "tests/test_real_world.py::TestComplexRealWorld::test_double_bracket_test"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "058f0a46b3b26c7c591f2a56727a30856e77615995337a81d235b59fb3129a77",
+      "input_sha256": "e7951cd896401b3b36422b98fc7d0a1cbf9541b303e92fb007fb1629088875b1",
+      "name": "164-d-dir-echo-found-echo-not-found",
+      "origin": "tests/test_real_world.py::TestComplexRealWorld::test_double_bracket_test",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 409
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 414,
+          "test_id": "tests/test_real_world.py::TestComplexRealWorld::test_for_loop_echo"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "cb411bd237e29615dcfac5adb3028e6ae776fdecc75d38221d18f987a482e056",
+      "input_sha256": "425585b9529fc46c5ef2142668bc99c677c04aa29b93e862caf4a8fa35a2f961",
+      "name": "165-for-f-in-txt-do-echo-f-done",
+      "origin": "tests/test_real_world.py::TestComplexRealWorld::test_for_loop_echo",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 414
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 419,
+          "test_id": "tests/test_real_world.py::TestComplexRealWorld::test_while_read_echo"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "c0ee12e7398e0df64a8baefcbd4043ef22b2b3b709ebffe1b702638aae274b5a",
+      "input_sha256": "22200c0cc92fd9b02c1405e4ba523c176f7c3cca1c6b06d28b539b67b21a9872",
+      "name": "166-while-read-line-do-echo-line-done-file-txt",
+      "origin": "tests/test_real_world.py::TestComplexRealWorld::test_while_read_echo",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 419
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 423,
+          "test_id": "tests/test_real_world.py::TestComplexRealWorld::test_if_then_cat"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "45dd62e15cdfed3371c097d5901361ae2494af916b367c4070cd021ec503cb2b",
+      "input_sha256": "963086c7069f82a8bb2b911386f0bb0b4fa76498b2cba13d43ef2d97245fb92f",
+      "name": "167-if-f-file-txt-then-cat-file-txt-fi",
+      "origin": "tests/test_real_world.py::TestComplexRealWorld::test_if_then_cat",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 423
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 429,
+          "test_id": "tests/test_real_world.py::TestComplexRealWorld::test_sudo_with_pipe"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "4520acdd675286d024d41462616648a2133f62f9cbda3df0279325e1a1e890c8",
+      "input_sha256": "ec29bb8b8090d1c62fe3f76693c17a7e5c91abd671d08dff9bcc1718ddd41869",
+      "name": "168-sudo-cat-var-log-syslog-grep-error-tail-20",
+      "origin": "tests/test_real_world.py::TestComplexRealWorld::test_sudo_with_pipe",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 429
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 434,
+          "test_id": "tests/test_real_world.py::TestComplexRealWorld::test_git_log_pipe_xargs_show"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "6b3fc986159e0c3d6ba8682b0326be8dfd7427ca6b2b542c751f413cfa768544",
+      "input_sha256": "5a69f32fb9a64cd3e359e7c5814030858af812e1792a6f4db02172d903c95a68",
+      "name": "169-git-log-format-h-head-5-xargs-i-git-show-stat",
+      "origin": "tests/test_real_world.py::TestComplexRealWorld::test_git_log_pipe_xargs_show",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 434
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 442,
+          "test_id": "tests/test_real_world.py::TestBuildTools::test_mvn_clean_install"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "3af7d87f73ebb94f77bfe5ffd696d8409482217bf2ca2fde2dcc9188c782e48e",
+      "input_sha256": "b0f330a41c375529a679f2cf74849cf098314a0ec73522c9b68c0deb95a767be",
+      "name": "170-mvn-clean-install",
+      "origin": "tests/test_real_world.py::TestBuildTools::test_mvn_clean_install",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 442
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 447,
+          "test_id": "tests/test_real_world.py::TestBuildTools::test_mvn_clean_deploy"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "19e8265a467d29da88c1395ef9df99a1587365a931f5c93bf35525fe9c77dfe0",
+      "input_sha256": "3f8532c1c798865b751d71f0dd05237140e1db05bfc9badd07e7ff38ac8d9fe6",
+      "name": "171-mvn-clean-deploy",
+      "origin": "tests/test_real_world.py::TestBuildTools::test_mvn_clean_deploy",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 447
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 453,
+          "test_id": "tests/test_real_world.py::TestBuildTools::test_mvn_custom_plugin_goal"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "50be2586f869223c866308a070b5b5774bc31047aea7c18b67d71f9ffb352962",
+      "input_sha256": "eace3bfc2696dc6b945c843f2c039933cbcd9f78879f83fbd9390d7a3029721a",
+      "name": "172-mvn-clean-some-plugin-goal",
+      "origin": "tests/test_real_world.py::TestBuildTools::test_mvn_custom_plugin_goal",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 453
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 457,
+          "test_id": "tests/test_real_world.py::TestBuildTools::test_gradle_clean_build_test"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "fccc33fff479ba133e7b9c54725a83be1ad9c5ccae6b9cf4e42811232170aa0b",
+      "input_sha256": "eafa664e9b4baf6e436f01d1fe68054ef963f67b36dee0fa05c10fa8026a000c",
+      "name": "173-gradle-clean-build-test",
+      "origin": "tests/test_real_world.py::TestBuildTools::test_gradle_clean_build_test",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 457
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 462,
+          "test_id": "tests/test_real_world.py::TestBuildTools::test_gradle_publish"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "09d97859ee61ef8b83b515b77773e72eb4cc03ba9736a9558282cf0b2fe4e2f4",
+      "input_sha256": "a62186bc5260e341286c8f85a59c22bf2857dcf670bd2d3775d47287f51a340d",
+      "name": "174-gradle-clean-publish",
+      "origin": "tests/test_real_world.py::TestBuildTools::test_gradle_publish",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 462
+    },
+    {
+      "all_origins": [
+        {
+          "call": "classify_expression",
+          "file": "tests/test_real_world.py",
+          "line": 466,
+          "test_id": "tests/test_real_world.py::TestBuildTools::test_gradle_dry_run"
+        }
+      ],
+      "expected_exit": 0,
+      "expected_stdout_sha256": "79608ecc318eba7568571dfcc0e5ebd448fc2e439d4e70ea9733a2200e5cfe8f",
+      "input_sha256": "119250f6a6159a9ee9eae8bebb053a4f630085df19a94dd02a1ed48c8f2f25ea",
+      "name": "175-gradle-dry-run-clean-build",
+      "origin": "tests/test_real_world.py::TestBuildTools::test_gradle_dry_run",
+      "origin_call": "classify_expression",
+      "origin_file": "tests/test_real_world.py",
+      "origin_line": 466
+    }
+  ],
+  "generator": {
+    "path": "scripts/harvest_goldens.py",
+    "sha256": "614fbeab9e1396cb2c49387550a6d7b931f18d0a2bc1993069cbc487947e5ee7"
+  },
+  "python": {
+    "tree_sitter": "0.25.2",
+    "tree_sitter_bash": "0.25.1"
+  },
+  "regeneration_policy": "Regenerate only by running scripts/harvest_goldens.py after a vendor sync or Python source-of-truth behavior update; review the diff; never hand-edit tests/golden outputs.",
+  "rust": {
+    "tree-sitter-bash_requirement": "=0.25.1",
+    "tree-sitter_requirement": "0.25",
+    "tree_sitter": "0.25.10",
+    "tree_sitter_bash": "0.25.1"
+  },
+  "schema_version": 1,
+  "source": {
+    "commit": "8553440aa4d935dd14a8cbb15338ecac92100720",
+    "package_version": "0.9.1",
+    "path": "../bash-classify",
+    "repository": "https://github.com/fprochazka/bash-classify",
+    "tag": "v0.9.1"
+  }
+}

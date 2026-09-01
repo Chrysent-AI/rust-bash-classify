@@ -1,0 +1,30 @@
+{
+  "expression": "docker run --rm python:3.12-slim echo hello",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "docker",
+        "run"
+      ],
+      "argv": [
+        "docker",
+        "run",
+        "--rm",
+        "python:3.12-slim",
+        "echo",
+        "hello"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "docker.run",
+      "remaining_options": [
+        "--rm"
+      ],
+      "classification_reason": "base classification from rule docker.run",
+      "inner_commands": []
+    }
+  ]
+}

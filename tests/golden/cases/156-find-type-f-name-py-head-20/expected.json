@@ -1,0 +1,49 @@
+{
+  "expression": "find . -type f -name \"*.py\" | head -20",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "."
+  ],
+  "commands": [
+    {
+      "command": [
+        "find"
+      ],
+      "argv": [
+        "find",
+        ".",
+        "-type",
+        "f",
+        "-name",
+        "*.py"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "find",
+      "remaining_options": [
+        "-type",
+        "-name"
+      ],
+      "classification_reason": "base classification from rule find",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "head"
+      ],
+      "argv": [
+        "head",
+        "-20"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "head",
+      "remaining_options": [
+        "-20"
+      ],
+      "classification_reason": "base classification from rule head",
+      "inner_commands": []
+    }
+  ]
+}

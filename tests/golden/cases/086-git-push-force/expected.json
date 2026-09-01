@@ -1,0 +1,25 @@
+{
+  "expression": "git push --force",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "push"
+      ],
+      "argv": [
+        "git",
+        "push",
+        "--force"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "git.push",
+      "classification_reason": "overridden by option --force to DANGEROUS",
+      "overriding_option": "--force",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "expression": "git show HEAD~10:src/main.py",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "show"
+      ],
+      "argv": [
+        "git",
+        "show",
+        "HEAD~10:src/main.py"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "git.show",
+      "classification_reason": "base classification from rule git.show",
+      "inner_commands": []
+    }
+  ]
+}

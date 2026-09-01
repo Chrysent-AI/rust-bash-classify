@@ -1,0 +1,37 @@
+{
+  "expression": "sudo ls",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "sudo"
+      ],
+      "argv": [
+        "sudo",
+        "ls"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "sudo",
+      "classification_reason": "elevated by inner command",
+      "inner_commands": [
+        {
+          "delegation_mode": "rest_are_argv",
+          "delegation_source": "sudo",
+          "command": [
+            "ls"
+          ],
+          "argv": [
+            "ls"
+          ],
+          "classification": "DANGEROUS",
+          "risk": "HIGH",
+          "matched_rule": "ls",
+          "inner_commands": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "expression": "ls -la",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "ls"
+      ],
+      "argv": [
+        "ls",
+        "-la"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "ls",
+      "remaining_options": [
+        "-la"
+      ],
+      "classification_reason": "base classification from rule ls",
+      "inner_commands": []
+    }
+  ]
+}

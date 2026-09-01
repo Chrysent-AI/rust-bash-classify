@@ -1,0 +1,24 @@
+{
+  "expression": "git diff master...HEAD",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "diff"
+      ],
+      "argv": [
+        "git",
+        "diff",
+        "master...HEAD"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "git.diff",
+      "classification_reason": "base classification from rule git.diff",
+      "inner_commands": []
+    }
+  ]
+}

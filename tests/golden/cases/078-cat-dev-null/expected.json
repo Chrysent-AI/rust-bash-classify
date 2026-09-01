@@ -1,0 +1,28 @@
+{
+  "expression": "cat > /dev/null",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "cat"
+      ],
+      "argv": [
+        "cat"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "cat",
+      "classification_reason": "base classification from rule cat",
+      "inner_commands": []
+    }
+  ],
+  "redirects": [
+    {
+      "operator": ">",
+      "target": "/dev/null",
+      "affects_classification": false
+    }
+  ]
+}

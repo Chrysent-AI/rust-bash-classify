@@ -1,0 +1,22 @@
+{
+  "expression": "echo hello &",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "hello"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo; elevated by backgrounding",
+      "inner_commands": []
+    }
+  ]
+}

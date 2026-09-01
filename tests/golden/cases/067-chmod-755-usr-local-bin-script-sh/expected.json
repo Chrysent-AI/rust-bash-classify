@@ -1,0 +1,23 @@
+{
+  "expression": "chmod 755 /usr/local/bin/script.sh",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "chmod"
+      ],
+      "argv": [
+        "chmod",
+        "755",
+        "/usr/local/bin/script.sh"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "chmod",
+      "classification_reason": "base classification from rule chmod; elevated to DANGEROUS: system path /usr/local/bin/script.sh",
+      "inner_commands": []
+    }
+  ]
+}

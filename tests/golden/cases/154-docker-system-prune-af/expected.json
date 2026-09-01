@@ -1,0 +1,29 @@
+{
+  "expression": "docker system prune -af",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "docker",
+        "system",
+        "prune"
+      ],
+      "argv": [
+        "docker",
+        "system",
+        "prune",
+        "-af"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "docker.system.prune",
+      "remaining_options": [
+        "-af"
+      ],
+      "classification_reason": "base classification from rule docker.system.prune",
+      "inner_commands": []
+    }
+  ]
+}

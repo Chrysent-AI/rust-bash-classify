@@ -1,0 +1,49 @@
+{
+  "expression": "while read line; do echo \"$line\"; done < file.txt",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "read"
+      ],
+      "argv": [
+        "read",
+        "line"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "read",
+      "classification_reason": "base classification from rule read",
+      "read_paths": [
+        "file.txt"
+      ],
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "$line"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo",
+      "inner_commands": []
+    }
+  ],
+  "read_paths": [
+    "file.txt"
+  ],
+  "redirects": [
+    {
+      "operator": "<",
+      "target": "file.txt",
+      "affects_classification": false
+    }
+  ]
+}

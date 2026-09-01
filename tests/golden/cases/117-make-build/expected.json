@@ -1,0 +1,22 @@
+{
+  "expression": "make build",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "make"
+      ],
+      "argv": [
+        "make",
+        "build"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "make",
+      "classification_reason": "base classification from rule make",
+      "inner_commands": []
+    }
+  ]
+}

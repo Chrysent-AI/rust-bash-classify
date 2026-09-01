@@ -1,0 +1,40 @@
+{
+  "expression": "git rm conflicted-file.txt && git rebase --continue",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "rm"
+      ],
+      "argv": [
+        "git",
+        "rm",
+        "conflicted-file.txt"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "git.rm",
+      "classification_reason": "base classification from rule git.rm",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "git",
+        "rebase"
+      ],
+      "argv": [
+        "git",
+        "rebase",
+        "--continue"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "git.rebase",
+      "classification_reason": "base classification from rule git.rebase",
+      "inner_commands": []
+    }
+  ]
+}

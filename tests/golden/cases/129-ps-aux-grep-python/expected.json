@@ -1,0 +1,36 @@
+{
+  "expression": "ps aux | grep python",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "ps"
+      ],
+      "argv": [
+        "ps",
+        "aux"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "ps",
+      "classification_reason": "base classification from rule ps",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "grep"
+      ],
+      "argv": [
+        "grep",
+        "python"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "grep",
+      "classification_reason": "base classification from rule grep",
+      "inner_commands": []
+    }
+  ]
+}

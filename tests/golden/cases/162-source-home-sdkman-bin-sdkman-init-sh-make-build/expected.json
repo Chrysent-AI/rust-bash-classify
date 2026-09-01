@@ -1,0 +1,36 @@
+{
+  "expression": "source \"$HOME/.sdkman/bin/sdkman-init.sh\" && make build",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "source"
+      ],
+      "argv": [
+        "source",
+        "$HOME/.sdkman/bin/sdkman-init.sh"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": null,
+      "classification_reason": "shell builtin (always DANGEROUS)",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "make"
+      ],
+      "argv": [
+        "make",
+        "build"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "make",
+      "classification_reason": "base classification from rule make",
+      "inner_commands": []
+    }
+  ]
+}

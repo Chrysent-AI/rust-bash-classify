@@ -1,0 +1,45 @@
+{
+  "expression": "git commit -m \"$(cat <<'EOF'\nFix authentication bug in login flow\n\nThe session token was not being refreshed properly.\nEOF\n)\"",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "commit"
+      ],
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "$(cat <<'EOF'\nFix authentication bug in login flow\n\nThe session token was not being refreshed properly.\nEOF\n)"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "git.commit",
+      "classification_reason": "base classification from rule git.commit",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "cat"
+      ],
+      "argv": [
+        "cat"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "cat",
+      "classification_reason": "base classification from rule cat",
+      "inner_commands": []
+    }
+  ],
+  "redirects": [
+    {
+      "operator": "<<",
+      "target": "'EOF'",
+      "affects_classification": false
+    }
+  ]
+}

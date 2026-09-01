@@ -1,0 +1,1 @@
+[[ -d "$dir" ]] && echo "found" || echo "not found"

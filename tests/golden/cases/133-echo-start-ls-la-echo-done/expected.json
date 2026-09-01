@@ -1,0 +1,53 @@
+{
+  "expression": "echo start; ls -la; echo done",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "start"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "ls"
+      ],
+      "argv": [
+        "ls",
+        "-la"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "ls",
+      "remaining_options": [
+        "-la"
+      ],
+      "classification_reason": "base classification from rule ls",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "done"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo",
+      "inner_commands": []
+    }
+  ]
+}

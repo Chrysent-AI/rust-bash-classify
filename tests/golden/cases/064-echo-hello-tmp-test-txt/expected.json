@@ -1,0 +1,35 @@
+{
+  "expression": "echo hello > /tmp/test.txt",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "hello"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo; elevated by output redirect",
+      "write_paths": [
+        "/tmp/test.txt"
+      ],
+      "inner_commands": []
+    }
+  ],
+  "write_paths": [
+    "/tmp/test.txt"
+  ],
+  "redirects": [
+    {
+      "operator": ">",
+      "target": "/tmp/test.txt",
+      "affects_classification": true
+    }
+  ]
+}

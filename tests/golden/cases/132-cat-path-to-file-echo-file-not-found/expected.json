@@ -1,0 +1,38 @@
+{
+  "expression": "cat /path/to/file || echo \"file not found\"",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/path/to"
+  ],
+  "commands": [
+    {
+      "command": [
+        "cat"
+      ],
+      "argv": [
+        "cat",
+        "/path/to/file"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "cat",
+      "classification_reason": "base classification from rule cat",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "file not found"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo",
+      "inner_commands": []
+    }
+  ]
+}

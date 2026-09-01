@@ -1,0 +1,23 @@
+{
+  "expression": "docker images",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "docker",
+        "images"
+      ],
+      "argv": [
+        "docker",
+        "images"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "docker.images",
+      "classification_reason": "base classification from rule docker.images",
+      "inner_commands": []
+    }
+  ]
+}

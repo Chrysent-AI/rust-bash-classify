@@ -1,0 +1,23 @@
+{
+  "expression": "cp file.txt /tmp/backup.txt",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "cp"
+      ],
+      "argv": [
+        "cp",
+        "file.txt",
+        "/tmp/backup.txt"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "cp",
+      "classification_reason": "base classification from rule cp",
+      "inner_commands": []
+    }
+  ]
+}

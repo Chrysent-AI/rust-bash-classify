@@ -1,0 +1,25 @@
+{
+  "expression": "mvn clean deploy",
+  "classification": "EXTERNAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "mvn",
+        "clean",
+        "deploy"
+      ],
+      "argv": [
+        "mvn",
+        "clean",
+        "deploy"
+      ],
+      "classification": "EXTERNAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "mvn.clean.deploy",
+      "classification_reason": "base classification from rule mvn.clean.deploy",
+      "inner_commands": []
+    }
+  ]
+}

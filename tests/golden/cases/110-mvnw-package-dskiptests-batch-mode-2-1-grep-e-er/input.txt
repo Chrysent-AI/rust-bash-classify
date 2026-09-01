@@ -1,0 +1,1 @@
+./mvnw package -DskipTests --batch-mode 2>&1 | grep -E "\[ERROR\]|BUILD"

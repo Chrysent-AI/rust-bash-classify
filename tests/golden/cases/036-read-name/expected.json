@@ -1,0 +1,22 @@
+{
+  "expression": "read name",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "read"
+      ],
+      "argv": [
+        "read",
+        "name"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "read",
+      "classification_reason": "base classification from rule read",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "expression": "grep -A 20 \"search_term\" file.txt | head -30",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "grep"
+      ],
+      "argv": [
+        "grep",
+        "-A",
+        "20",
+        "search_term",
+        "file.txt"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "grep",
+      "remaining_options": [
+        "-A"
+      ],
+      "classification_reason": "base classification from rule grep",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "head"
+      ],
+      "argv": [
+        "head",
+        "-30"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "head",
+      "remaining_options": [
+        "-30"
+      ],
+      "classification_reason": "base classification from rule head",
+      "inner_commands": []
+    }
+  ]
+}

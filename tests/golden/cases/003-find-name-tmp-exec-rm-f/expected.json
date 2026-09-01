@@ -1,0 +1,53 @@
+{
+  "expression": "find . -name \"*.tmp\" -exec rm -f {} \\;",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [
+    "."
+  ],
+  "commands": [
+    {
+      "command": [
+        "find"
+      ],
+      "argv": [
+        "find",
+        ".",
+        "-name",
+        "*.tmp",
+        "-exec",
+        "rm",
+        "-f",
+        "{}",
+        "\\;"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "find",
+      "remaining_options": [
+        "-name"
+      ],
+      "classification_reason": "elevated by inner command",
+      "inner_commands": [
+        {
+          "delegation_mode": "terminated_argv",
+          "delegation_source": "-exec",
+          "command": [
+            "rm"
+          ],
+          "argv": [
+            "rm",
+            "-f"
+          ],
+          "classification": "DANGEROUS",
+          "risk": "HIGH",
+          "matched_rule": "rm",
+          "remaining_options": [
+            "-f"
+          ],
+          "inner_commands": []
+        }
+      ]
+    }
+  ]
+}

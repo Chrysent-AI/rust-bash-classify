@@ -1,0 +1,7 @@
+{
+  "expression": "# just a comment",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": []
+}

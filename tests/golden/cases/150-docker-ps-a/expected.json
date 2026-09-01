@@ -1,0 +1,27 @@
+{
+  "expression": "docker ps -a",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "docker",
+        "ps"
+      ],
+      "argv": [
+        "docker",
+        "ps",
+        "-a"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "docker.ps",
+      "remaining_options": [
+        "-a"
+      ],
+      "classification_reason": "base classification from rule docker.ps",
+      "inner_commands": []
+    }
+  ]
+}

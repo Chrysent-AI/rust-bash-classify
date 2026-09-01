@@ -1,0 +1,31 @@
+{
+  "expression": "uv run pytest -v --tb=short",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "uv",
+        "run",
+        "pytest"
+      ],
+      "argv": [
+        "uv",
+        "run",
+        "pytest",
+        "-v",
+        "--tb=short"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "uv.run.pytest",
+      "remaining_options": [
+        "-v",
+        "--tb=short"
+      ],
+      "classification_reason": "base classification from rule uv.run.pytest",
+      "inner_commands": []
+    }
+  ]
+}

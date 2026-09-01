@@ -1,0 +1,23 @@
+{
+  "expression": "cp file /var/log/myapp.log",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "cp"
+      ],
+      "argv": [
+        "cp",
+        "file",
+        "/var/log/myapp.log"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "cp",
+      "classification_reason": "base classification from rule cp; elevated to DANGEROUS: system path /var/log/myapp.log",
+      "inner_commands": []
+    }
+  ]
+}

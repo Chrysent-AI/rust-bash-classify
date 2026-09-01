@@ -1,0 +1,56 @@
+{
+  "expression": "sh -c \"ls /tmp | grep log\"",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/tmp"
+  ],
+  "commands": [
+    {
+      "command": [
+        "sh"
+      ],
+      "argv": [
+        "sh",
+        "-c",
+        "ls /tmp | grep log"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "sh",
+      "classification_reason": "delegated to inner via sh",
+      "inner_commands": [
+        {
+          "delegation_mode": "flag_value_is_expression",
+          "delegation_source": "-c",
+          "command": [
+            "ls"
+          ],
+          "argv": [
+            "ls",
+            "/tmp"
+          ],
+          "classification": "READONLY",
+          "risk": "LOW",
+          "matched_rule": "ls",
+          "inner_commands": []
+        },
+        {
+          "delegation_mode": "flag_value_is_expression",
+          "delegation_source": "-c",
+          "command": [
+            "grep"
+          ],
+          "argv": [
+            "grep",
+            "log"
+          ],
+          "classification": "READONLY",
+          "risk": "LOW",
+          "matched_rule": "grep",
+          "inner_commands": []
+        }
+      ]
+    }
+  ]
+}

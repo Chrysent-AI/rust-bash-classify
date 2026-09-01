@@ -1,0 +1,46 @@
+{
+  "expression": "kubectl exec -it my-pod -- cat /etc/config",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [
+    "/etc"
+  ],
+  "commands": [
+    {
+      "command": [
+        "kubectl",
+        "exec"
+      ],
+      "argv": [
+        "kubectl",
+        "exec",
+        "-it",
+        "my-pod",
+        "--",
+        "cat",
+        "/etc/config"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "kubectl.exec",
+      "classification_reason": "elevated by inner command; elevated to DANGEROUS: system path /etc/config",
+      "inner_commands": [
+        {
+          "delegation_mode": "after_separator",
+          "delegation_source": "--",
+          "command": [
+            "cat"
+          ],
+          "argv": [
+            "cat",
+            "/etc/config"
+          ],
+          "classification": "EXTERNAL_EFFECTS",
+          "risk": "MEDIUM",
+          "matched_rule": "cat",
+          "inner_commands": []
+        }
+      ]
+    }
+  ]
+}

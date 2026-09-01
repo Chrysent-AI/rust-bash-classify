@@ -1,0 +1,24 @@
+{
+  "expression": "npm run build",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "run"
+      ],
+      "argv": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "npm.run",
+      "classification_reason": "base classification from rule npm.run",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "expression": "kubectl apply --dry-run=client -f deployment.yaml",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "kubectl",
+        "apply"
+      ],
+      "argv": [
+        "kubectl",
+        "apply",
+        "--dry-run=client",
+        "-f",
+        "deployment.yaml"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "kubectl.apply",
+      "classification_reason": "overridden by option --dry-run to READONLY",
+      "overriding_option": "--dry-run",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "expression": "git reset --soft HEAD~1",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "reset"
+      ],
+      "argv": [
+        "git",
+        "reset",
+        "--soft",
+        "HEAD~1"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "git.reset",
+      "classification_reason": "base classification from rule git.reset",
+      "inner_commands": []
+    }
+  ]
+}

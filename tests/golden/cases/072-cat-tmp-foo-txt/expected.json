@@ -1,0 +1,34 @@
+{
+  "expression": "cat > /tmp/foo.txt",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "cat"
+      ],
+      "argv": [
+        "cat"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "cat",
+      "classification_reason": "base classification from rule cat; elevated by output redirect",
+      "write_paths": [
+        "/tmp/foo.txt"
+      ],
+      "inner_commands": []
+    }
+  ],
+  "write_paths": [
+    "/tmp/foo.txt"
+  ],
+  "redirects": [
+    {
+      "operator": ">",
+      "target": "/tmp/foo.txt",
+      "affects_classification": true
+    }
+  ]
+}

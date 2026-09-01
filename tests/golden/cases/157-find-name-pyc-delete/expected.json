@@ -1,0 +1,31 @@
+{
+  "expression": "find . -name \"*.pyc\" -delete",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [
+    "."
+  ],
+  "commands": [
+    {
+      "command": [
+        "find"
+      ],
+      "argv": [
+        "find",
+        ".",
+        "-name",
+        "*.pyc",
+        "-delete"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "find",
+      "remaining_options": [
+        "-name"
+      ],
+      "classification_reason": "overridden by option -delete to DANGEROUS",
+      "overriding_option": "-delete",
+      "inner_commands": []
+    }
+  ]
+}

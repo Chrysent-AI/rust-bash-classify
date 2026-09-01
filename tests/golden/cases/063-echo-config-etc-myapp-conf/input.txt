@@ -1,0 +1,1 @@
+echo config > /etc/myapp.conf

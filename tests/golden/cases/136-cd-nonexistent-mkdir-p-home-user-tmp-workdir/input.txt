@@ -1,0 +1,1 @@
+cd /nonexistent || mkdir -p /home/user/tmp/workdir

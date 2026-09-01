@@ -1,0 +1,26 @@
+{
+  "expression": "mkdir -p /home/user/project/src",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "mkdir"
+      ],
+      "argv": [
+        "mkdir",
+        "-p",
+        "/home/user/project/src"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "mkdir",
+      "remaining_options": [
+        "-p"
+      ],
+      "classification_reason": "base classification from rule mkdir",
+      "inner_commands": []
+    }
+  ]
+}

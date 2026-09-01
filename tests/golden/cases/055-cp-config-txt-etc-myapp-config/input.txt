@@ -1,0 +1,1 @@
+cp config.txt /etc/myapp/config

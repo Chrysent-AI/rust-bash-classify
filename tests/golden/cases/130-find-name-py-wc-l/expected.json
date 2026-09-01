@@ -1,0 +1,46 @@
+{
+  "expression": "find . -name \"*.py\" | wc -l",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "."
+  ],
+  "commands": [
+    {
+      "command": [
+        "find"
+      ],
+      "argv": [
+        "find",
+        ".",
+        "-name",
+        "*.py"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "find",
+      "remaining_options": [
+        "-name"
+      ],
+      "classification_reason": "base classification from rule find",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "wc"
+      ],
+      "argv": [
+        "wc",
+        "-l"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "wc",
+      "remaining_options": [
+        "-l"
+      ],
+      "classification_reason": "base classification from rule wc",
+      "inner_commands": []
+    }
+  ]
+}

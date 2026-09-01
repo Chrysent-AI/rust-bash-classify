@@ -1,0 +1,35 @@
+{
+  "expression": "ls | rm file",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "ls"
+      ],
+      "argv": [
+        "ls"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "ls",
+      "classification_reason": "base classification from rule ls",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "rm"
+      ],
+      "argv": [
+        "rm",
+        "file"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "rm",
+      "classification_reason": "base classification from rule rm",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "expression": "kubectl --context=prod get pods -n kube-system | grep Running",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "kubectl",
+        "get"
+      ],
+      "argv": [
+        "kubectl",
+        "--context=prod",
+        "get",
+        "pods",
+        "-n",
+        "kube-system"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "kubectl.get",
+      "ignored_options": [
+        "--context=prod"
+      ],
+      "classification_reason": "base classification from rule kubectl.get",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "grep"
+      ],
+      "argv": [
+        "grep",
+        "Running"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "grep",
+      "classification_reason": "base classification from rule grep",
+      "inner_commands": []
+    }
+  ]
+}

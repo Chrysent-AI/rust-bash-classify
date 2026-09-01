@@ -1,0 +1,35 @@
+{
+  "expression": "echo line >> /tmp/log.txt",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "line"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo; elevated by output redirect",
+      "write_paths": [
+        "/tmp/log.txt"
+      ],
+      "inner_commands": []
+    }
+  ],
+  "write_paths": [
+    "/tmp/log.txt"
+  ],
+  "redirects": [
+    {
+      "operator": ">>",
+      "target": "/tmp/log.txt",
+      "affects_classification": true
+    }
+  ]
+}

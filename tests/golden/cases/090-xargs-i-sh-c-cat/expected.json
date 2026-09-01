@@ -1,0 +1,58 @@
+{
+  "expression": "xargs -I{} sh -c 'cat {}'",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "xargs"
+      ],
+      "argv": [
+        "xargs",
+        "-I{}",
+        "sh",
+        "-c",
+        "cat {}"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "xargs",
+      "classification_reason": "delegated to inner via xargs",
+      "inner_commands": [
+        {
+          "delegation_mode": "rest_are_argv",
+          "delegation_source": "xargs",
+          "command": [
+            "sh"
+          ],
+          "argv": [
+            "sh",
+            "-c",
+            "cat {}"
+          ],
+          "classification": "READONLY",
+          "risk": "LOW",
+          "matched_rule": "sh",
+          "inner_commands": [
+            {
+              "delegation_mode": "flag_value_is_expression",
+              "delegation_source": "-c",
+              "command": [
+                "cat"
+              ],
+              "argv": [
+                "cat",
+                "{}"
+              ],
+              "classification": "READONLY",
+              "risk": "LOW",
+              "matched_rule": "cat",
+              "inner_commands": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

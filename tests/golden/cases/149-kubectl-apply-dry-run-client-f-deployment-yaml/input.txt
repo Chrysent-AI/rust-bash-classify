@@ -1,0 +1,1 @@
+kubectl apply --dry-run=client -f deployment.yaml

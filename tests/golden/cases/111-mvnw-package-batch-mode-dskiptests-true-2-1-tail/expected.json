@@ -1,0 +1,49 @@
+{
+  "expression": "./mvnw package --batch-mode -DskipTests=true 2>&1 | tail -30",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "mvnw",
+        "package"
+      ],
+      "argv": [
+        "./mvnw",
+        "package",
+        "--batch-mode",
+        "-DskipTests=true"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "mvnw.package",
+      "classification_reason": "base classification from rule mvnw.package",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "tail"
+      ],
+      "argv": [
+        "tail",
+        "-30"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "tail",
+      "remaining_options": [
+        "-30"
+      ],
+      "classification_reason": "base classification from rule tail",
+      "inner_commands": []
+    }
+  ],
+  "redirects": [
+    {
+      "operator": "2>&",
+      "target": "1",
+      "affects_classification": false
+    }
+  ]
+}

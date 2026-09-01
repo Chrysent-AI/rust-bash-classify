@@ -1,0 +1,41 @@
+{
+  "expression": "git add -A && git commit -m \"fix: resolve issue\"",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "add"
+      ],
+      "argv": [
+        "git",
+        "add",
+        "-A"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "git.add",
+      "classification_reason": "base classification from rule git.add",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "git",
+        "commit"
+      ],
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "fix: resolve issue"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "git.commit",
+      "classification_reason": "base classification from rule git.commit",
+      "inner_commands": []
+    }
+  ]
+}

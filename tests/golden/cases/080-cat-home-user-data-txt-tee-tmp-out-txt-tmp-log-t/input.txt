@@ -1,0 +1,1 @@
+cat < /home/user/data.txt | tee /tmp/out.txt > /tmp/log.txt

@@ -1,0 +1,25 @@
+{
+  "expression": "git commit -m \"fix /etc/config\"",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "commit"
+      ],
+      "argv": [
+        "git",
+        "commit",
+        "-m",
+        "fix /etc/config"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "git.commit",
+      "classification_reason": "base classification from rule git.commit",
+      "inner_commands": []
+    }
+  ]
+}

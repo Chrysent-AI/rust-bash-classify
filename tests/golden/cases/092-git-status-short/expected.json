@@ -1,0 +1,27 @@
+{
+  "expression": "git status --short",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "status"
+      ],
+      "argv": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "git.status",
+      "remaining_options": [
+        "--short"
+      ],
+      "classification_reason": "base classification from rule git.status",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "expression": "head /var/log/syslog",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/var/log"
+  ],
+  "commands": [
+    {
+      "command": [
+        "head"
+      ],
+      "argv": [
+        "head",
+        "/var/log/syslog"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "head",
+      "classification_reason": "base classification from rule head",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+docker ps -aq --filter "label=test" | xargs -r docker rm -f 2>/dev/null; echo "done"

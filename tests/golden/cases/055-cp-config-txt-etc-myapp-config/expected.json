@@ -1,0 +1,23 @@
+{
+  "expression": "cp config.txt /etc/myapp/config",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "cp"
+      ],
+      "argv": [
+        "cp",
+        "config.txt",
+        "/etc/myapp/config"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "cp",
+      "classification_reason": "base classification from rule cp; elevated to DANGEROUS: system path /etc/myapp/config",
+      "inner_commands": []
+    }
+  ]
+}

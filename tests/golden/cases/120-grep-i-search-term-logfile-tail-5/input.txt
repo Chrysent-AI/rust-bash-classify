@@ -1,0 +1,1 @@
+grep -i 'search_term' logfile | tail -5

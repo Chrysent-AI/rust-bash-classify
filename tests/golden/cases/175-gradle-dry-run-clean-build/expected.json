@@ -1,0 +1,27 @@
+{
+  "expression": "gradle --dry-run clean build",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "gradle",
+        "clean",
+        "build"
+      ],
+      "argv": [
+        "gradle",
+        "--dry-run",
+        "clean",
+        "build"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "gradle.clean.build",
+      "classification_reason": "overridden by option --dry-run to READONLY",
+      "overriding_option": "--dry-run",
+      "inner_commands": []
+    }
+  ]
+}

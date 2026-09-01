@@ -1,0 +1,45 @@
+{
+  "expression": "sort < /home/user/hosts > /tmp/sorted.txt",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "sort"
+      ],
+      "argv": [
+        "sort"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "sort",
+      "classification_reason": "base classification from rule sort; elevated by output redirect",
+      "write_paths": [
+        "/tmp/sorted.txt"
+      ],
+      "read_paths": [
+        "/home/user/hosts"
+      ],
+      "inner_commands": []
+    }
+  ],
+  "write_paths": [
+    "/tmp/sorted.txt"
+  ],
+  "read_paths": [
+    "/home/user/hosts"
+  ],
+  "redirects": [
+    {
+      "operator": "<",
+      "target": "/home/user/hosts",
+      "affects_classification": false
+    },
+    {
+      "operator": ">",
+      "target": "/tmp/sorted.txt",
+      "affects_classification": true
+    }
+  ]
+}

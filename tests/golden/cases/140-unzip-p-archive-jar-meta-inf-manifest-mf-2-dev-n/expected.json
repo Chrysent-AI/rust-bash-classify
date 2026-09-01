@@ -1,0 +1,48 @@
+{
+  "expression": "unzip -p archive.jar META-INF/MANIFEST.MF 2>/dev/null || echo \"not found\"",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "unzip"
+      ],
+      "argv": [
+        "unzip",
+        "-p",
+        "archive.jar",
+        "META-INF/MANIFEST.MF"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "unzip",
+      "remaining_options": [
+        "-p"
+      ],
+      "classification_reason": "base classification from rule unzip",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "not found"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo",
+      "inner_commands": []
+    }
+  ],
+  "redirects": [
+    {
+      "operator": "2>",
+      "target": "/dev/null",
+      "affects_classification": false
+    }
+  ]
+}

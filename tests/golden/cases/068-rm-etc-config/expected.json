@@ -1,0 +1,22 @@
+{
+  "expression": "rm /etc/config",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "rm"
+      ],
+      "argv": [
+        "rm",
+        "/etc/config"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "rm",
+      "classification_reason": "base classification from rule rm",
+      "inner_commands": []
+    }
+  ]
+}

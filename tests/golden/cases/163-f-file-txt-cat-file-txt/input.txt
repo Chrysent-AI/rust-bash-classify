@@ -1,0 +1,1 @@
+[ -f "file.txt" ] && cat file.txt
