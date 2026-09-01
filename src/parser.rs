@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Chrysent LLC
+// SPDX-License-Identifier: MIT
 //! Bash expression parser using tree-sitter-bash.
 
 use std::{error::Error, fmt};

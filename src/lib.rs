@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Chrysent LLC
+// SPDX-License-Identifier: MIT
 //! Library scaffold for the Rust port of bash-classify.
 //!
 //! Parity modules will mirror the Python implementation (`models`, `parser`,

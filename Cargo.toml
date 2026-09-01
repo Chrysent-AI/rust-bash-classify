@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: 2026 Chrysent LLC
+# SPDX-License-Identifier: MIT
 [package]
 name = "rust-bash-classify"
 version = "0.1.0"

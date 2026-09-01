@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Chrysent LLC
+// SPDX-License-Identifier: MIT
 //! Top-level classifier orchestrating parsing, matching, and classification.
 
 use std::{error::Error, fmt};

@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Chrysent LLC
+// SPDX-License-Identifier: MIT
 use std::sync::OnceLock;
 
 use bash_classify::database::load_database;

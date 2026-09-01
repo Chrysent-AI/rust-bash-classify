@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2026 Chrysent LLC
+# SPDX-License-Identifier: MIT
 """Generate PORT_MANIFEST.md from the Python pytest suite and Rust test list.
 
 The manifest maps each Python test function to the Rust test that covers the
@@ -184,6 +186,9 @@ def main() -> None:
         raise SystemExit(f"expected extra tests missing from cargo list: {sorted(expected_extra_missing)}")
 
     lines: list[str] = []
+    lines.append("<!-- SPDX-FileCopyrightText: 2026 Chrysent LLC -->")
+    lines.append("<!-- SPDX-License-Identifier: MIT -->")
+    lines.append("")
     lines.append("# Port manifest")
     lines.append("")
     lines.append("This generated manifest maps the Python pytest suite at `/home/chrysent/devel/bash-classify/tests` to the Rust tests that cover the same behavior. Regenerate it with `scripts/gen_port_manifest.py` after adding, renaming, or moving ported tests.")

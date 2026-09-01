@@ -1,3 +1,6 @@
+<!-- SPDX-FileCopyrightText: 2026 Chrysent LLC -->
+<!-- SPDX-License-Identifier: MIT -->
+
 # Port manifest
 
 This generated manifest maps the Python pytest suite at `/home/chrysent/devel/bash-classify/tests` to the Rust tests that cover the same behavior. Regenerate it with `scripts/gen_port_manifest.py` after adding, renaming, or moving ported tests.

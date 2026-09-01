@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Chrysent LLC
+// SPDX-License-Identifier: MIT
 use std::collections::HashMap;
 use std::sync::OnceLock;
 
