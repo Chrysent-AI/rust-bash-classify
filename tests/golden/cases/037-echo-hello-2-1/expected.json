@@ -1,0 +1,29 @@
+{
+  "expression": "echo hello 2>&1",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "hello"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo",
+      "inner_commands": []
+    }
+  ],
+  "redirects": [
+    {
+      "operator": "2>&",
+      "target": "1",
+      "affects_classification": false
+    }
+  ]
+}

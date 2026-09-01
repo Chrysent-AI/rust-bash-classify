@@ -1,0 +1,41 @@
+{
+  "expression": "cd /home/user/project && ls -la",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/home/user/project"
+  ],
+  "commands": [
+    {
+      "command": [
+        "cd"
+      ],
+      "argv": [
+        "cd",
+        "/home/user/project"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": null,
+      "classification_reason": "shell builtin (always READONLY)",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "ls"
+      ],
+      "argv": [
+        "ls",
+        "-la"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "ls",
+      "remaining_options": [
+        "-la"
+      ],
+      "classification_reason": "base classification from rule ls",
+      "inner_commands": []
+    }
+  ]
+}

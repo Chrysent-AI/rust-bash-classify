@@ -1,0 +1,44 @@
+{
+  "expression": "grep -i 'search_term' logfile | tail -5",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "grep"
+      ],
+      "argv": [
+        "grep",
+        "-i",
+        "search_term",
+        "logfile"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "grep",
+      "remaining_options": [
+        "-i"
+      ],
+      "classification_reason": "base classification from rule grep",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "tail"
+      ],
+      "argv": [
+        "tail",
+        "-5"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "tail",
+      "remaining_options": [
+        "-5"
+      ],
+      "classification_reason": "base classification from rule tail",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "expression": "cat < /home/user/data.txt | tee /tmp/out.txt > /tmp/log.txt",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "cat"
+      ],
+      "argv": [
+        "cat"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "cat",
+      "classification_reason": "base classification from rule cat; elevated by output redirect",
+      "write_paths": [
+        "/tmp/log.txt"
+      ],
+      "read_paths": [
+        "/home/user/data.txt"
+      ],
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "tee"
+      ],
+      "argv": [
+        "tee",
+        "/tmp/out.txt"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "tee",
+      "classification_reason": "base classification from rule tee",
+      "inner_commands": []
+    }
+  ],
+  "write_paths": [
+    "/tmp/log.txt"
+  ],
+  "read_paths": [
+    "/home/user/data.txt"
+  ],
+  "redirects": [
+    {
+      "operator": "<",
+      "target": "/home/user/data.txt",
+      "affects_classification": false
+    },
+    {
+      "operator": ">",
+      "target": "/tmp/log.txt",
+      "affects_classification": true
+    }
+  ]
+}

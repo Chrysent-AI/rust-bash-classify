@@ -1,0 +1,1 @@
+grep -E "pattern1|pattern2" file.txt | head -20

@@ -1,0 +1,53 @@
+{
+  "expression": "grep -n \"pattern\" file | sort | uniq",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "grep"
+      ],
+      "argv": [
+        "grep",
+        "-n",
+        "pattern",
+        "file"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "grep",
+      "remaining_options": [
+        "-n"
+      ],
+      "classification_reason": "base classification from rule grep",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "sort"
+      ],
+      "argv": [
+        "sort"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "sort",
+      "classification_reason": "base classification from rule sort",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "uniq"
+      ],
+      "argv": [
+        "uniq"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "uniq",
+      "classification_reason": "base classification from rule uniq",
+      "inner_commands": []
+    }
+  ]
+}

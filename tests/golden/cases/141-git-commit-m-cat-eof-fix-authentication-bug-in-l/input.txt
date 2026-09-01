@@ -1,0 +1,6 @@
+git commit -m "$(cat <<'EOF'
+Fix authentication bug in login flow
+
+The session token was not being refreshed properly.
+EOF
+)" 

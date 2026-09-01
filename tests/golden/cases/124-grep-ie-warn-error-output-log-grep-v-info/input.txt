@@ -1,0 +1,1 @@
+grep -iE "\[WARN\]|\[ERROR\]" output.log | grep -v "^\[INFO\]"

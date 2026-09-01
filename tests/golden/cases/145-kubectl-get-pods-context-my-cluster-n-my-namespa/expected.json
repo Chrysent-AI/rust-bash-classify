@@ -1,0 +1,30 @@
+{
+  "expression": "kubectl get pods --context my-cluster -n my-namespace -o wide",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "kubectl",
+        "get"
+      ],
+      "argv": [
+        "kubectl",
+        "get",
+        "pods",
+        "--context",
+        "my-cluster",
+        "-n",
+        "my-namespace",
+        "-o",
+        "wide"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "kubectl.get",
+      "classification_reason": "base classification from rule kubectl.get",
+      "inner_commands": []
+    }
+  ]
+}

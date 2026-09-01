@@ -1,0 +1,1 @@
+sort < /home/user/hosts > /tmp/sorted.txt

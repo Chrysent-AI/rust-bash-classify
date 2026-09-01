@@ -1,0 +1,1 @@
+kubectl exec -it my-pod -- cat /etc/config

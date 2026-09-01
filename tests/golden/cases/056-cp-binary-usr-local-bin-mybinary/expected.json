@@ -1,0 +1,23 @@
+{
+  "expression": "cp binary /usr/local/bin/mybinary",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "cp"
+      ],
+      "argv": [
+        "cp",
+        "binary",
+        "/usr/local/bin/mybinary"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "cp",
+      "classification_reason": "base classification from rule cp; elevated to DANGEROUS: system path /usr/local/bin/mybinary",
+      "inner_commands": []
+    }
+  ]
+}

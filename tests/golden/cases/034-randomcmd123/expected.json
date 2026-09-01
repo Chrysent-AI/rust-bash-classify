@@ -1,0 +1,21 @@
+{
+  "expression": "randomcmd123",
+  "classification": "UNKNOWN",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "randomcmd123"
+      ],
+      "argv": [
+        "randomcmd123"
+      ],
+      "classification": "UNKNOWN",
+      "risk": "HIGH",
+      "matched_rule": null,
+      "classification_reason": "command not in database",
+      "inner_commands": []
+    }
+  ]
+}

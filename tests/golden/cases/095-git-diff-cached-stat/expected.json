@@ -1,0 +1,29 @@
+{
+  "expression": "git diff --cached --stat",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "diff"
+      ],
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--stat"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "git.diff",
+      "remaining_options": [
+        "--cached",
+        "--stat"
+      ],
+      "classification_reason": "base classification from rule git.diff",
+      "inner_commands": []
+    }
+  ]
+}

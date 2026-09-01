@@ -1,0 +1,1 @@
+cp file /home/user/backup

@@ -1,0 +1,22 @@
+{
+  "expression": "touch /opt/myapp/config",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "touch"
+      ],
+      "argv": [
+        "touch",
+        "/opt/myapp/config"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "touch",
+      "classification_reason": "base classification from rule touch; elevated to DANGEROUS: system path /opt/myapp/config",
+      "inner_commands": []
+    }
+  ]
+}

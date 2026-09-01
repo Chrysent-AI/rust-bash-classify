@@ -1,0 +1,45 @@
+{
+  "expression": "git add -A && git diff --cached --stat",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "add"
+      ],
+      "argv": [
+        "git",
+        "add",
+        "-A"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "git.add",
+      "classification_reason": "base classification from rule git.add",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "git",
+        "diff"
+      ],
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--stat"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "git.diff",
+      "remaining_options": [
+        "--cached",
+        "--stat"
+      ],
+      "classification_reason": "base classification from rule git.diff",
+      "inner_commands": []
+    }
+  ]
+}

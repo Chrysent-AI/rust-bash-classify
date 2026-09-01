@@ -1,0 +1,29 @@
+{
+  "expression": "git log --oneline -5",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "log"
+      ],
+      "argv": [
+        "git",
+        "log",
+        "--oneline",
+        "-5"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "git.log",
+      "remaining_options": [
+        "--oneline",
+        "-5"
+      ],
+      "classification_reason": "base classification from rule git.log",
+      "inner_commands": []
+    }
+  ]
+}

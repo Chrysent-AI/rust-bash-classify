@@ -1,0 +1,1 @@
+kubectl get deployment my-app --context my-cluster -o yaml

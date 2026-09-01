@@ -1,0 +1,50 @@
+{
+  "expression": "[[ -d \"$dir\" ]] && echo \"found\" || echo \"not found\"",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "[["
+      ],
+      "argv": [
+        "[[",
+        "-d \"$dir\""
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": null,
+      "classification_reason": "shell builtin (always READONLY)",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "found"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "not found"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo",
+      "inner_commands": []
+    }
+  ]
+}

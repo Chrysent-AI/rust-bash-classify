@@ -1,0 +1,62 @@
+{
+  "expression": "find /tmp -name \"*.log\" | xargs -I {} rm {}",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [
+    "/tmp"
+  ],
+  "commands": [
+    {
+      "command": [
+        "find"
+      ],
+      "argv": [
+        "find",
+        "/tmp",
+        "-name",
+        "*.log"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "find",
+      "remaining_options": [
+        "-name"
+      ],
+      "classification_reason": "base classification from rule find",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "xargs"
+      ],
+      "argv": [
+        "xargs",
+        "-I",
+        "{}",
+        "rm",
+        "{}"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "xargs",
+      "classification_reason": "elevated by inner command",
+      "inner_commands": [
+        {
+          "delegation_mode": "rest_are_argv",
+          "delegation_source": "xargs",
+          "command": [
+            "rm"
+          ],
+          "argv": [
+            "rm",
+            "{}"
+          ],
+          "classification": "DANGEROUS",
+          "risk": "HIGH",
+          "matched_rule": "rm",
+          "inner_commands": []
+        }
+      ]
+    }
+  ]
+}

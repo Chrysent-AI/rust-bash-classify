@@ -1,0 +1,29 @@
+{
+  "expression": "find /var/log -name \"*.log\"",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/var/log"
+  ],
+  "commands": [
+    {
+      "command": [
+        "find"
+      ],
+      "argv": [
+        "find",
+        "/var/log",
+        "-name",
+        "*.log"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "find",
+      "remaining_options": [
+        "-name"
+      ],
+      "classification_reason": "base classification from rule find",
+      "inner_commands": []
+    }
+  ]
+}

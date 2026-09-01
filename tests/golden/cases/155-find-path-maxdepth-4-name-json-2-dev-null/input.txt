@@ -1,0 +1,1 @@
+find /path -maxdepth 4 -name "*.json" 2>/dev/null

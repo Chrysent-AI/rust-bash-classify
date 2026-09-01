@@ -1,0 +1,37 @@
+{
+  "expression": "pushd /opt && ls",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/opt"
+  ],
+  "commands": [
+    {
+      "command": [
+        "pushd"
+      ],
+      "argv": [
+        "pushd",
+        "/opt"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": null,
+      "classification_reason": "shell builtin (always READONLY)",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "ls"
+      ],
+      "argv": [
+        "ls"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "ls",
+      "classification_reason": "base classification from rule ls",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "expression": "npm test",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "argv": [
+        "npm",
+        "test"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "npm.test",
+      "classification_reason": "base classification from rule npm.test",
+      "inner_commands": []
+    }
+  ]
+}

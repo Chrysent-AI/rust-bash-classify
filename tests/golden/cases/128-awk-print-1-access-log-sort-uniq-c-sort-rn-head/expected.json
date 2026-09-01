@@ -1,0 +1,87 @@
+{
+  "expression": "awk \"{print $1}\" access.log | sort | uniq -c | sort -rn | head -20",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "awk"
+      ],
+      "argv": [
+        "awk",
+        "{print $1}",
+        "access.log"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "awk",
+      "classification_reason": "base classification from rule awk",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "sort"
+      ],
+      "argv": [
+        "sort"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "sort",
+      "classification_reason": "base classification from rule sort",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "uniq"
+      ],
+      "argv": [
+        "uniq",
+        "-c"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "uniq",
+      "remaining_options": [
+        "-c"
+      ],
+      "classification_reason": "base classification from rule uniq",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "sort"
+      ],
+      "argv": [
+        "sort",
+        "-rn"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "sort",
+      "remaining_options": [
+        "-rn"
+      ],
+      "classification_reason": "base classification from rule sort",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "head"
+      ],
+      "argv": [
+        "head",
+        "-20"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "head",
+      "remaining_options": [
+        "-20"
+      ],
+      "classification_reason": "base classification from rule head",
+      "inner_commands": []
+    }
+  ]
+}

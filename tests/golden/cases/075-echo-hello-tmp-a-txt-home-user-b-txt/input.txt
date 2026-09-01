@@ -1,0 +1,1 @@
+echo hello > /tmp/a.txt > /home/user/b.txt

@@ -1,0 +1,1 @@
+FOO=bar sudo env PATH=/usr/bin sh -c "kubectl --context=prod get pods | grep Running"

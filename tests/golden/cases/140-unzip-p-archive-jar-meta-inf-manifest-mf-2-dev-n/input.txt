@@ -1,0 +1,1 @@
+unzip -p archive.jar META-INF/MANIFEST.MF 2>/dev/null || echo "not found"

@@ -1,0 +1,24 @@
+{
+  "expression": "cat /etc/config",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/etc"
+  ],
+  "commands": [
+    {
+      "command": [
+        "cat"
+      ],
+      "argv": [
+        "cat",
+        "/etc/config"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "cat",
+      "classification_reason": "base classification from rule cat",
+      "inner_commands": []
+    }
+  ]
+}

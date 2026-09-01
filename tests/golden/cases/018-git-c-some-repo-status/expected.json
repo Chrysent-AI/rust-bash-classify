@@ -1,0 +1,31 @@
+{
+  "expression": "git -C /some/repo status",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/some/repo"
+  ],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "status"
+      ],
+      "argv": [
+        "git",
+        "-C",
+        "/some/repo",
+        "status"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "git.status",
+      "ignored_options": [
+        "-C",
+        "/some/repo"
+      ],
+      "classification_reason": "base classification from rule git.status",
+      "inner_commands": []
+    }
+  ]
+}

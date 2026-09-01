@@ -1,0 +1,41 @@
+{
+  "expression": "cat /path/to/file | head -100",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/path/to"
+  ],
+  "commands": [
+    {
+      "command": [
+        "cat"
+      ],
+      "argv": [
+        "cat",
+        "/path/to/file"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "cat",
+      "classification_reason": "base classification from rule cat",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "head"
+      ],
+      "argv": [
+        "head",
+        "-100"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "head",
+      "remaining_options": [
+        "-100"
+      ],
+      "classification_reason": "base classification from rule head",
+      "inner_commands": []
+    }
+  ]
+}

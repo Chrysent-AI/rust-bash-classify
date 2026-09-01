@@ -1,0 +1,44 @@
+{
+  "expression": "grep -E \"pattern1|pattern2\" file.txt | head -20",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "grep"
+      ],
+      "argv": [
+        "grep",
+        "-E",
+        "pattern1|pattern2",
+        "file.txt"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "grep",
+      "remaining_options": [
+        "-E"
+      ],
+      "classification_reason": "base classification from rule grep",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "head"
+      ],
+      "argv": [
+        "head",
+        "-20"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "head",
+      "remaining_options": [
+        "-20"
+      ],
+      "classification_reason": "base classification from rule head",
+      "inner_commands": []
+    }
+  ]
+}

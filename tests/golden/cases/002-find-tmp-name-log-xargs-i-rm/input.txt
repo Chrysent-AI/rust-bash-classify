@@ -1,0 +1,1 @@
+find /tmp -name "*.log" | xargs -I {} rm {}

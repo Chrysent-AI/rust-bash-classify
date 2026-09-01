@@ -1,0 +1,25 @@
+{
+  "expression": "kubectl apply -f deployment.yaml",
+  "classification": "EXTERNAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "kubectl",
+        "apply"
+      ],
+      "argv": [
+        "kubectl",
+        "apply",
+        "-f",
+        "deployment.yaml"
+      ],
+      "classification": "EXTERNAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "kubectl.apply",
+      "classification_reason": "base classification from rule kubectl.apply",
+      "inner_commands": []
+    }
+  ]
+}

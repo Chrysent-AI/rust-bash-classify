@@ -1,0 +1,42 @@
+{
+  "expression": "cd /nonexistent || mkdir -p /home/user/tmp/workdir",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [
+    "/nonexistent"
+  ],
+  "commands": [
+    {
+      "command": [
+        "cd"
+      ],
+      "argv": [
+        "cd",
+        "/nonexistent"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": null,
+      "classification_reason": "shell builtin (always READONLY)",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "mkdir"
+      ],
+      "argv": [
+        "mkdir",
+        "-p",
+        "/home/user/tmp/workdir"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "mkdir",
+      "remaining_options": [
+        "-p"
+      ],
+      "classification_reason": "base classification from rule mkdir",
+      "inner_commands": []
+    }
+  ]
+}

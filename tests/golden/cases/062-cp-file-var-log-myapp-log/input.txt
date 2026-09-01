@@ -1,0 +1,1 @@
+cp file /var/log/myapp.log

@@ -1,0 +1,24 @@
+{
+  "expression": "mvn clean some-plugin:goal",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "mvn",
+        "clean"
+      ],
+      "argv": [
+        "mvn",
+        "clean",
+        "some-plugin:goal"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "mvn.clean",
+      "classification_reason": "base classification from rule mvn.clean",
+      "inner_commands": []
+    }
+  ]
+}

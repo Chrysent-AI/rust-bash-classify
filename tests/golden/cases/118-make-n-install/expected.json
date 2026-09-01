@@ -1,0 +1,24 @@
+{
+  "expression": "make -n install",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "make"
+      ],
+      "argv": [
+        "make",
+        "-n",
+        "install"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "make",
+      "classification_reason": "overridden by option -n to READONLY",
+      "overriding_option": "-n",
+      "inner_commands": []
+    }
+  ]
+}

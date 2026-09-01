@@ -1,0 +1,35 @@
+{
+  "expression": "echo config > /etc/myapp.conf",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "config"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo; elevated by output redirect; elevated to DANGEROUS: system path /etc/myapp.conf",
+      "write_paths": [
+        "/etc/myapp.conf"
+      ],
+      "inner_commands": []
+    }
+  ],
+  "write_paths": [
+    "/etc/myapp.conf"
+  ],
+  "redirects": [
+    {
+      "operator": ">",
+      "target": "/etc/myapp.conf",
+      "affects_classification": true
+    }
+  ]
+}

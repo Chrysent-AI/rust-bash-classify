@@ -1,0 +1,89 @@
+{
+  "expression": "docker ps -aq --filter \"label=test\" | xargs -r docker rm -f 2>/dev/null; echo \"done\"",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "docker",
+        "ps"
+      ],
+      "argv": [
+        "docker",
+        "ps",
+        "-aq",
+        "--filter",
+        "label=test"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "docker.ps",
+      "remaining_options": [
+        "-aq",
+        "--filter"
+      ],
+      "classification_reason": "base classification from rule docker.ps",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "xargs"
+      ],
+      "argv": [
+        "xargs",
+        "-r",
+        "docker",
+        "rm",
+        "-f"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "xargs",
+      "classification_reason": "elevated by inner command",
+      "inner_commands": [
+        {
+          "delegation_mode": "rest_are_argv",
+          "delegation_source": "xargs",
+          "command": [
+            "docker",
+            "rm"
+          ],
+          "argv": [
+            "docker",
+            "rm",
+            "-f"
+          ],
+          "classification": "DANGEROUS",
+          "risk": "HIGH",
+          "matched_rule": "docker.rm",
+          "remaining_options": [
+            "-f"
+          ],
+          "inner_commands": []
+        }
+      ]
+    },
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "done"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo",
+      "inner_commands": []
+    }
+  ],
+  "redirects": [
+    {
+      "operator": "2>",
+      "target": "/dev/null",
+      "affects_classification": false
+    }
+  ]
+}

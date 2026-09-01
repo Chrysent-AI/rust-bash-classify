@@ -1,0 +1,42 @@
+{
+  "expression": "ruff check --fix . && ruff format .",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "ruff",
+        "check"
+      ],
+      "argv": [
+        "ruff",
+        "check",
+        "--fix",
+        "."
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "ruff.check",
+      "classification_reason": "overridden by option --fix to LOCAL_EFFECTS",
+      "overriding_option": "--fix",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "ruff",
+        "format"
+      ],
+      "argv": [
+        "ruff",
+        "format",
+        "."
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "ruff.format",
+      "classification_reason": "base classification from rule ruff.format",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+cp binary /usr/local/bin/mybinary

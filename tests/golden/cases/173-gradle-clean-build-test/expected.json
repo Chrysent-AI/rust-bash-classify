@@ -1,0 +1,27 @@
+{
+  "expression": "gradle clean build test",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "gradle",
+        "clean",
+        "build",
+        "test"
+      ],
+      "argv": [
+        "gradle",
+        "clean",
+        "build",
+        "test"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "gradle.clean.build.test",
+      "classification_reason": "base classification from rule gradle.clean.build.test",
+      "inner_commands": []
+    }
+  ]
+}

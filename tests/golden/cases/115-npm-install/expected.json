@@ -1,0 +1,23 @@
+{
+  "expression": "npm install",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "install"
+      ],
+      "argv": [
+        "npm",
+        "install"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "npm.install",
+      "classification_reason": "base classification from rule npm.install",
+      "inner_commands": []
+    }
+  ]
+}

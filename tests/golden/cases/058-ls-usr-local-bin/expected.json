@@ -1,0 +1,24 @@
+{
+  "expression": "ls /usr/local/bin",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/usr/local/bin"
+  ],
+  "commands": [
+    {
+      "command": [
+        "ls"
+      ],
+      "argv": [
+        "ls",
+        "/usr/local/bin"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "ls",
+      "classification_reason": "base classification from rule ls",
+      "inner_commands": []
+    }
+  ]
+}

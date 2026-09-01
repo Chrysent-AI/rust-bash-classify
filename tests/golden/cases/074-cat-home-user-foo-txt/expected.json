@@ -1,0 +1,34 @@
+{
+  "expression": "cat > /home/user/foo.txt",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "cat"
+      ],
+      "argv": [
+        "cat"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "cat",
+      "classification_reason": "base classification from rule cat; elevated by output redirect",
+      "write_paths": [
+        "/home/user/foo.txt"
+      ],
+      "inner_commands": []
+    }
+  ],
+  "write_paths": [
+    "/home/user/foo.txt"
+  ],
+  "redirects": [
+    {
+      "operator": ">",
+      "target": "/home/user/foo.txt",
+      "affects_classification": true
+    }
+  ]
+}

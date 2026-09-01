@@ -1,0 +1,1 @@
+kubectl get pods --context my-cluster -n my-namespace -o wide

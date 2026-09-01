@@ -1,0 +1,55 @@
+{
+  "expression": "find . -name \"*.java\" -exec grep -l \"pattern\" {} \\;",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "."
+  ],
+  "commands": [
+    {
+      "command": [
+        "find"
+      ],
+      "argv": [
+        "find",
+        ".",
+        "-name",
+        "*.java",
+        "-exec",
+        "grep",
+        "-l",
+        "pattern",
+        "{}",
+        "\\;"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "find",
+      "remaining_options": [
+        "-name"
+      ],
+      "classification_reason": "base classification from rule find",
+      "inner_commands": [
+        {
+          "delegation_mode": "terminated_argv",
+          "delegation_source": "-exec",
+          "command": [
+            "grep"
+          ],
+          "argv": [
+            "grep",
+            "-l",
+            "pattern"
+          ],
+          "classification": "READONLY",
+          "risk": "LOW",
+          "matched_rule": "grep",
+          "remaining_options": [
+            "-l"
+          ],
+          "inner_commands": []
+        }
+      ]
+    }
+  ]
+}

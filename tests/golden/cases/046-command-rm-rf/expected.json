@@ -1,0 +1,44 @@
+{
+  "expression": "command rm -rf /",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "command"
+      ],
+      "argv": [
+        "command",
+        "rm",
+        "-rf",
+        "/"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "command",
+      "classification_reason": "elevated by inner command",
+      "inner_commands": [
+        {
+          "delegation_mode": "rest_are_argv",
+          "delegation_source": "command",
+          "command": [
+            "rm"
+          ],
+          "argv": [
+            "rm",
+            "-rf",
+            "/"
+          ],
+          "classification": "DANGEROUS",
+          "risk": "HIGH",
+          "matched_rule": "rm",
+          "remaining_options": [
+            "-rf"
+          ],
+          "inner_commands": []
+        }
+      ]
+    }
+  ]
+}

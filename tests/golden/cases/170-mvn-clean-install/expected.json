@@ -1,0 +1,25 @@
+{
+  "expression": "mvn clean install",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "mvn",
+        "clean",
+        "install"
+      ],
+      "argv": [
+        "mvn",
+        "clean",
+        "install"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "mvn.clean.install",
+      "classification_reason": "base classification from rule mvn.clean.install",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "expression": "$CMD arg1 arg2",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "$CMD"
+      ],
+      "argv": [
+        "$CMD",
+        "arg1",
+        "arg2"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": null,
+      "classification_reason": "variable expansion in command position",
+      "inner_commands": []
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "expression": "grep -B 5 -A 10 \"pattern\" file.txt",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "grep"
+      ],
+      "argv": [
+        "grep",
+        "-B",
+        "5",
+        "-A",
+        "10",
+        "pattern",
+        "file.txt"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "grep",
+      "remaining_options": [
+        "-B",
+        "-A"
+      ],
+      "classification_reason": "base classification from rule grep",
+      "inner_commands": []
+    }
+  ]
+}

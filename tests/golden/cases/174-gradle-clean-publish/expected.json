@@ -1,0 +1,25 @@
+{
+  "expression": "gradle clean publish",
+  "classification": "EXTERNAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "gradle",
+        "clean",
+        "publish"
+      ],
+      "argv": [
+        "gradle",
+        "clean",
+        "publish"
+      ],
+      "classification": "EXTERNAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "gradle.clean.publish",
+      "classification_reason": "base classification from rule gradle.clean.publish",
+      "inner_commands": []
+    }
+  ]
+}

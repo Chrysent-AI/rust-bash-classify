@@ -1,0 +1,36 @@
+{
+  "expression": "[ -f \"file.txt\" ] && cat file.txt",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "["
+      ],
+      "argv": [
+        "[",
+        "-f \"file.txt\""
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": null,
+      "classification_reason": "shell builtin (always READONLY)",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "cat"
+      ],
+      "argv": [
+        "cat",
+        "file.txt"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "cat",
+      "classification_reason": "base classification from rule cat",
+      "inner_commands": []
+    }
+  ]
+}

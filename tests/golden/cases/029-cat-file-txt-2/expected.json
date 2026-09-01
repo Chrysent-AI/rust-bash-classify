@@ -1,0 +1,34 @@
+{
+  "expression": "cat < file.txt",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "cat"
+      ],
+      "argv": [
+        "cat"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "cat",
+      "classification_reason": "base classification from rule cat",
+      "read_paths": [
+        "file.txt"
+      ],
+      "inner_commands": []
+    }
+  ],
+  "read_paths": [
+    "file.txt"
+  ],
+  "redirects": [
+    {
+      "operator": "<",
+      "target": "file.txt",
+      "affects_classification": false
+    }
+  ]
+}

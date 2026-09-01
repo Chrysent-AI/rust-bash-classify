@@ -1,0 +1,45 @@
+{
+  "expression": "grep -iE \"\\[WARN\\]|\\[ERROR\\]\" output.log | grep -v \"^\\[INFO\\]\"",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "grep"
+      ],
+      "argv": [
+        "grep",
+        "-iE",
+        "\\[WARN\\]|\\[ERROR\\]",
+        "output.log"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "grep",
+      "remaining_options": [
+        "-iE"
+      ],
+      "classification_reason": "base classification from rule grep",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "grep"
+      ],
+      "argv": [
+        "grep",
+        "-v",
+        "^\\[INFO\\]"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "grep",
+      "remaining_options": [
+        "-v"
+      ],
+      "classification_reason": "base classification from rule grep",
+      "inner_commands": []
+    }
+  ]
+}

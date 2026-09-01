@@ -1,0 +1,26 @@
+{
+  "expression": "/usr/bin/rm -rf /",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "rm"
+      ],
+      "argv": [
+        "/usr/bin/rm",
+        "-rf",
+        "/"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "rm",
+      "remaining_options": [
+        "-rf"
+      ],
+      "classification_reason": "base classification from rule rm",
+      "inner_commands": []
+    }
+  ]
+}

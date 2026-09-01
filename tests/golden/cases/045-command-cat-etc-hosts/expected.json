@@ -1,0 +1,41 @@
+{
+  "expression": "command cat /etc/hosts",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/etc"
+  ],
+  "commands": [
+    {
+      "command": [
+        "command"
+      ],
+      "argv": [
+        "command",
+        "cat",
+        "/etc/hosts"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "command",
+      "classification_reason": "delegated to inner via command",
+      "inner_commands": [
+        {
+          "delegation_mode": "rest_are_argv",
+          "delegation_source": "command",
+          "command": [
+            "cat"
+          ],
+          "argv": [
+            "cat",
+            "/etc/hosts"
+          ],
+          "classification": "READONLY",
+          "risk": "LOW",
+          "matched_rule": "cat",
+          "inner_commands": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "expression": "builtin echo hello",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "builtin"
+      ],
+      "argv": [
+        "builtin",
+        "echo",
+        "hello"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "builtin",
+      "classification_reason": "delegated to inner via builtin",
+      "inner_commands": [
+        {
+          "delegation_mode": "rest_are_argv",
+          "delegation_source": "builtin",
+          "command": [
+            "echo"
+          ],
+          "argv": [
+            "echo",
+            "hello"
+          ],
+          "classification": "READONLY",
+          "risk": "LOW",
+          "matched_rule": "echo",
+          "inner_commands": []
+        }
+      ]
+    }
+  ]
+}

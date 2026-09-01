@@ -1,0 +1,35 @@
+{
+  "expression": "echo hello > output.txt",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "MEDIUM",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "hello"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "MEDIUM",
+      "matched_rule": "echo",
+      "classification_reason": "base classification from rule echo; elevated by output redirect",
+      "write_paths": [
+        "output.txt"
+      ],
+      "inner_commands": []
+    }
+  ],
+  "write_paths": [
+    "output.txt"
+  ],
+  "redirects": [
+    {
+      "operator": ">",
+      "target": "output.txt",
+      "affects_classification": true
+    }
+  ]
+}

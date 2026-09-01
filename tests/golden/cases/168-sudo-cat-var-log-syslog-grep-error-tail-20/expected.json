@@ -1,0 +1,72 @@
+{
+  "expression": "sudo cat /var/log/syslog | grep error | tail -20",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [
+    "/var/log"
+  ],
+  "commands": [
+    {
+      "command": [
+        "sudo"
+      ],
+      "argv": [
+        "sudo",
+        "cat",
+        "/var/log/syslog"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "sudo",
+      "classification_reason": "elevated by inner command",
+      "inner_commands": [
+        {
+          "delegation_mode": "rest_are_argv",
+          "delegation_source": "sudo",
+          "command": [
+            "cat"
+          ],
+          "argv": [
+            "cat",
+            "/var/log/syslog"
+          ],
+          "classification": "DANGEROUS",
+          "risk": "HIGH",
+          "matched_rule": "cat",
+          "inner_commands": []
+        }
+      ]
+    },
+    {
+      "command": [
+        "grep"
+      ],
+      "argv": [
+        "grep",
+        "error"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "grep",
+      "classification_reason": "base classification from rule grep",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "tail"
+      ],
+      "argv": [
+        "tail",
+        "-20"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "tail",
+      "remaining_options": [
+        "-20"
+      ],
+      "classification_reason": "base classification from rule tail",
+      "inner_commands": []
+    }
+  ]
+}

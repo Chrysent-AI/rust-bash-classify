@@ -1,0 +1,1 @@
+cp file /var/tmp/backup

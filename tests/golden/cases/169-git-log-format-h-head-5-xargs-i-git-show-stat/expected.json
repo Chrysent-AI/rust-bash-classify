@@ -1,0 +1,84 @@
+{
+  "expression": "git log --format=\"%H\" | head -5 | xargs -I{} git show --stat {}",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "log"
+      ],
+      "argv": [
+        "git",
+        "log",
+        "--format=%H"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "git.log",
+      "remaining_options": [
+        "--format=%H"
+      ],
+      "classification_reason": "base classification from rule git.log",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "head"
+      ],
+      "argv": [
+        "head",
+        "-5"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "head",
+      "remaining_options": [
+        "-5"
+      ],
+      "classification_reason": "base classification from rule head",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "xargs"
+      ],
+      "argv": [
+        "xargs",
+        "-I{}",
+        "git",
+        "show",
+        "--stat",
+        "{}"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "xargs",
+      "classification_reason": "delegated to inner via xargs",
+      "inner_commands": [
+        {
+          "delegation_mode": "rest_are_argv",
+          "delegation_source": "xargs",
+          "command": [
+            "git",
+            "show"
+          ],
+          "argv": [
+            "git",
+            "show",
+            "--stat",
+            "{}"
+          ],
+          "classification": "READONLY",
+          "risk": "LOW",
+          "matched_rule": "git.show",
+          "remaining_options": [
+            "--stat"
+          ],
+          "inner_commands": []
+        }
+      ]
+    }
+  ]
+}

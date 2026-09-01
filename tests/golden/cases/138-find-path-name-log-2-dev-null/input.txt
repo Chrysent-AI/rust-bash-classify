@@ -1,0 +1,1 @@
+find /path -name "*.log" 2>/dev/null

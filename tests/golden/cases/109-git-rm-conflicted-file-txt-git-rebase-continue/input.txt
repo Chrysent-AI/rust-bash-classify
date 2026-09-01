@@ -1,0 +1,1 @@
+git rm conflicted-file.txt && git rebase --continue

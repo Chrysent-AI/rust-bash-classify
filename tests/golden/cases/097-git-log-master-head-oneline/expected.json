@@ -1,0 +1,28 @@
+{
+  "expression": "git log master..HEAD --oneline",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "log"
+      ],
+      "argv": [
+        "git",
+        "log",
+        "master..HEAD",
+        "--oneline"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "git.log",
+      "remaining_options": [
+        "--oneline"
+      ],
+      "classification_reason": "base classification from rule git.log",
+      "inner_commands": []
+    }
+  ]
+}

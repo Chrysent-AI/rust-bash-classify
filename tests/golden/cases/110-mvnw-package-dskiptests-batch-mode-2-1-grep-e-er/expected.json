@@ -1,0 +1,50 @@
+{
+  "expression": "./mvnw package -DskipTests --batch-mode 2>&1 | grep -E \"\\[ERROR\\]|BUILD\"",
+  "classification": "LOCAL_EFFECTS",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "mvnw",
+        "package"
+      ],
+      "argv": [
+        "./mvnw",
+        "package",
+        "-DskipTests",
+        "--batch-mode"
+      ],
+      "classification": "LOCAL_EFFECTS",
+      "risk": "LOW",
+      "matched_rule": "mvnw.package",
+      "classification_reason": "base classification from rule mvnw.package",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "grep"
+      ],
+      "argv": [
+        "grep",
+        "-E",
+        "\\[ERROR\\]|BUILD"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "grep",
+      "remaining_options": [
+        "-E"
+      ],
+      "classification_reason": "base classification from rule grep",
+      "inner_commands": []
+    }
+  ],
+  "redirects": [
+    {
+      "operator": "2>&",
+      "target": "1",
+      "affects_classification": false
+    }
+  ]
+}

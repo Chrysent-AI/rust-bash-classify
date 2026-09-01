@@ -1,0 +1,22 @@
+{
+  "expression": "date '+%Y%m%d%H%M%S'",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "date"
+      ],
+      "argv": [
+        "date",
+        "+%Y%m%d%H%M%S"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "date",
+      "classification_reason": "base classification from rule date",
+      "inner_commands": []
+    }
+  ]
+}

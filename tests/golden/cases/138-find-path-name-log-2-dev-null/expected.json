@@ -1,0 +1,36 @@
+{
+  "expression": "find /path -name \"*.log\" 2>/dev/null",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "/path"
+  ],
+  "commands": [
+    {
+      "command": [
+        "find"
+      ],
+      "argv": [
+        "find",
+        "/path",
+        "-name",
+        "*.log"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "find",
+      "remaining_options": [
+        "-name"
+      ],
+      "classification_reason": "base classification from rule find",
+      "inner_commands": []
+    }
+  ],
+  "redirects": [
+    {
+      "operator": "2>",
+      "target": "/dev/null",
+      "affects_classification": false
+    }
+  ]
+}

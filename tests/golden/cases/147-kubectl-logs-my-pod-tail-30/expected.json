@@ -1,0 +1,28 @@
+{
+  "expression": "kubectl logs my-pod --tail=30",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [],
+  "commands": [
+    {
+      "command": [
+        "kubectl",
+        "logs"
+      ],
+      "argv": [
+        "kubectl",
+        "logs",
+        "my-pod",
+        "--tail=30"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "kubectl.logs",
+      "remaining_options": [
+        "--tail=30"
+      ],
+      "classification_reason": "base classification from rule kubectl.logs",
+      "inner_commands": []
+    }
+  ]
+}

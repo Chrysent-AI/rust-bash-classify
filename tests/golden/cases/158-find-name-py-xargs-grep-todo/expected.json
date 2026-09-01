@@ -1,0 +1,60 @@
+{
+  "expression": "find . -name \"*.py\" | xargs grep \"TODO\"",
+  "classification": "READONLY",
+  "risk": "LOW",
+  "directories": [
+    "."
+  ],
+  "commands": [
+    {
+      "command": [
+        "find"
+      ],
+      "argv": [
+        "find",
+        ".",
+        "-name",
+        "*.py"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "find",
+      "remaining_options": [
+        "-name"
+      ],
+      "classification_reason": "base classification from rule find",
+      "inner_commands": []
+    },
+    {
+      "command": [
+        "xargs"
+      ],
+      "argv": [
+        "xargs",
+        "grep",
+        "TODO"
+      ],
+      "classification": "READONLY",
+      "risk": "LOW",
+      "matched_rule": "xargs",
+      "classification_reason": "delegated to inner via xargs",
+      "inner_commands": [
+        {
+          "delegation_mode": "rest_are_argv",
+          "delegation_source": "xargs",
+          "command": [
+            "grep"
+          ],
+          "argv": [
+            "grep",
+            "TODO"
+          ],
+          "classification": "READONLY",
+          "risk": "LOW",
+          "matched_rule": "grep",
+          "inner_commands": []
+        }
+      ]
+    }
+  ]
+}

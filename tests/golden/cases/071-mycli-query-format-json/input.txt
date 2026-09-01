@@ -1,0 +1,1 @@
+mycli query --format json
