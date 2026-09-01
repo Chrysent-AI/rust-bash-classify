@@ -16,6 +16,7 @@ const PROGRAM_NAME: &str = "rust-bash-classify";
 const PYTHON_PROGRAM_NAME: &str = "bash-classify";
 const STDIN_TIMEOUT: Duration = Duration::from_secs(5);
 
+// Mirrors Python cli.py _inner_to_dict field order and omission rules.
 pub fn inner_command_to_value(result: &InnerCommandResult) -> Value {
     let mut d = Map::new();
     d.insert(
@@ -71,6 +72,7 @@ pub fn inner_command_to_value(result: &InnerCommandResult) -> Value {
     Value::Object(d)
 }
 
+// Mirrors Python cli.py _command_to_dict field order and omission rules.
 pub fn command_to_value(result: &CommandResult) -> Value {
     let mut d = Map::new();
     d.insert("command".to_string(), strings_value(&result.command));
@@ -131,6 +133,7 @@ pub fn command_to_value(result: &CommandResult) -> Value {
     Value::Object(d)
 }
 
+// Mirrors Python cli.py _redirect_to_dict field order.
 pub fn redirect_to_value(redirect: &Redirect) -> Value {
     let mut d = Map::new();
     d.insert(
@@ -145,6 +148,7 @@ pub fn redirect_to_value(redirect: &Redirect) -> Value {
     Value::Object(d)
 }
 
+// Mirrors Python cli.py _to_dict field order and omission rules.
 pub fn result_to_value(result: &ExpressionResult) -> Value {
     let mut d = Map::new();
     d.insert(
@@ -204,6 +208,7 @@ fn non_empty(value: &Option<Vec<String>>) -> Option<&[String]> {
     value.as_deref().filter(|items| !items.is_empty())
 }
 
+// Matches Python json.dumps(..., ensure_ascii=True, indent=2) escaping.
 #[derive(Clone, Debug)]
 pub struct PyAsciiFormatter<'a> {
     inner: PrettyFormatter<'a>,
@@ -329,6 +334,7 @@ pub fn to_py_ascii_pretty_json<T: ?Sized + Serialize>(value: &T) -> io::Result<V
     Ok(output)
 }
 
+// Matches Python str.strip(), including Python's Unicode whitespace table.
 pub fn py_strip(value: &str) -> &str {
     value.trim_matches(is_python_whitespace)
 }
@@ -392,14 +398,16 @@ pub fn run() -> i32 {
 }
 
 fn run_classification() -> Result<i32, Box<dyn std::error::Error + Send + Sync>> {
-    let (sender, receiver) = mpsc::channel();
+    // Matches Python cli.py: wait up to five seconds for initial stdin readiness,
+    // then let the blocking read continue until EOF without a total-read cap.
+    let (first_sender, first_receiver) = mpsc::channel();
+    let (done_sender, done_receiver) = mpsc::channel();
     thread::spawn(move || {
-        let mut input = String::new();
-        let result = io::stdin().read_to_string(&mut input).map(|_| input);
-        let _ = sender.send(result);
+        let result = read_stdin_after_first_byte(&first_sender);
+        let _ = done_sender.send(result);
     });
 
-    let input = match receiver.recv_timeout(STDIN_TIMEOUT) {
+    match first_receiver.recv_timeout(STDIN_TIMEOUT) {
         Ok(result) => result?,
         Err(mpsc::RecvTimeoutError::Timeout) => {
             eprintln!(
@@ -409,6 +417,10 @@ fn run_classification() -> Result<i32, Box<dyn std::error::Error + Send + Sync>>
         }
         Err(mpsc::RecvTimeoutError::Disconnected) => return Err("stdin reader disconnected".into()),
     };
+
+    let input = done_receiver
+        .recv()
+        .map_err(|_| "stdin reader disconnected")??;
 
     let expression = py_strip(&input);
     if expression.is_empty() {
@@ -423,9 +435,32 @@ fn run_classification() -> Result<i32, Box<dyn std::error::Error + Send + Sync>>
     Ok(0)
 }
 
+fn read_stdin_after_first_byte(first_sender: &mpsc::Sender<io::Result<()>>) -> io::Result<String> {
+    let mut stdin = io::stdin();
+    let mut first_byte = [0_u8; 1];
+    let mut input = Vec::new();
+
+    match stdin.read(&mut first_byte) {
+        Ok(0) => {
+            let _ = first_sender.send(Ok(()));
+        }
+        Ok(_) => {
+            let _ = first_sender.send(Ok(()));
+            input.push(first_byte[0]);
+        }
+        Err(error) => {
+            let _ = first_sender.send(Err(io::Error::new(error.kind(), error.to_string())));
+            return Err(error);
+        }
+    }
+
+    stdin.read_to_end(&mut input)?;
+    String::from_utf8(input).map_err(|error| io::Error::new(io::ErrorKind::InvalidData, error))
+}
+
 fn print_help() {
-    // OQ-2 was resolved for this task as honest Rust binary naming. Keep program-name-bearing
-    // strings factored through constants so reverting to Python naming is a one-line switch.
+    // Keep program-name-bearing strings factored through constants so switching
+    // between Rust and Python CLI naming remains localized.
     println!("Usage: {PROGRAM_NAME} < command");
     println!("       echo 'ls -la' | {PROGRAM_NAME}");
     println!();

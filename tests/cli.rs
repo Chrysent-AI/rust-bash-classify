@@ -1,3 +1,8 @@
+// Python pytest suite inventory used for the port running total:
+// test_classifier.py 114 + test_cli.py 7 + test_cli_serialization.py 18
+// + test_database.py 36 + test_matcher.py 134 + test_models.py 13
+// + test_parser.py 49 + test_real_world.py 90 + test_schema.py 1
+// + test_smoke.py 1 = 463 Python test functions.
 use std::io::Write;
 use std::process::{Command, Stdio};
 
