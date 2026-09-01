@@ -44,24 +44,18 @@ impl From<crate::parser::ParseError> for MatchError {
 
 pub trait CommandLookup {
     fn get_command(&self, key: &str) -> Result<Option<CommandDef>, MatchError>;
-    fn resolve_alias(
-        &self,
-        binary: &str,
-        command_def: CommandDef,
-    ) -> Result<CommandDef, MatchError>;
+
+    fn resolve_alias(&self, binary: &str, command_def: CommandDef) -> Result<CommandDef, MatchError>
+    where
+        Self: Sized,
+    {
+        resolve_alias_def(self, binary, command_def)
+    }
 }
 
 impl CommandLookup for CommandDatabase {
     fn get_command(&self, key: &str) -> Result<Option<CommandDef>, MatchError> {
         Ok(self.get(key)?)
-    }
-
-    fn resolve_alias(
-        &self,
-        binary: &str,
-        command_def: CommandDef,
-    ) -> Result<CommandDef, MatchError> {
-        Ok(CommandDatabase::resolve_alias(self, binary, command_def)?)
     }
 }
 
@@ -69,31 +63,15 @@ impl CommandLookup for HashMap<String, CommandDef> {
     fn get_command(&self, key: &str) -> Result<Option<CommandDef>, MatchError> {
         Ok(self.get(key).cloned())
     }
-
-    fn resolve_alias(
-        &self,
-        binary: &str,
-        command_def: CommandDef,
-    ) -> Result<CommandDef, MatchError> {
-        resolve_alias_for_test_lookup(self, binary, command_def)
-    }
 }
 
 impl CommandLookup for std::collections::BTreeMap<String, CommandDef> {
     fn get_command(&self, key: &str) -> Result<Option<CommandDef>, MatchError> {
         Ok(self.get(key).cloned())
     }
-
-    fn resolve_alias(
-        &self,
-        binary: &str,
-        command_def: CommandDef,
-    ) -> Result<CommandDef, MatchError> {
-        resolve_alias_for_test_lookup(self, binary, command_def)
-    }
 }
 
-fn resolve_alias_for_test_lookup(
+pub(crate) fn resolve_alias_def(
     lookup: &impl CommandLookup,
     binary: &str,
     command_def: CommandDef,
