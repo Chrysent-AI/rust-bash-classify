@@ -5,6 +5,11 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::sync::Mutex;
 
+#[cfg(unix)]
+use std::ffi::CStr;
+#[cfg(unix)]
+use std::os::unix::ffi::OsStringExt;
+
 use serde_yaml::{Mapping, Value};
 
 use crate::commands_data;
@@ -66,6 +71,7 @@ impl CommandDatabase {
 
         if let Some(user_dir) = user_dir {
             if user_dir.is_dir() {
+                // Mirrors database.py CommandDatabase.__init__: user filename stems replace built-ins; no merging.
                 index_dir(&mut files, user_dir)?;
             }
         }
@@ -98,7 +104,8 @@ impl CommandDatabase {
         names
     }
 
-    pub fn get_unresolved(&self, key: &str) -> Result<Option<CommandDef>, DbError> {
+    pub fn get(&self, key: &str) -> Result<Option<CommandDef>, DbError> {
+        // Mirrors database.py CommandDatabase.__getitem__: parse on first access so unrelated invalid YAML does not poison the database.
         if let Some(command_def) = self
             .cache
             .lock()
@@ -121,20 +128,8 @@ impl CommandDatabase {
         Ok(Some(command_def))
     }
 
-    pub fn get(&self, key: &str) -> Result<Option<CommandDef>, DbError> {
-        let Some(command_def) = self.get_unresolved(key)? else {
-            return Ok(None);
-        };
-        self.resolve_alias(key, command_def).map(Some)
-    }
-
     pub fn get_required(&self, key: &str) -> Result<CommandDef, DbError> {
         self.get(key)?
-            .ok_or_else(|| DbError::new(format!("{key} is not in the database")))
-    }
-
-    pub fn get_required_unresolved(&self, key: &str) -> Result<CommandDef, DbError> {
-        self.get_unresolved(key)?
             .ok_or_else(|| DbError::new(format!("{key} is not in the database")))
     }
 
@@ -147,7 +142,7 @@ impl CommandDatabase {
         let Some(target_name) = command_def.alias_of.clone() else {
             return Ok(command_def);
         };
-        let Some(target_def) = self.get_unresolved(&target_name)? else {
+        let Some(target_def) = self.get(&target_name)? else {
             return Err(DbError::new(format!(
                 "{binary} aliases '{target_name}' which is not in the database"
             )));
@@ -168,7 +163,10 @@ pub fn get_default_commands_dir() -> PathBuf {
 }
 
 pub fn get_user_commands_dir() -> PathBuf {
-    if let Some(config_dir) = std::env::var_os("BASH_CLASSIFY_CONFIG_DIR") {
+    // Mirrors database.py get_user_commands_dir: an empty BASH_CLASSIFY_CONFIG_DIR is falsey.
+    if let Some(config_dir) =
+        std::env::var_os("BASH_CLASSIFY_CONFIG_DIR").filter(|value| !value.is_empty())
+    {
         return PathBuf::from(config_dir).join("commands");
     }
     home_dir()
@@ -188,9 +186,66 @@ pub fn load_database(commands_dir: Option<&Path>) -> Result<CommandDatabase, DbE
 }
 
 fn home_dir() -> PathBuf {
-    std::env::var_os("HOME")
-        .map(PathBuf::from)
-        .unwrap_or_else(|| PathBuf::from("."))
+    if let Some(home) = std::env::var_os("HOME").filter(|value| !value.is_empty()) {
+        return PathBuf::from(home);
+    }
+    home_dir_from_passwd().unwrap_or_else(|| PathBuf::from("."))
+}
+
+#[cfg(unix)]
+fn home_dir_from_passwd() -> Option<PathBuf> {
+    #[repr(C)]
+    struct Passwd {
+        pw_name: *mut std::os::raw::c_char,
+        pw_passwd: *mut std::os::raw::c_char,
+        pw_uid: u32,
+        pw_gid: u32,
+        pw_gecos: *mut std::os::raw::c_char,
+        pw_dir: *mut std::os::raw::c_char,
+        pw_shell: *mut std::os::raw::c_char,
+    }
+
+    extern "C" {
+        fn getuid() -> u32;
+        fn getpwuid_r(
+            uid: u32,
+            pwd: *mut Passwd,
+            buf: *mut std::os::raw::c_char,
+            buflen: usize,
+            result: *mut *mut Passwd,
+        ) -> std::os::raw::c_int;
+    }
+
+    let mut pwd = Passwd {
+        pw_name: std::ptr::null_mut(),
+        pw_passwd: std::ptr::null_mut(),
+        pw_uid: 0,
+        pw_gid: 0,
+        pw_gecos: std::ptr::null_mut(),
+        pw_dir: std::ptr::null_mut(),
+        pw_shell: std::ptr::null_mut(),
+    };
+    let mut result = std::ptr::null_mut();
+    let mut buffer = vec![0; 16_384];
+    let status = unsafe {
+        getpwuid_r(
+            getuid(),
+            &mut pwd,
+            buffer.as_mut_ptr(),
+            buffer.len(),
+            &mut result,
+        )
+    };
+    if status != 0 || result.is_null() || pwd.pw_dir.is_null() {
+        return None;
+    }
+    let bytes = unsafe { CStr::from_ptr(pwd.pw_dir) }.to_bytes().to_vec();
+    Some(PathBuf::from(std::ffi::OsString::from_vec(bytes)))
+}
+
+#[cfg(not(unix))]
+fn home_dir_from_passwd() -> Option<PathBuf> {
+    None
 }
 
 fn index_dir(
@@ -274,6 +329,7 @@ fn yaml_type_name(value: &Value) -> &'static str {
 }
 
 fn yaml_str(value: &Value) -> String {
+    // Mirrors database.py _yaml_str: YAML booleans become lowercase command names such as true/false.
     match value {
         Value::Bool(value) => {
             if *value {
@@ -346,6 +402,28 @@ fn yaml_bool(value: &Value) -> bool {
     }
 }
 
+fn yaml_truthy(value: &Value) -> bool {
+    match value {
+        Value::Null => false,
+        Value::Bool(value) => *value,
+        Value::Number(number) => {
+            if let Some(number) = number.as_i64() {
+                number != 0
+            } else if let Some(number) = number.as_u64() {
+                number != 0
+            } else if let Some(number) = number.as_f64() {
+                number != 0.0
+            } else {
+                true
+            }
+        }
+        Value::String(value) => !value.is_empty(),
+        Value::Sequence(values) => !values.is_empty(),
+        Value::Mapping(values) => !values.is_empty(),
+        Value::Tagged(tagged) => yaml_truthy(&tagged.value),
+    }
+}
+
 fn parse_classification(value: Option<&Value>) -> Result<Option<Classification>, String> {
     let Some(value) = value else {
         return Ok(None);
@@ -401,18 +479,22 @@ fn parse_options(raw: Option<&Value>) -> Result<HashMap<String, OptionDef>, Stri
     let Some(raw) = raw else {
         return Ok(HashMap::new());
     };
-    if raw.is_null() {
+    if !yaml_truthy(raw) {
         return Ok(HashMap::new());
     }
-    let Some(mapping) = raw.as_mapping() else {
-        return Ok(HashMap::new());
-    };
+    let mapping = raw
+        .as_mapping()
+        .ok_or_else(|| format!("Expected a YAML mapping, got {}", yaml_type_name(raw)))?;
 
     let mut options = HashMap::new();
     for (name, props) in mapping {
         let name = yaml_str(name);
-        let props = props.as_mapping();
-        let option_def = if let Some(props) = props {
+        let option_def = if props.is_null() {
+            OptionDef::default()
+        } else {
+            let props = props
+                .as_mapping()
+                .ok_or_else(|| format!("Expected a YAML mapping, got {}", yaml_type_name(props)))?;
             OptionDef {
                 takes_value: optional_value(props, "takes_value")
                     .map(yaml_bool)
@@ -425,12 +507,11 @@ fn parse_options(raw: Option<&Value>) -> Result<HashMap<String, OptionDef>, Stri
                     .unwrap_or(false),
                 delegates_to: parse_delegation_config(optional_value(props, "delegates_to"))?,
             }
-        } else {
-            OptionDef::default()
         };
 
         options.insert(name, option_def.clone());
         for alias in &option_def.aliases {
+            // Mirrors database.py _parse_options: aliases are inserted as equivalent lookup keys.
             options.insert(alias.clone(), option_def.clone());
         }
     }
@@ -449,18 +530,19 @@ fn parse_subcommands(raw: Option<&Value>) -> Result<HashMap<String, CommandDef>,
     let Some(raw) = raw else {
         return Ok(HashMap::new());
     };
-    if raw.is_null() {
+    if !yaml_truthy(raw) {
         return Ok(HashMap::new());
     }
-    let Some(mapping) = raw.as_mapping() else {
-        return Ok(HashMap::new());
-    };
+    let mapping = raw
+        .as_mapping()
+        .ok_or_else(|| format!("Expected a YAML mapping, got {}", yaml_type_name(raw)))?;
 
     let mut subcommands = HashMap::new();
     for (name, props) in mapping {
         let name = yaml_str(name);
-        let empty = Mapping::new();
-        let props = props.as_mapping().unwrap_or(&empty);
+        let props = props
+            .as_mapping()
+            .ok_or_else(|| format!("Expected a YAML mapping, got {}", yaml_type_name(props)))?;
         subcommands.insert(name.clone(), parse_command_def(props, &name)?);
     }
     Ok(subcommands)
@@ -533,7 +615,7 @@ mod test_database {
 
         #[test]
         fn test_load_all_yaml_files_succeeds() {
-            assert!(database().len() > 0);
+            assert!(!database().is_empty());
             for name in database().names() {
                 database().get_required(&name).unwrap();
             }
@@ -808,6 +890,58 @@ mod test_database {
                 .to_string()
                 .contains("badlist.yaml"));
         }
+
+        #[test]
+        fn test_truthy_non_mapping_options_raises_on_access() {
+            let tmp_path = tmp_path();
+            write(
+                &tmp_path.join("badopts.yaml"),
+                "command: badopts\nclassification: READONLY\noptions:\n  - --bad\n",
+            );
+            let db = load_database(Some(&tmp_path)).unwrap();
+            let error = db.get_required("badopts").unwrap_err().to_string();
+            assert!(error.contains("badopts.yaml"));
+            assert!(error.contains("Expected a YAML mapping"));
+        }
+
+        #[test]
+        fn test_non_mapping_option_body_raises_on_access() {
+            let tmp_path = tmp_path();
+            write(
+                &tmp_path.join("badoptbody.yaml"),
+                "command: badoptbody\nclassification: READONLY\noptions:\n  --bad: false\n",
+            );
+            let db = load_database(Some(&tmp_path)).unwrap();
+            let error = db.get_required("badoptbody").unwrap_err().to_string();
+            assert!(error.contains("badoptbody.yaml"));
+            assert!(error.contains("Expected a YAML mapping"));
+        }
+
+        #[test]
+        fn test_truthy_non_mapping_subcommands_raises_on_access() {
+            let tmp_path = tmp_path();
+            write(
+                &tmp_path.join("badsubs.yaml"),
+                "command: badsubs\nclassification: READONLY\nsubcommands:\n  - status\n",
+            );
+            let db = load_database(Some(&tmp_path)).unwrap();
+            let error = db.get_required("badsubs").unwrap_err().to_string();
+            assert!(error.contains("badsubs.yaml"));
+            assert!(error.contains("Expected a YAML mapping"));
+        }
+
+        #[test]
+        fn test_non_mapping_subcommand_body_raises_on_access() {
+            let tmp_path = tmp_path();
+            write(
+                &tmp_path.join("badsubbody.yaml"),
+                "command: badsubbody\nclassification: READONLY\nsubcommands:\n  status: false\n",
+            );
+            let db = load_database(Some(&tmp_path)).unwrap();
+            let error = db.get_required("badsubbody").unwrap_err().to_string();
+            assert!(error.contains("badsubbody.yaml"));
+            assert!(error.contains("Expected a YAML mapping"));
+        }
     }
 
     mod test_strict_default {
@@ -846,7 +980,7 @@ mod test_database {
                 "command: myalias\ndescription: pointer\nalias_of: target\n",
             );
             let db = load_database(Some(&tmp_path)).unwrap();
-            let alias_def = db.get_required_unresolved("myalias").unwrap();
+            let alias_def = db.get_required("myalias").unwrap();
             assert_eq!(alias_def.alias_of.as_deref(), Some("target"));
             assert_eq!(alias_def.command, "myalias");
             assert!(alias_def.classification.is_none());
@@ -896,18 +1030,27 @@ mod test_database {
             );
             let db = load_database(Some(&tmp_path)).unwrap();
             assert_eq!(
-                db.get_required_unresolved("myalias")
-                    .unwrap()
-                    .alias_of
-                    .as_deref(),
+                db.get_required("myalias").unwrap().alias_of.as_deref(),
                 Some("target")
             );
+        }
+
+        #[test]
+        fn test_alias_with_missing_target_loads_as_raw_alias() {
+            let tmp_path = tmp_path();
+            write(
+                &tmp_path.join("myalias.yaml"),
+                "command: myalias\nalias_of: missing\n",
+            );
+            let db = load_database(Some(&tmp_path)).unwrap();
+            let alias_def = db.get_required("myalias").unwrap();
+            assert_eq!(alias_def.alias_of.as_deref(), Some("missing"));
         }
     }
 
     mod test_user_commands_dir {
         use super::{load_database, tmp_path, write, Classification, ENV_LOCK};
-        use crate::database::get_default_commands_dir;
+        use crate::database::{get_default_commands_dir, get_user_commands_dir};
 
         #[test]
         fn test_user_override_replaces_builtin() {
@@ -956,7 +1099,7 @@ mod test_database {
             std::env::set_var("BASH_CLASSIFY_CONFIG_DIR", tmp_path.join("nonexistent"));
             let db = load_database(None).unwrap();
             restore_env(old);
-            assert!(db.len() > 0);
+            assert!(!db.is_empty());
         }
 
         #[test]
@@ -978,11 +1121,33 @@ mod test_database {
             );
         }
 
+        #[test]
+        fn test_empty_config_dir_falls_back_to_home_config() {
+            let _guard = ENV_LOCK.lock().unwrap();
+            let tmp_path = tmp_path();
+            let old_config = std::env::var_os("BASH_CLASSIFY_CONFIG_DIR");
+            let old_home = std::env::var_os("HOME");
+            std::env::set_var("BASH_CLASSIFY_CONFIG_DIR", "");
+            std::env::set_var("HOME", &tmp_path);
+            let user_dir = get_user_commands_dir();
+            restore_env(old_config);
+            restore_named_env("HOME", old_home);
+            assert_eq!(user_dir, tmp_path.join(".config/bash-classify/commands"));
+        }
+
         fn restore_env(old: Option<std::ffi::OsString>) {
             if let Some(old) = old {
                 std::env::set_var("BASH_CLASSIFY_CONFIG_DIR", old);
             } else {
                 std::env::remove_var("BASH_CLASSIFY_CONFIG_DIR");
+            }
+        }
+
+        fn restore_named_env(name: &str, old: Option<std::ffi::OsString>) {
+            if let Some(old) = old {
+                std::env::set_var(name, old);
+            } else {
+                std::env::remove_var(name);
             }
         }
     }
