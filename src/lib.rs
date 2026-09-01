@@ -7,6 +7,7 @@
 //! and must not be edited by hand.
 
 pub mod classifier;
+pub mod cli;
 #[allow(dead_code)]
 pub mod commands_data;
 pub mod database;
