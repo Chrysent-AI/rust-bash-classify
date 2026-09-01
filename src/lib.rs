@@ -10,6 +10,8 @@
 pub mod commands_data;
 pub mod database;
 pub mod models;
+pub mod parser;
 
 pub use database::{load_database, CommandDatabase};
 pub use models::{Classification, CommandResult, ExpressionResult, Risk};
+pub use parser::parse_expression;
