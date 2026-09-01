@@ -6,6 +6,7 @@
 //! package's `commands/` directory. It is owned by `scripts/gen_commands_data.sh`
 //! and must not be edited by hand.
 
+pub mod classifier;
 #[allow(dead_code)]
 pub mod commands_data;
 pub mod database;
@@ -13,6 +14,7 @@ pub mod matcher;
 pub mod models;
 pub mod parser;
 
+pub use classifier::{classify_expression, ClassifyError};
 pub use database::{load_database, CommandDatabase};
 pub use matcher::{match_command, MatchError};
 pub use models::{Classification, CommandResult, ExpressionResult, Risk};
