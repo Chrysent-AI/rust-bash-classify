@@ -381,11 +381,12 @@ class_case!(
     "mvn clean some-plugin:goal",
     LocalEffects
 );
-class_case!(
-    test_gradle_clean_build_test,
-    "gradle clean build test",
-    LocalEffects
-);
+#[test]
+fn test_gradle_clean_build_test() {
+    let result = classify_expression("gradle clean build test", Some(db())).unwrap();
+    assert_eq!(result.classification, LocalEffects);
+    assert_eq!(result.risk, Low);
+}
 class_case!(test_gradle_publish, "gradle clean publish", ExternalEffects);
 class_case!(
     test_gradle_dry_run,
