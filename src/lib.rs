@@ -9,9 +9,11 @@
 #[allow(dead_code)]
 pub mod commands_data;
 pub mod database;
+pub mod matcher;
 pub mod models;
 pub mod parser;
 
 pub use database::{load_database, CommandDatabase};
+pub use matcher::{match_command, MatchError};
 pub use models::{Classification, CommandResult, ExpressionResult, Risk};
 pub use parser::{parse_expression, ParseError};
