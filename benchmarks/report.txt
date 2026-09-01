@@ -1,0 +1,18 @@
+# Benchmark report
+
+Generated: 2026-09-01T02:53:03+00:00
+Corpus: tests/golden/cases/*/input.txt (175 cases)
+Python: uv run --project ../bash-classify bash-classify
+Rust: ./target/release/rust-bash-classify (cargo build --release)
+Warmup: one full unmeasured corpus pass per implementation plus trivial startup warmup
+User config: temporary empty BASH_CLASSIFY_CONFIG_DIR
+
+| Metric | Python (ms) | Rust (ms) | Rust/Python | Result |
+|---|---:|---:|---:|---|
+| aggregate corpus wall | 13368.526 | 115.661 | 0.009x | PASS |
+| per-case p95 wall | 87.674 | 1.049 | 0.012x | PASS |
+| startup to first stdout byte | 67.822 | 0.573 | 0.008x | PASS |
+
+SC-5 verdict: PASS — Rust is not slower.
+
+Per-case timing details are intentionally not committed; rerun scripts/bench.sh to reproduce with local machine timings.
