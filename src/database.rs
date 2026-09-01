@@ -139,20 +139,8 @@ impl CommandDatabase {
         binary: &str,
         command_def: CommandDef,
     ) -> Result<CommandDef, DbError> {
-        let Some(target_name) = command_def.alias_of.clone() else {
-            return Ok(command_def);
-        };
-        let Some(target_def) = self.get(&target_name)? else {
-            return Err(DbError::new(format!(
-                "{binary} aliases '{target_name}' which is not in the database"
-            )));
-        };
-        if let Some(next_target) = &target_def.alias_of {
-            return Err(DbError::new(format!(
-                "alias chain too deep: {binary} -> {target_name} -> {next_target}"
-            )));
-        }
-        Ok(target_def)
+        crate::matcher::resolve_alias_def(self, binary, command_def)
+            .map_err(|error| DbError::new(error.to_string()))
     }
 }
 
