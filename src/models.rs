@@ -15,6 +15,7 @@ pub enum Classification {
 }
 
 impl Classification {
+    // Mirrors models.py _SEVERITY_ORDER: UNKNOWN sorts below DANGEROUS but above EXTERNAL_EFFECTS.
     pub fn severity(self) -> u8 {
         match self {
             Self::Readonly => 0,
@@ -57,6 +58,7 @@ pub enum Risk {
 }
 
 impl Risk {
+    // Mirrors models.py _RISK_ORDER.
     pub fn severity(self) -> u8 {
         match self {
             Self::Low => 0,
@@ -86,17 +88,12 @@ impl std::fmt::Display for Risk {
     }
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum SubcommandMode {
+    #[default]
     Hierarchical,
     MatchAll,
-}
-
-impl Default for SubcommandMode {
-    fn default() -> Self {
-        Self::Hierarchical
-    }
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -137,7 +134,7 @@ pub struct DelegationConfig {
     pub min_classification: Option<Classification>,
 }
 
-#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Clone, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
 pub struct OptionDef {
     pub takes_value: bool,
     pub aliases: Vec<String>,
@@ -145,19 +142,6 @@ pub struct OptionDef {
     pub risk: Option<Risk>,
     pub captures_directory: bool,
     pub delegates_to: Option<DelegationConfig>,
-}
-
-impl Default for OptionDef {
-    fn default() -> Self {
-        Self {
-            takes_value: false,
-            aliases: Vec::new(),
-            overrides: None,
-            risk: None,
-            captures_directory: false,
-            delegates_to: None,
-        }
-    }
 }
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]

@@ -18,11 +18,7 @@ fn test_yaml_validates_against_schema() {
         .collect();
     yaml_files.sort();
 
-    assert_eq!(
-        yaml_files.len(),
-        166,
-        "expected the M0 vendored command count"
-    );
+    assert_eq!(yaml_files.len(), 166, "expected the vendored command count");
 
     for yaml_file in yaml_files {
         let yaml_text = fs::read_to_string(&yaml_file).unwrap();
