@@ -21,9 +21,8 @@ costs and engine costs are reported separately.
   `bash-classify` console script. Rust side: release build
   (`cargo build --release`), `examples/bulk_classify` for the library mode and
   the `rust-bash-classify` binary for the CLI mode.
-- Python per-command CLI cost was measured on a random 1,000-command sample
-  (seeded) and extrapolated; a full per-command Python run would take on the
-  order of half an hour on this hardware.
+- Python per-command CLI cost was measured over the full corpus (a seeded 1,000-command
+  sample had estimated it within 1%).
 - Timings are from one workstation run; treat them as indicative, not lab-grade.
 
 ## Results
@@ -31,13 +30,15 @@ costs and engine costs are reported separately.
 | Mode | Python | Rust | Rust vs Python |
 |---|---:|---:|---:|
 | Library, single process | 2.31 s (44.5 µs/cmd) | 2.22 s (42.8 µs/cmd) | ~1.0× |
-| CLI, one process per command | ~27 min (extrapolated; 31.3 ms/cmd sampled) | 38.1 s (734 µs/cmd) | **~43×** |
+| CLI, one process per command | 27.3 min (31.62 ms/cmd, measured) | 38.1 s (734 µs/cmd) | **~43×** |
 
 Reading the numbers honestly:
 
 - **As spawned CLIs — the way permission hooks actually call this tool — Rust
-  is ~43× faster.** The Python per-command cost is dominated by interpreter
-  startup; the Rust per-command cost is dominated by process spawn itself.
+  is ~43× faster.** Measured over the full corpus: Python 1,640.3 s (51,882
+  processes, 31.62 ms each, zero failures) vs Rust 38.1 s. The Python
+  per-command cost is dominated by interpreter startup; the Rust per-command
+  cost is dominated by process spawn itself.
 - **Amortized (one long-lived process), the two engines are roughly tied.**
   Both spend nearly all their time in the same tree-sitter bash grammar, which
   is the same C code on both sides; classification logic on top is a small
