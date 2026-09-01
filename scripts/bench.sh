@@ -20,7 +20,7 @@
 set -euo pipefail
 
 ROOT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
-PYTHON_REPO=${PYTHON_REPO:-/home/chrysent/devel/bash-classify}
+PYTHON_REPO=${BASH_CLASSIFY_SOURCE_DIR:-${PYTHON_REPO:-/home/chrysent/devel/bash-classify}}
 REPORT=${REPORT:-"$ROOT_DIR/benchmarks/report.txt"}
 RUST_BIN="$ROOT_DIR/target/release/rust-bash-classify"
 PYTHON_CMD=(uv run --project "$PYTHON_REPO" bash-classify)
