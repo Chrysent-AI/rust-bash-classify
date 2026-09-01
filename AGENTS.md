@@ -1,3 +1,5 @@
+<!-- SPDX-FileCopyrightText: 2026 Chrysent LLC -->
+<!-- SPDX-License-Identifier: MIT -->
 # AGENTS.md — rust-bash-classify agent guidance
 
 This repository is a behavioral parity port of the Python `bash-classify` project. Do not treat it as an independent Rust reimplementation.

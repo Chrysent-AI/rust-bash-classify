@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Chrysent LLC
+// SPDX-License-Identifier: MIT
 //! CLI entry point and JSON serialization helpers.
 
 use std::io::{self, Read, Write};

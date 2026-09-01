@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-FileCopyrightText: 2026 Chrysent LLC
+# SPDX-License-Identifier: MIT
 # Benchmark rust-bash-classify against the Python bash-classify oracle.
 #
 # Methodology:
@@ -133,6 +135,9 @@ metrics = [
 ]
 
 lines: list[str] = []
+lines.append("# SPDX-FileCopyrightText: 2026 Chrysent LLC")
+lines.append("# SPDX-License-Identifier: MIT")
+lines.append("")
 lines.append("# Benchmark report")
 lines.append("")
 lines.append(f"Generated: {dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds')}")

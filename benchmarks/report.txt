@@ -1,6 +1,9 @@
+# SPDX-FileCopyrightText: 2026 Chrysent LLC
+# SPDX-License-Identifier: MIT
+
 # Benchmark report
 
-Generated: 2026-09-01T03:02:17+00:00
+Generated: 2026-09-01T05:15:52+00:00
 Corpus: tests/golden/cases/*/input.txt (175 cases)
 Python: uv run --project ../bash-classify bash-classify
 Rust: ./target/release/rust-bash-classify (cargo build --release)
@@ -9,9 +12,9 @@ User config: temporary empty BASH_CLASSIFY_CONFIG_DIR
 
 | Metric | Python (ms) | Rust (ms) | Rust/Python | Result |
 |---|---:|---:|---:|---|
-| aggregate corpus wall | 13751.592 | 114.847 | 0.008x | PASS |
-| per-case p95 wall | 89.280 | 1.059 | 0.012x | PASS |
-| startup to first stdout byte | 64.709 | 0.618 | 0.010x | PASS |
+| aggregate corpus wall | 13335.969 | 109.095 | 0.008x | PASS |
+| per-case p95 wall | 89.065 | 1.032 | 0.012x | PASS |
+| startup to first stdout byte | 74.510 | 0.563 | 0.008x | PASS |
 
 Result: PASS — Rust is not slower than Python on any metric.
 

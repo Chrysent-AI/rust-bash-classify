@@ -1,3 +1,5 @@
+<!-- SPDX-FileCopyrightText: 2026 Chrysent LLC -->
+<!-- SPDX-License-Identifier: MIT -->
 # Parity notes
 
 The Rust port is judged against the observed behavior of Python `bash-classify` at the vendored source commit, not against an idealized interpretation of the prose specification.

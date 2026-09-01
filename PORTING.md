@@ -1,3 +1,5 @@
+<!-- SPDX-FileCopyrightText: 2026 Chrysent LLC -->
+<!-- SPDX-License-Identifier: MIT -->
 # Porting notes
 
 This repository is a structural Rust port of the Python `bash-classify` project. The port favors side-by-side comparison and behavioral parity over idiomatic rewrites: when observed Python behavior at the recorded source commit disagrees with prose documentation, observed behavior is the oracle.

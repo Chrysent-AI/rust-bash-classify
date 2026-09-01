@@ -1,0 +1,12 @@
+rust-bash-classify is a Rust port of bash-classify by Filip Prokazka
+(https://github.com/fprochazka/bash-classify), MIT licensed.
+
+The command database (vendor/commands/), JSON schema, and SPEC.md are vendored
+from that project and remain Copyright (c) 2025 Filip Prozazka under its MIT
+license. See vendor/LICENSE.
+
+Chrysent LLC claims no ownership of vendored files.
+
+Byte-fixture files under tests/golden/cases/ and tests/golden/manifest.json
+carry no headers because their exact bytes are executable test expectations;
+they are covered by this NOTICE and the repository LICENSE.

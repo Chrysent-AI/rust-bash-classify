@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Chrysent LLC
+// SPDX-License-Identifier: MIT
 //! Command matching and classification against the database.
 
 use std::collections::HashMap;

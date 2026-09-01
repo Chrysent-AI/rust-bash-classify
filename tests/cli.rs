@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Chrysent LLC
+// SPDX-License-Identifier: MIT
 // Python pytest suite inventory used for the port running total:
 // test_classifier.py 114 + test_cli.py 7 + test_cli_serialization.py 18
 // + test_database.py 36 + test_matcher.py 134 + test_models.py 13

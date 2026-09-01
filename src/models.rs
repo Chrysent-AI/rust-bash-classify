@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Chrysent LLC
+// SPDX-License-Identifier: MIT
 //! Data models for bash-classify.
 
 use std::collections::HashMap;

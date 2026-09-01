@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: 2026 Chrysent LLC
+// SPDX-License-Identifier: MIT
 //! Command database loading from YAML files.
 
 use std::collections::HashMap;
