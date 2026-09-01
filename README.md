@@ -1,6 +1,6 @@
 # rust-bash-classify
 
-`rust-bash-classify` is a standalone Rust port of [bash-classify](https://github.com/fprochazka/bash-classify), a command-line tool that parses Bash expressions and classifies each command by side-effect risk. It is designed for coding-agent approval hooks: low-risk commands can be auto-approved, while risky, unknown, or destructive commands can be sent to a human for review.
+`rust-bash-classify` is a standalone Rust port of [bash-classify](https://github.com/fprochazka/bash-classify), a command-line tool that parses Bash expressions and classifies each command by side-effect risk. It is designed for coding-agent approval hooks: low-risk commands can be auto-approved, while risky, unknown, or destructive commands can be sent to a human for approval.
 
 The Rust port aims to provide the same verdicts as the Python original in a single native binary with no Python runtime dependency.
 
@@ -27,20 +27,16 @@ $ echo 'git status && grep -R TODO src' | rust-bash-classify
 }
 ```
 
-## Install
+## Build from source
 
-From a checkout or a Git URL:
-
-```bash
-cargo install --git https://github.com/fprochazka/rust-bash-classify.git
-```
-
-During local development, build and run from this repository:
+The current way to get the tool is to build it from a source checkout:
 
 ```bash
 cargo build --release
 echo 'kubectl get pods -n production' | target/release/rust-bash-classify
 ```
+
+The distribution channel is not chosen yet. Future packaging may use crates.io, prebuilt binaries, plugin integration, or another release path.
 
 ## Usage
 
