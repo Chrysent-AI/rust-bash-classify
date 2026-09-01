@@ -2,6 +2,7 @@ use std::sync::OnceLock;
 
 use bash_classify::database::load_database;
 use bash_classify::models::Classification::*;
+use bash_classify::models::Risk::*;
 use bash_classify::{classify_expression, CommandDatabase};
 
 fn db() -> &'static CommandDatabase {
@@ -362,8 +363,19 @@ class_case!(
     "git log --format=\"%H\" | head -5 | xargs -I{} git show --stat {}",
     Readonly
 );
-class_case!(test_mvn_clean_install, "mvn clean install", LocalEffects);
-class_case!(test_mvn_clean_deploy, "mvn clean deploy", ExternalEffects);
+#[test]
+fn test_mvn_clean_install() {
+    let result = classify_expression("mvn clean install", Some(db())).unwrap();
+    assert_eq!(result.classification, LocalEffects);
+    assert_eq!(result.risk, Low);
+}
+
+#[test]
+fn test_mvn_clean_deploy() {
+    let result = classify_expression("mvn clean deploy", Some(db())).unwrap();
+    assert_eq!(result.classification, ExternalEffects);
+    assert_eq!(result.risk, Medium);
+}
 class_case!(
     test_mvn_custom_plugin_goal,
     "mvn clean some-plugin:goal",
