@@ -59,6 +59,13 @@ cargo install --git https://github.com/Chrysent-AI/rust-bash-classify
 
 The crate and binary are currently named `rust-bash-classify`.
 
+Version 0.1.0 is not yet released. The release pipeline is prepared for x86_64 and
+aarch64 Linux (GNU and musl) and Intel/Apple Silicon macOS. Once a version is
+published on crates.io and its official GitHub archives are available, install
+prebuilt binaries with `cargo binstall rust-bash-classify`. This is not a claim
+that those assets are already published or that all hosted targets have run.
+See `RELEASING.md` for the archive/checksum contract and manual publication steps.
+
 ## Usage
 
 The CLI reads one Bash expression from stdin and writes formatted JSON to stdout.
@@ -296,7 +303,9 @@ Optional local secret/PII hooks are documented in `.githooks/README.md`. Cloning
 does not activate them; if activated without gitleaks installed, they print a
 notice and allow the operation. They do not replace CI or a history audit.
 
-Run the standard gates before sending changes for review:
+Run the standard gates before sending changes for review. Version bumping and
+local release commits/tags are explicit Make targets documented in `RELEASING.md`;
+neither pushes or publishes automatically:
 
 ```bash
 cargo fmt --check

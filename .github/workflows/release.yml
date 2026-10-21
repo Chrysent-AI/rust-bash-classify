@@ -1,0 +1,110 @@
+# SPDX-FileCopyrightText: 2026 Chrysent LLC
+# SPDX-License-Identifier: MIT
+name: Release binaries
+on:
+  push:
+    tags: ['v[0-9]*.[0-9]*.[0-9]*']
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    outputs:
+      stable: ${{ steps.tag.outputs.stable }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - id: tag
+        name: Validate stable tag, manifest and changelog
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          if [[ ! $TAG =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+            echo 'Not a stable release tag; skipping binaries.'
+            exit 0
+          fi
+          bash scripts/version.sh check "$TAG"
+          echo 'stable=true' >> "$GITHUB_OUTPUT"
+  build:
+    needs: validate
+    if: needs.validate.outputs.stable == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {target: x86_64-unknown-linux-gnu, os: ubuntu-24.04}
+          - {target: aarch64-unknown-linux-gnu, os: ubuntu-24.04-arm}
+          - {target: x86_64-unknown-linux-musl, os: ubuntu-24.04, musl: x86_64-linux-musl-gcc}
+          - {target: aarch64-unknown-linux-musl, os: ubuntu-24.04-arm, musl: aarch64-linux-musl-gcc}
+          - {target: x86_64-apple-darwin, os: macos-15-intel}
+          - {target: aarch64-apple-darwin, os: macos-15}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@4360b52568e2003a75bf9bc1d59f33a8e3fc893c # stable
+        with:
+          targets: ${{ matrix.target }}
+      - name: Install native musl C compiler and linker
+        if: matrix.musl != ''
+        env:
+          TARGET: ${{ matrix.target }}
+          MUSL_CC: ${{ matrix.musl }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes musl-tools musl-dev
+          command -v "$MUSL_CC"
+          echo "CC_${TARGET//-/_}=$MUSL_CC" >> "$GITHUB_ENV"
+          key=${TARGET//-/_}
+          echo "CARGO_TARGET_${key^^}_LINKER=$MUSL_CC" >> "$GITHUB_ENV"
+      - name: Build, smoke and archive
+        env:
+          TARGET: ${{ matrix.target }}
+          BASH_CLASSIFY_CONFIG_DIR: ${{ runner.temp }}/empty-classifier-config
+        run: |
+          mkdir -p "$BASH_CLASSIFY_CONFIG_DIR"
+          cargo build --release --locked --target "$TARGET"
+          binary="target/$TARGET/release/rust-bash-classify"
+          "$binary" --version
+          printf '%s' 'git status' | "$binary" | grep '"classification": "READONLY"'
+          bash scripts/package-release.sh "$TARGET" "$binary" dist
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: release-${{ matrix.target }}
+          path: dist/*
+          if-no-files-found: error
+          compression-level: 0
+  publish:
+    needs: [validate, build]
+    if: needs.validate.outputs.stable == 'true'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          pattern: release-*
+          path: dist
+          merge-multiple: true
+      - name: Verify all archives before creating a draft and publishing it
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          bash scripts/version.sh check "$TAG"
+          cd dist
+          archives=(*.tar.gz)
+          checksums=(*.tar.gz.sha256)
+          [[ ${#archives[@]} == 6 && ${#checksums[@]} == 6 ]]
+          sha256sum --check -- *.sha256
+          cd ..
+          gh release create "$TAG" dist/* --verify-tag --draft --title "$TAG" --notes-file CHANGELOG.md
+          gh release edit "$TAG" --draft=false

@@ -74,8 +74,17 @@ its archived upstream status; do not replace it opportunistically.
 Optional secret/PII hooks and their opt-in setup are documented in
 `.githooks/README.md`. Keep exceptions narrow and rule-specific.
 
-## Decisions reserved for the owner
+## Accepted release path and owner decisions
 
-Do not unilaterally choose a version scheme, distribution channel, long-term
-binary/product name, or plugin switch-over plan. The original project's future
-is outside this repository's maintenance contract.
+Stable `vX.Y.Z` tags and six-target Linux/macOS binstall archives are the accepted
+release path; `RELEASING.md` documents the manual version and local commit/tag
+helpers. Keep `0.1.0` unreleased until an explicit release is requested. Registry
+publication is a separate manual step under the intended chrysent account;
+metadata attribution does not establish registry ownership. For release-tooling
+changes, run `bash tests/release-tools.sh`, shellcheck and actionlint, and verify
+the Cargo package payload/build and native archive layout without publishing.
+Preserve environment-file exclusion and do not edit or source local loaders.
+
+Changes to this version/distribution contract, the long-term binary/product name,
+or a plugin switch-over plan remain owner decisions. The original project's
+future is outside this repository's maintenance contract.
