@@ -806,7 +806,7 @@ dependencies = [
 
 [[package]]
 name = "rust-bash-classify"
-version = "0.1.0"
+version = "0.1.2"
 dependencies = [
  "jsonschema",
  "serde",

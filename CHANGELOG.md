@@ -4,7 +4,9 @@
 
 ## [Unreleased]
 
-## [0.1.0] - Unreleased
+## [0.1.2] - 2026-10-21
+
+## [0.1.1] - 2026-10-21
 
 - Initial self-contained Rust implementation of Bash side-effect classification,
   with embedded command rules, user overrides and historical parity fixtures.
