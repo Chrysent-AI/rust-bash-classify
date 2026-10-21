@@ -1,0 +1,54 @@
+# gitleaks configuration installed by the /setup-gitleaks skill.
+# Extends the shipped default ruleset with generic PII rules. No personal data
+# belongs in the committed file; if personalization is accepted, confirmed
+# literals go only into a gitignored local section (see the skill reference).
+[extend]
+useDefault = true
+
+[[rules]]
+id = "home-dir-path"
+description = "Absolute home-directory path (macOS, Linux, Windows profile)"
+# Scan the profile identifier as the secret: default gitleaks allowlists ignore
+# bare filesystem paths. Fixture exceptions below still check the entire match.
+secretGroup = 1
+regex = '''(?i)(?:^|[\s"'(=:\[{,])(?:(?:/Users/|/home/)|[A-Za-z]:\\Users\\)([A-Za-z0-9._-]+)(?:/[A-Za-z0-9._~/+-]*|\\)'''
+
+[[rules.allowlists]]
+description = "Reviewed synthetic classifier path fixtures only"
+condition = "AND"
+regexTarget = "match"
+# The integration-test path is retained for the same fixtures in reachable history.
+paths = ['''^(?:src|tests)/classifier\.rs$''']
+regexes = ['''^[\s"'(=:\[{,]?[/]home/user/(?:backup|foo\.txt|b\.txt|data\.txt|hosts)$''']
+
+[[rules.allowlists]]
+description = "Reviewed synthetic real-world command fixtures only"
+condition = "AND"
+regexTarget = "match"
+paths = ['''^tests/real_world\.rs$''']
+regexes = ['''^[\s"'(=:\[{,]?[/]home/user/(?:repos/myrepo|project(?:/src)?|tmp/workdir)$''']
+
+[[rules.allowlists]]
+description = "Reviewed synthetic golden paths; other rules still scan these files"
+condition = "AND"
+regexTarget = "match"
+paths = [
+  '''^tests/golden/cases/(?:060-cp-file-home-user-backup|074-cat-home-user-foo-txt|075-echo-hello-tmp-a-txt-home-user-b-txt|076-cat-home-user-data-txt|077-sort-home-user-hosts-tmp-sorted-txt|080-cat-home-user-data-txt-tee-tmp-out-txt-tmp-log-t|107-git-c-home-user-repos-myrepo-status|126-find-home-user-project-type-f-name-java-head-20|135-cd-home-user-project-ls-la|136-cd-nonexistent-mkdir-p-home-user-tmp-workdir|161-mkdir-p-home-user-project-src)/(?:input\.txt|expected\.json)$''',
+]
+regexes = ['''^[\s"'(=:\[{,]?[/]home/user/(?:backup|foo\.txt|b\.txt|data\.txt|hosts|repos/myrepo|project(?:/src)?|tmp/workdir)$''']
+
+[[rules]]
+id = "unc-share-path"
+description = "Windows UNC network share path"
+regex = '''(?i)\\\\[A-Za-z0-9._-]+\\[A-Za-z0-9._$-]+'''
+
+[[rules]]
+id = "consumer-email"
+description = "Consumer-domain email address"
+regex = '''(?i)[A-Za-z0-9._%+-]+@(?:gmail|icloud|outlook|hotmail|protonmail|fastmail)\.(?:com|net|me|ch|co\.uk)'''
+
+[[allowlists]]
+description = "Noreply identities are not personal leaks"
+regexes = [
+  '''(?i)[A-Za-z0-9._%+-]+@users\.noreply\.github\.com''',
+]
