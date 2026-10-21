@@ -63,13 +63,21 @@ Run the gates in `AGENTS.md`, plus:
 
 ```bash
 bash tests/release-tools.sh
+bash tests/publish.sh
 bash tests/commit-msg.sh
-shellcheck .githooks/commit-msg tests/commit-msg.sh scripts/version.sh scripts/package-release.sh tests/release-tools.sh tests/package-release.sh
+shellcheck tests/publish.sh .githooks/commit-msg tests/commit-msg.sh scripts/version.sh scripts/package-release.sh tests/release-tools.sh tests/package-release.sh
 actionlint
 cargo package --locked
 cargo build --release --locked
 bash tests/package-release.sh
 ```
+
+Shell helpers must support macOS's built-in Bash 3.2 and Linux Bash; hooks remain
+POSIX `sh`. On macOS, run the shell tests above with `/bin/bash` as well as any
+newer `bash` on PATH. Require their explicit `PASS` output and zero exit status:
+Bash 3.2 can report zero on an incomplete run after an empty-array expansion under
+`set -u`. Avoid expanding optional empty arrays; use positional arguments instead.
+No Homebrew Bash or zsh is required.
 
 The helper tests create and reap their own scratch repositories using your existing
 configured Git identity, without changing identity configuration. They exercise
@@ -140,11 +148,23 @@ intended authenticated **chrysent** account. `authors = ["Chrysent LLC"]` is
 informational attribution, not registry ownership or proof of account access.
 Account setup and ownership verification remain manual prerequisites.
 
+Export `CARGO_REGISTRY_TOKEN` in the invoking shell (directly or through direnv)
+and verify that the token belongs to the intended account and has permission to
+publish this crate. Cargo does not load `.env` files. A nonempty token alone does
+not prove account identity or permissions.
+
 Then, with explicit authorization, publish locally:
 
 ```bash
-cargo publish --locked
+make publish
 ```
+
+This explicit target refuses an unset or empty token before invoking Cargo. It
+runs `cargo publish --registry crates-io --locked` with process-local
+`CARGO_REGISTRY_CREDENTIAL_PROVIDER=cargo:token`, overriding inherited provider
+selection without changing Cargo configuration. The token stays in the inherited
+environment, never a command-line argument. Version/release helpers never call
+this target automatically.
 
 The GitHub workflow uses its GitHub token only for repository release operations;
 it never publishes to a Cargo registry. No registry credentials belong in this

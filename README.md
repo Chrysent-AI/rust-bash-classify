@@ -308,7 +308,9 @@ These local checks do not replace CI or a history audit.
 
 Run the standard gates before sending changes for review. Version bumping and
 local release commits/tags are explicit Make targets documented in `RELEASING.md`;
-neither pushes or publishes automatically:
+neither pushes or publishes automatically. Registry publication is a separate,
+explicit `make publish` operation requiring an exported `CARGO_REGISTRY_TOKEN`
+and manual account/permission verification; see `RELEASING.md`.
 
 ```bash
 cargo fmt --check

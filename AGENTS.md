@@ -87,6 +87,10 @@ metadata attribution does not establish registry ownership. For release-tooling
 changes, run `bash tests/release-tools.sh`, shellcheck and actionlint, and verify
 the Cargo package payload/build and native archive layout without publishing.
 Preserve environment-file exclusion and do not edit or source local loaders.
+`make publish` is a separate, explicitly authorized registry operation requiring
+an exported `CARGO_REGISTRY_TOKEN`; it forces crates-io and the cargo:token
+provider without logging the token. Verify this target only with the stub Cargo
+in `bash tests/publish.sh`, never by publishing as a test.
 
 Changes to this version/distribution contract, the long-term binary/product name,
 or a plugin switch-over plan remain owner decisions. The original project's
