@@ -3,7 +3,7 @@
 
 # Port manifest
 
-This generated manifest maps the Python pytest suite in the source repository (see `VENDOR.json`) to the Rust tests that cover the same behavior. Regenerate it with `scripts/gen_port_manifest.py` after adding, renaming, or moving ported tests.
+This historical manifest maps the original Python pytest suite (source commit in `VENDOR.json`) to the Rust tests that covered the same behavior at import. Its generator is retired; it is not a live inventory of subsequent Rust tests. Maintain mapping corrections locally without requiring the original repository.
 
 ## Suite arithmetic
 

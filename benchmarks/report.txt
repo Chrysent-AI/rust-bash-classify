@@ -1,11 +1,14 @@
 # SPDX-FileCopyrightText: 2026 Chrysent LLC
 # SPDX-License-Identifier: MIT
 
-# Benchmark report
+# Historical benchmark report
+
+This preserved measurement is not a current performance gate. The external
+comparative tooling is retired; no original checkout is required for maintenance.
 
 Generated: 2026-09-01T05:15:52+00:00
 Corpus: tests/golden/cases/*/input.txt (175 cases)
-Python: uv run --project ../bash-classify bash-classify
+Python (historical): bash-classify at source commit recorded in VENDOR.json
 Rust: ./target/release/rust-bash-classify (cargo build --release)
 Warmup: one full unmeasured corpus pass per implementation plus trivial startup warmup
 User config: temporary empty BASH_CLASSIFY_CONFIG_DIR
@@ -18,4 +21,4 @@ User config: temporary empty BASH_CLASSIFY_CONFIG_DIR
 
 Result: PASS — Rust is not slower than Python on any metric.
 
-Per-case timing details are intentionally not committed; rerun scripts/bench.sh to reproduce with local machine timings.
+Per-case timing details were not committed. Figures are preserved historical evidence, not a currently rerunnable comparison.

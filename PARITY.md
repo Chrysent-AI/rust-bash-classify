@@ -2,17 +2,21 @@
 <!-- SPDX-License-Identifier: MIT -->
 # Parity notes
 
-The Rust port is judged against the observed behavior of Python `bash-classify` at the vendored source commit, not against an idealized interpretation of the prose specification.
+The Rust repository is maintained from local code, command definitions and tests.
+Its original Python compatibility evidence is preserved without requiring Python.
 
-## Authority rule
+## Maintenance authority
 
-Observed Python behavior at commit `8553440aa4d935dd14a8cbb15338ecac92100720` is the oracle. The evidence is:
+The original port used observed behavior at commit
+`8553440aa4d935dd14a8cbb15338ecac92100720`. That provenance is preserved in:
 
-- the ported Python test suite listed in `PORT_MANIFEST.md`;
-- byte-for-byte golden replay fixtures under `tests/golden/cases/`;
-- vendor integrity checks against `VENDOR.json`.
+- the ported test mapping in `PORT_MANIFEST.md`;
+- byte-for-byte regression fixtures under `tests/golden/cases/`;
+- historical import metadata in `VENDOR.json`.
 
-When `vendor/SPEC.md` and observed Python behavior disagree, Rust follows Python and documents the discrepancy here.
+Current Rust behavior and tests are the maintenance baseline. Intentional changes
+require review and local regression coverage, not upstream approval or execution.
+`vendor/SPEC.md` is historical prose; its known discrepancies remain listed below.
 
 ## Known discrepancies and accepted differences
 
@@ -25,24 +29,24 @@ When `vendor/SPEC.md` and observed Python behavior disagree, Rust follows Python
 | Version output | Python prints `bash-classify 0.9.1` at the recorded source commit. | Rust prints `rust-bash-classify 0.1.0`. | Version-scheme decision remains open. |
 | Invalid UTF-8 on stdin | Python's exact decode failure wording comes from Python's text I/O path. | Rust reports invalid input through its stderr-only error path. | Error-path-only wording difference; no successful JSON parity impact. |
 | Recursion depth | Python's parser fails at the interpreter recursion limit for extreme nesting. | Rust uses `MAX_WALK_DEPTH = 256` and reports the same class of maximum-recursion-depth parse warning. | Threshold approximation; outcome class preserved. |
-| YAML implementation | Python uses PyYAML. | Rust uses `serde_yaml`. | No YAML 1.1 semantic difference is known from the vendored corpus or ported tests; future discoveries follow the oracle rule. |
+| YAML implementation | Python uses PyYAML. | Rust uses `serde_yaml`. | No YAML 1.1 semantic difference is known from the vendored corpus or ported tests; future discoveries require local regression tests and review. |
 | Library error representation | Python raises exceptions from fallible library calls. | Rust returns typed `Result` values and maps them to matching CLI error text. | Language-level API difference; CLI behavior remains the parity surface. |
 
-## Future divergence adjudication
+## Future behavior changes
 
-Use this process for any suspected divergence:
-
-1. Reduce the divergence to an exact Bash input, command YAML fixture, or CLI condition.
-2. Run the Python oracle at the recorded commit and the Rust binary under an empty temporary `BASH_CLASSIFY_CONFIG_DIR`.
-3. Compare stdout bytes, stderr, and exit code. For successful classifications, compare the complete JSON output, including field order and omitted fields.
-4. If Python and Rust differ, fix Rust unless a human explicitly changes the accepted parity contract.
-5. Add or update a focused Rust test and, when the case belongs in the end-to-end corpus, regenerate golden fixtures with `scripts/harvest_goldens.py` instead of hand-editing expected output.
-
-After a vendor sync, rerun the differential check by regenerating goldens from the new Python commit and inspecting the fixture diff. Golden regeneration is appropriate only when the Python source of truth changes behavior; otherwise replay failures indicate a Rust regression or an accidental fixture edit.
+1. Reduce the issue to exact Bash input, command YAML or a CLI condition.
+2. Run the Rust binary under an empty temporary `BASH_CLASSIFY_CONFIG_DIR` unless
+   the issue concerns user overrides.
+3. Check stdout bytes, stderr and exit code, including JSON field order, omitted
+   fields and trailing newlines.
+4. Add focused Rust regression coverage for the accepted behavior. For command
+   data changes, also run schema tests and regenerate the local embed table.
+5. Review intentional expectation changes; never alter imported evidence merely
+   to conceal a regression. No external checkout or generator is required.
 
 ## Evidence locations
 
 - `PORT_MANIFEST.md` — one-for-one Python test port manifest, with extra Rust regression/helper tests listed separately.
-- `tests/golden/manifest.json` and `tests/golden/cases/` — harvested CLI oracle outputs.
-- `benchmarks/report.txt` — local performance benchmark report over the golden corpus.
+- `tests/golden/manifest.json` and `tests/golden/cases/` — committed CLI regression inputs and expected outputs.
+- `benchmarks/report.txt` — historical comparative benchmark report over the golden corpus.
 - `PORTING.md` — module map, implementation seams, and vendor policy.

@@ -3314,15 +3314,7 @@
       "origin_line": 466
     }
   ],
-  "generator": {
-    "path": "scripts/harvest_goldens.py",
-    "sha256": "22514f025d83f484b34b1c81fbdfcc2b56f5257692adcd1fc537333237ef4c09"
-  },
-  "python": {
-    "tree_sitter": "0.25.2",
-    "tree_sitter_bash": "0.25.1"
-  },
-  "regeneration_policy": "Regenerate only by running scripts/harvest_goldens.py after a vendor sync or Python source-of-truth behavior update; review the diff; never hand-edit tests/golden outputs.",
+  "regeneration_policy": "Historical imported expectations, maintained locally. Review intentional behavior changes with Rust regression tests; never rewrite expectations just to conceal replay failures.",
   "rust": {
     "tree-sitter-bash_requirement": "=0.25.1",
     "tree-sitter_requirement": "0.25",

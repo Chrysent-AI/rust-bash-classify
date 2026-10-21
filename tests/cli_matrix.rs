@@ -41,8 +41,8 @@ fn temp_config_root(name: &str) -> PathBuf {
 
 #[test]
 fn matrix_success_piped_compound_subshell_redirect_outputs_match_python_fixtures() {
-    // Expected stdout generated once from the Python source of truth with:
-    //   cd ../bash-classify && printf '%s' "$expr" | uv run bash-classify
+    // Expected stdout captured during the original Python port; retained as
+    // local regression evidence without requiring the original implementation.
     let cases = [
         (
             "ls | grep x",

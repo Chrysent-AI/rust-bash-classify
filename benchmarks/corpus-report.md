@@ -1,7 +1,10 @@
 <!-- SPDX-FileCopyrightText: 2026 Chrysent LLC -->
 <!-- SPDX-License-Identifier: MIT -->
 
-# Large-corpus benchmark
+# Historical large-corpus benchmark
+
+This report preserves an earlier comparison, not a current performance gate.
+The external corpus and comparative tooling are not maintenance prerequisites.
 
 A real-world corpus of **51,882 bash commands** (one JSON-encoded command per
 line; the corpus itself is external to this repository and is not included)
@@ -67,13 +70,16 @@ The identical tallies are an unplanned but welcome large-scale parity signal:
 51,882 real-world commands classified with exactly matching verdict
 distributions by both implementations.
 
-## Reproducing
+## Rust-only example usage
+
+With a separately supplied corpus, the existing Rust example can still be run;
+this does not reproduce the historical comparison:
 
 ```bash
 cargo build --release --example bulk_classify
 target/release/examples/bulk_classify /path/to/corpus.jsonl
 ```
 
-The Rust CLI mode is a plain per-line process loop over the same corpus; the
-Python side uses its own API and console script from a checkout of the
-original repository at the vendored commit.
+The historical Rust CLI measurement used a per-line process loop; the historical
+Python measurement used its API and console script at the recorded source commit.
+Neither external input is needed for the repository's build or test gates.

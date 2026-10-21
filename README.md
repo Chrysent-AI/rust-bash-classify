@@ -16,13 +16,13 @@ Chrysent LLC maintains this Rust port and claims no ownership over vendored upst
 ## Why use it
 
 - **Fast hook startup:** native binary with no Python runtime dependency.
-- **Behavioral parity:** byte-identical CLI output against the Python oracle for the committed golden corpus.
+- **Compatibility evidence:** byte-identical CLI output against committed historical golden fixtures.
 - **Agent-friendly JSON:** expression-level risk plus per-command details, delegated inner commands, redirects, read/write paths, and directory effects.
 - **Configurable command rules:** built-in database plus user YAML overrides.
 
 ## Performance
 
-The committed benchmark corpus contains 175 golden CLI cases harvested from the Python test suite. On the latest committed run, Rust was roughly 100x faster while producing byte-identical output:
+The committed benchmark corpus contains 175 golden CLI cases harvested during the original Python port. In the historical committed measurement, Rust was roughly 100x faster while producing byte-identical output:
 
 | Metric | Python | Rust |
 |---|---:|---:|
@@ -30,7 +30,7 @@ The committed benchmark corpus contains 175 golden CLI cases harvested from the 
 | Per-case p95 wall time | 89ms | ~1ms |
 | Startup to first stdout byte | 75ms | ~0.6ms |
 
-See `benchmarks/report.txt` and rerun `scripts/bench.sh` on your machine for local timings.
+See `benchmarks/report.txt` for historical timings, not a current performance guarantee. Comparative tooling has been retired; no Python checkout is needed for development.
 
 A second benchmark ran a real-world corpus of 51,882 bash commands through both
 implementations. Spawned as a CLI per command — the permission-hook usage pattern — Rust was
@@ -269,16 +269,16 @@ The binary embeds the vendored built-in command database at compile time. You ca
 ~/.config/bash-classify/commands/*.yaml
 ```
 
-Set `BASH_CLASSIFY_CONFIG_DIR` to use a different config root. The command files are read from `$BASH_CLASSIFY_CONFIG_DIR/commands/*.yaml`, matching the Python behavior. A user file with the same filename stem as a built-in command overrides that built-in rule set.
+Set `BASH_CLASSIFY_CONFIG_DIR` to use a different config root. The command files are read from `$BASH_CLASSIFY_CONFIG_DIR/commands/*.yaml`. A user file with the same filename stem as a built-in command overrides that built-in rule set.
 
 ## Parity evidence
 
-This repository keeps the Rust port tied to the Python oracle with layered checks:
+The repository maintains its behavior using committed local evidence:
 
 - 463 Python tests ported to Rust and mapped in `PORT_MANIFEST.md`.
 - 175 golden CLI cases replayed byte-for-byte in Rust, including stdout formatting and trailing newlines.
-- Vendoring drift checks for the 150+ command database, JSON schema, upstream `SPEC.md`, and upstream license.
-- Benchmarks over the same golden corpus.
+- Local schema tests and generated embed-table drift checks for the 150+ command database.
+- Historical comparative benchmark reports (not current gates).
 
 For more detail, see:
 
@@ -288,6 +288,14 @@ For more detail, see:
 
 ## Development
 
+Development and CI use Rust and committed local inputs. No Python interpreter,
+uv, upstream checkout or access to the original repository is required. Cargo
+still needs the Rust dependencies recorded in `Cargo.lock` (or a populated cache).
+
+Optional local secret/PII hooks are documented in `.githooks/README.md`. Cloning
+does not activate them; if activated without gitleaks installed, they print a
+notice and allow the operation. They do not replace CI or a history audit.
+
 Run the standard gates before sending changes for review:
 
 ```bash
@@ -295,21 +303,20 @@ cargo fmt --check
 cargo clippy --all-targets --all-features -- -D warnings
 cargo build
 cargo test
-scripts/vendor.sh --check
-scripts/harvest_goldens.py --check
-scripts/gen_port_manifest.py && git diff --exit-code -- PORT_MANIFEST.md
-scripts/bench.sh
+scripts/gen_commands_data.sh
+git diff --exit-code -- src/commands_data.rs
 ```
 
-Do not hand-edit generated or vendored files. Use the owning scripts:
+Command YAML and the schema under `vendor/` are maintained locally; changes need
+Rust regression and schema tests. Regenerate `src/commands_data.rs` with
+`scripts/gen_commands_data.sh`, review and commit intentional table changes before
+running the drift check. Do not hand-edit that generated table.
 
-- `scripts/vendor.sh` syncs vendored upstream payloads and attribution files.
-- `scripts/gen_commands_data.sh` regenerates embedded command data.
-- `scripts/harvest_goldens.py` regenerates golden fixtures from the Python oracle.
-- `scripts/gen_port_manifest.py` regenerates the port manifest.
-- `scripts/bench.sh` regenerates benchmark evidence.
-
-Vendored payload files must remain byte-identical to the upstream commit recorded in `VENDOR.json`.
+Upstream vendoring, golden harvesting, port-manifest generation and comparative
+benchmark scripts are retired. Imported golden cases, the port mapping and
+benchmark figures remain historical evidence. `VENDOR.json` records the original
+source commit; `vendor/SPEC.md` preserves historical prose, not a live authority.
+Preserve licenses and attribution when maintaining local data.
 
 ## License
 
