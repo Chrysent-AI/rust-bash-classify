@@ -49,7 +49,11 @@ conflicts and unrelated tracked or staged changes **before** editing. Only the
 version trio may contain pending edits, including staged edits; review those edits
 because release commits their final working-tree contents. Untracked unrelated
 files are never staged. Failures before a commit restore the trio and exact index
-snapshot. Hooks run normally. If a commit succeeds but tagging fails, the commit
+snapshot. Hooks run normally. The generated subject is
+`chore(release): release vX.Y.Z`, compatible with the optional Conventional Commit
+hook described in `.githooks/README.md`; that hook still scans the entire message
+for secrets/PII. Missing gitleaks skips scanning, not format validation.
+If a commit succeeds but tagging fails, the commit
 is retained and the error tells you to inspect HEAD and finish the tag manually;
 there is no destructive rollback. Neither helper pushes or publishes.
 
@@ -59,7 +63,8 @@ Run the gates in `AGENTS.md`, plus:
 
 ```bash
 bash tests/release-tools.sh
-shellcheck scripts/version.sh scripts/package-release.sh tests/release-tools.sh tests/package-release.sh
+bash tests/commit-msg.sh
+shellcheck .githooks/commit-msg tests/commit-msg.sh scripts/version.sh scripts/package-release.sh tests/release-tools.sh tests/package-release.sh
 actionlint
 cargo package --locked
 cargo build --release --locked

@@ -44,10 +44,9 @@ for file in "${files[@]}"; do
   [[ -f $file && ! -L $file ]] || fail "Expected regular file: $file"
   git ls-files --error-unmatch "$file" >/dev/null || fail "Commit $file before using this helper"
 done
-for state in worktree index; do
-  args=(); [[ $state != index ]] || args=(--cached)
-  git diff "${args[@]}" --quiet -- . ':!Cargo.toml' ':!Cargo.lock' ':!CHANGELOG.md' || fail "Unrelated tracked or staged changes; commit or stash them first"
-done
+# Separate checks also work with nounset on macOS Bash 3.2 (no empty array).
+git diff --quiet -- . ':!Cargo.toml' ':!Cargo.lock' ':!CHANGELOG.md' || fail "Unrelated tracked or staged changes; commit or stash them first"
+git diff --cached --quiet -- . ':!Cargo.toml' ':!Cargo.lock' ':!CHANGELOG.md' || fail "Unrelated tracked or staged changes; commit or stash them first"
 [[ -z $(git ls-files -u) ]] || fail "Resolve merge conflicts first"
 index=$(git rev-parse --git-path index)
 [[ -f $index ]] || fail "Missing Git index"
@@ -107,7 +106,7 @@ bash scripts/version.sh check "v$next"
 if [[ $mode == release ]]; then
   git add -- "${files[@]}"
   git diff --cached --quiet && fail "No release changes to commit; use an unreleased entry or a new version"
-  printf 'Release v%s\n' "$next" > "$backup/message"
+  printf 'chore(release): release v%s\n' "$next" > "$backup/message"
   git commit -F "$backup/message"
   # A failed tag must never roll back a successful commit (including hook effects).
   git tag -a "v$next" -F "$backup/message" || fail "Commit created but tag failed; inspect HEAD and create the tag manually after resolving the failure"

@@ -1,11 +1,7 @@
 #!/bin/sh
-# gitleaks commit-msg hook — installed by the /setup-gitleaks skill.
-# Scans the commit message file ($1). POSIX sh; remove this file to uninstall.
-if ! command -v gitleaks >/dev/null 2>&1; then
-    echo "gitleaks: not found — skipping commit-message scan" >&2
-    exit 0
-fi
-if [ "$#" -lt 1 ] || [ ! -f "$1" ]; then
+# Validates Conventional Commit structure and scans the entire original message.
+# POSIX sh; remove this file to uninstall.
+if [ "$#" -ne 1 ] || [ ! -f "$1" ] || [ ! -r "$1" ]; then
     echo "commit-msg: no commit message file argument" >&2
     exit 1
 fi
@@ -17,10 +13,33 @@ if [ -f "$cfg" ]; then
 else
     set --
 fi
-out=$(gitleaks stdin --redact --verbose "$@" <"$msgfile" 2>&1)
-status=$?
-if [ "$status" -ne 0 ]; then
-    printf '%s\n' "$out" >&2
-    echo "commit-msg: commit message contains a secret or personal identifier — rewrite the message (see the finding above)." >&2
+if command -v gitleaks >/dev/null 2>&1; then
+    out=$(gitleaks stdin --redact --verbose "$@" <"$msgfile" 2>&1)
+    status=$?
+    if [ "$status" -ne 0 ]; then
+        printf '%s\n' "$out" >&2
+        echo "commit-msg: message scan failed — check the redacted findings or scanner error above." >&2
+        exit "$status"
+    fi
+else
+    echo "gitleaks: not found — skipping commit-message scan" >&2
 fi
-exit "$status"
+# Strip CR only in the validation view, never in the scanned message file.
+# Bodies and trailers are free-form after the required empty separator line.
+if ! LC_ALL=C awk '
+    { sub(/\r$/, "") }
+    NR == 1 {
+        if ($0 !~ /^[A-Za-z][A-Za-z0-9_-]*(\([^()[:cntrl:]]+\))?!?: [^[:cntrl:]]*[^[:space:]][^[:cntrl:]]*$/) exit 1
+        scope = $0
+        if (sub(/^[A-Za-z][A-Za-z0-9_-]*\(/, "", scope)) {
+            sub(/\).*/, "", scope)
+            if (scope !~ /[^[:space:]]/) exit 1
+        }
+    }
+    NR == 2 && $0 != "" { exit 1 }
+    END { if (NR == 0) exit 1 }
+' <"$msgfile"; then
+    echo "commit-msg: use type(scope)!: description (scope and ! optional), then a blank line before body/footer." >&2
+    exit 1
+fi
+exit 0

@@ -299,9 +299,12 @@ Development and CI use Rust and committed local inputs. No Python interpreter,
 uv, upstream checkout or access to the original repository is required. Cargo
 still needs the Rust dependencies recorded in `Cargo.lock` (or a populated cache).
 
-Optional local secret/PII hooks are documented in `.githooks/README.md`. Cloning
-does not activate them; if activated without gitleaks installed, they print a
-notice and allow the operation. They do not replace CI or a history audit.
+Use Conventional Commit subjects such as `fix(parser): handle empty input`.
+Optional local hooks enforce their structure and scan the whole message for
+secrets/PII; see `.githooks/README.md` for syntax and setup. Cloning does not
+activate them. Missing gitleaks skips scanning with a notice, not commit-format
+validation. Automatic merge/revert/fixup titles must be rewritten to conform.
+These local checks do not replace CI or a history audit.
 
 Run the standard gates before sending changes for review. Version bumping and
 local release commits/tags are explicit Make targets documented in `RELEASING.md`;

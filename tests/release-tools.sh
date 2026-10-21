@@ -5,6 +5,7 @@
 set -euo pipefail
 root=$(cd "$(dirname "$0")/.." && pwd)
 real_git=$(command -v git)
+command -v gitleaks >/dev/null
 export REAL_GIT="$real_git"
 # Reuse configured identity without writing Git identity/configuration or printing it.
 export GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL
@@ -44,6 +45,10 @@ fixture() {
   count=$((count + 1))
   git clone -q --local "$scratch/base" "$scratch/case-$count"
   cd "$scratch/case-$count"
+  mkdir hooks
+  cp "$root/.githooks/commit-msg" hooks/
+  cp "$root/.gitleaks.toml" .
+  git config core.hooksPath hooks
 }
 assert_version() {
   [[ $(make -s version) == "$1" ]]
@@ -88,6 +93,7 @@ grep -F '## [2.3.4] - ' CHANGELOG.md
 fixture
 make release VERSION=0.1.0
 assert_version 0.1.0
+[[ $(git log -1 --format=%s) == 'chore(release): release v0.1.0' ]]
 [[ $(git cat-file -t refs/tags/v0.1.0) == tag ]]
 [[ $(git rev-list --count HEAD) == 2 ]]
 [[ $(git diff-tree --no-commit-id --name-only -r HEAD) == CHANGELOG.md ]]
@@ -97,6 +103,14 @@ git init -q --bare "$scratch/remote.git"
 git remote set-url origin "$scratch/remote.git"
 make release BUMP=patch
 [[ -z $(git --git-dir="$scratch/remote.git" for-each-ref) ]]
+# Exercise the system Bash used by native macOS (3.2), not only a newer PATH Bash.
+fixture
+mkdir "$scratch/system-bin"
+ln -s /bin/bash "$scratch/system-bin/bash"
+PATH="$scratch/system-bin:$PATH" make release VERSION=0.1.0
+assert_version 0.1.0
+[[ $(git log -1 --format=%s) == 'chore(release): release v0.1.0' ]]
+[[ $(git cat-file -t refs/tags/v0.1.0) == tag ]]
 fixture
 for version in 01.2.3 v1.2.3 1.2 1.2.3-beta 1.2.3+build 0.0.9 '1.2.3;false'; do
   reject make release VERSION="$version"
@@ -130,9 +144,8 @@ exit 42
 STUB
 chmod +x "$scratch/bin/cargo"
 reject env PATH="$scratch/bin:$PATH" make release
+unlink "$scratch/bin/cargo"
 fixture
-mkdir hooks
-git config core.hooksPath hooks
 printf '#!/usr/bin/env bash\nexit 1\n' > hooks/pre-commit
 chmod +x hooks/pre-commit
 printf '\nstaged notes\n' >> CHANGELOG.md
@@ -140,14 +153,26 @@ git add CHANGELOG.md
 printf '\nunstaged notes\n' >> CHANGELOG.md
 reject make release
 fixture
+# Inject the former malformed subject at Git argv, exercising the real hook
+# and the helper rollback without changing the production script in the fixture.
+cat > "$scratch/bin/git" <<'STUB'
+#!/usr/bin/env bash
+if [[ $1 == commit ]]; then
+  exec "$REAL_GIT" commit -m 'Release without conventional type'
+fi
+exec "$REAL_GIT" "$@"
+STUB
+chmod +x "$scratch/bin/git"
+reject env PATH="$scratch/bin:$PATH" make release
+grep -q 'commit-msg: use type' "$scratch/rejected.log"
+fixture
 cat > "$scratch/bin/git" <<'STUB'
 #!/usr/bin/env bash
 if [[ $1 == tag && ${2:-} == -a ]]; then exit 43; fi
 exec "$REAL_GIT" "$@"
 STUB
 chmod +x "$scratch/bin/git"
-# Remove only the owned injected cargo failure before the tag-failure case.
-unlink "$scratch/bin/cargo"
+# The tag failure happens only after the real message hook accepts the commit.
 if PATH="$scratch/bin:$PATH" make release > "$scratch/tag-failure.log" 2>&1; then exit 1; fi
 [[ $(git rev-list --count HEAD) == 2 && -z $(git tag -l) ]]
 assert_version 0.1.1

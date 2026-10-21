@@ -258,7 +258,7 @@ fn matrix_help_and_version() {
     assert_eq!(version.status.code(), Some(0));
     assert_eq!(
         String::from_utf8(version.stdout).unwrap(),
-        "rust-bash-classify 0.1.0\n"
+        format!("rust-bash-classify {}\n", env!("CARGO_PKG_VERSION"))
     );
     assert!(version.stderr.is_empty());
 }

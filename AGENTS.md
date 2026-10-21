@@ -71,8 +71,11 @@ JSON and YAML dependency changes are behavior-risk work requiring focused tests
 and reviewed expectations. `serde_yaml` remains intentionally accepted despite
 its archived upstream status; do not replace it opportunistically.
 
-Optional secret/PII hooks and their opt-in setup are documented in
-`.githooks/README.md`. Keep exceptions narrow and rule-specific.
+Use Conventional Commit syntax (`type(scope)!: description`, optional scope/!).
+The optional hooks in `.githooks/README.md` enforce structure alongside full-message
+secret/PII scanning; missing gitleaks skips only scanning. Rewrite automatic
+nonconventional messages rather than bypassing the hook. Keep exceptions narrow
+and rule-specific. For hook changes, run `bash tests/commit-msg.sh` and shellcheck.
 
 ## Accepted release path and owner decisions
 
