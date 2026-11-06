@@ -3,6 +3,11 @@
 
 # rust-bash-classify
 
+<p align="center">
+    <img src="./rust-bash-classify-logo.jpg" alt="Industrial threat analysis logo" />
+      Copyright © 2026 <a href="https://chrysent.ai/">Chrysent</a>. MIT licensed.
+</p>
+
 Classify Bash commands by side-effect risk as a fast, dependency-free native binary.
 
 `rust-bash-classify` reads one Bash expression on stdin and emits JSON describing the risk of each command in the expression. It is built for AI-agent safety hooks: low-risk commands such as reads and status checks can be auto-approved, while writes, external effects, unknown commands, and dangerous commands can be routed to a human.
